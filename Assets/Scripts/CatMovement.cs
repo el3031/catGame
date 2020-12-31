@@ -77,7 +77,7 @@ public class CatMovement : MonoBehaviour
 
         
         //Debug.DrawRay(boxcollider2D.bounds.center, Vector2.down, rayColor);
-        return raycastHit != null;
+        return raycastHit.collider != null;
         
         /*
         Vector2 RayCastCenter = new Vector2(transform.position.x, transform.position.y);
