@@ -5,20 +5,19 @@ using UnityEngine;
 public class CatMovement : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float maxSpeed = 3f;
-    bool facingLeft = true;
-    Animator anim;
+    private float maxSpeed = 3f;
+    private bool facingLeft = true;
+    private Animator anim;
+    private BoxCollider2D boxcollider2D;
 
-    bool grounded;
-    //public Transform groundDetect;
-    //float groundRadius = 0.2f;
-    public LayerMask Ground;
-    public float jumpForce = 300f;
+    private bool grounded;
+    [SerializeField] private LayerMask Ground;
+    private float jumpForce = 300f;
 
-    
-    void Start()
+    void Awake()
     {
         anim = GetComponent<Animator>();
+        boxcollider2D = transform.GetComponent<BoxCollider2D>();
     }
 
     void FixedUpdate()
@@ -38,7 +37,10 @@ public class CatMovement : MonoBehaviour
         {
             flip();
         }
+    }
 
+    void Update()
+    {
         if (grounded && Input.GetKeyDown(KeyCode.Space))
         {
             anim.SetBool("Ground", false);
@@ -56,6 +58,21 @@ public class CatMovement : MonoBehaviour
 
     bool isGrounded()
     {
+        float extraHeight = 1f;
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxcollider2D.bounds.center, boxcollider2D.bounds.size, 0f, Vector2.down, extraHeight, Ground);
+        Color rayColor;
+        if (raycastHit.collider != null)
+        {
+            rayColor = Color.green;
+        }
+        else
+        {
+            rayColor = Color.red;
+        }
+        //Debug.DrawRay(boxcollider2D.bounds.center, Vector2.down, rayColor);
+        return raycastHit != null;
+        
+        /*
         Vector2 RayCastCenter = new Vector2(transform.position.x, transform.position.y);
         Vector2 direction = Vector2.down;
         float distance = 1.0f;
@@ -66,6 +83,6 @@ public class CatMovement : MonoBehaviour
         {
             return true;
         }
-        return false;
+        return false;*/
     }
 }
