@@ -9,10 +9,10 @@ public class CatMovement : MonoBehaviour
     bool facingLeft = true;
     Animator anim;
 
-    bool grounded = false;
-    public Transform groundDetect;
-    float groundRadius = 0.2f;
-    public LayerMask groundLayer;
+    bool grounded;
+    //public Transform groundDetect;
+    //float groundRadius = 0.2f;
+    public LayerMask Ground;
     public float jumpForce = 300f;
 
     
@@ -25,8 +25,7 @@ public class CatMovement : MonoBehaviour
     {
         //vertical motion
         anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
-        grounded = Physics2D.OverlapCircle(groundDetect.position, 
-                                           groundRadius, groundLayer);
+        grounded = isGrounded();
         anim.SetBool("Ground", grounded);
         
         //horizontal motion
@@ -39,11 +38,7 @@ public class CatMovement : MonoBehaviour
         {
             flip();
         }
-    }
-    
-    // Update is called once per frame
-    void Update()
-    {
+
         if (grounded && Input.GetKeyDown(KeyCode.Space))
         {
             anim.SetBool("Ground", false);
@@ -57,5 +52,20 @@ public class CatMovement : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+    }
+
+    bool isGrounded()
+    {
+        Vector2 RayCastCenter = new Vector2(transform.position.x, transform.position.y);
+        Vector2 direction = Vector2.down;
+        float distance = 1.0f;
+        
+        RaycastHit2D hit = Physics2D.Raycast(RayCastCenter, direction, distance, Ground);
+        Debug.DrawRay(RayCastCenter, direction, Color.green);
+        if (hit.collider != null)
+        {
+            return true;
+        }
+        return false;
     }
 }
