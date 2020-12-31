@@ -41,6 +41,7 @@ public class CatMovement : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(grounded);
         if (grounded && Input.GetKeyDown(KeyCode.Space))
         {
             anim.SetBool("Ground", false);
@@ -69,6 +70,12 @@ public class CatMovement : MonoBehaviour
         {
             rayColor = Color.red;
         }
+        
+        Debug.DrawRay(boxcollider2D.bounds.center + new Vector3(boxcollider2D.bounds.extents.x, 0), Vector2.down * (boxcollider2D.bounds.extents.y + extraHeight), rayColor);
+        Debug.DrawRay(boxcollider2D.bounds.center - new Vector3(boxcollider2D.bounds.extents.x, 0), Vector2.down * (boxcollider2D.bounds.extents.y + extraHeight), rayColor);
+        Debug.DrawRay(boxcollider2D.bounds.center - new Vector3(0, boxcollider2D.bounds.extents.y), Vector2.right * (boxcollider2D.bounds.extents.y + extraHeight), rayColor);
+
+        
         //Debug.DrawRay(boxcollider2D.bounds.center, Vector2.down, rayColor);
         return raycastHit != null;
         
