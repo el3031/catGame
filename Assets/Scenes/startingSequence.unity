@@ -287,7 +287,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acdc6ed44790f4f4daf5283ef432b14b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 4
+  Ground:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +384,7 @@ GameObject:
   - component: {fileID: 865320037}
   - component: {fileID: 865320036}
   - component: {fileID: 865320035}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: buildingStart-04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
