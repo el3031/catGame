@@ -11,6 +11,8 @@ public class CatMovement : MonoBehaviour
     private BoxCollider2D boxcollider2D;
     private Vector3 currentEuler;
     private Quaternion newRotation;
+    private float LEFT_ROTATE_LIMIT = -0.5f;
+    private float RIGHT_ROTATE_LIMIT = 0.5f;
 
     private bool grounded;
     [SerializeField] private LayerMask Ground;
@@ -40,16 +42,16 @@ public class CatMovement : MonoBehaviour
             flip();
         }
 
-        if (Mathf.Abs(transform.rotation.z) >= 0.5)
-        {
-            float x = 1 - transform.rotation.x;
-            float y = 1 - transform.rotation.y;
-            float z = 1 - transform.rotation.z;
-            currentEuler = new Vector3(x, y, z) * Time.deltaTime * 45;
+        //if (Mathf.Abs(transform.rotation.z) >= 0.5)
+        //{
+            //float z = 1 - transform.rotation.z;
+            Quaternion counterRotate = Quaternion.Euler(0, 0, Mathf.Clamp(transform.eulerAngles.z, -0.5f, 0.5f));
+            transform.rotation = Quaternion.Slerp(transform.rotation, counterRotate, Time.deltaTime * 0.01f);
 
+            /*
             newRotation.eulerAngles = currentEuler;
-            transform.rotation = newRotation;
-        }
+            transform.rotation = newRotation;*/
+        //}
         
         
         
@@ -81,7 +83,7 @@ public class CatMovement : MonoBehaviour
 
     bool isGrounded()
     {
-        float extraHeight = 1f;
+        float extraHeight = 0.5f;
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxcollider2D.bounds.center, boxcollider2D.bounds.size, 0f, Vector2.down, extraHeight, Ground);
         Color rayColor;
         if (raycastHit.collider != null)
