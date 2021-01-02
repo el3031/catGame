@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CatMovement : MonoBehaviour
 {
@@ -11,12 +12,12 @@ public class CatMovement : MonoBehaviour
     private BoxCollider2D boxcollider2D;
     private Vector3 currentEuler;
     private Quaternion newRotation;
-    private float LEFT_ROTATE_LIMIT = -0.5f;
-    private float RIGHT_ROTATE_LIMIT = 0.5f;
+    private GameObject cat;
 
     private bool grounded;
     [SerializeField] private LayerMask Ground;
     private float jumpForce = 300f;
+    private float groundSlopeAngle = 0f;
 
     void Awake()
     {
@@ -42,28 +43,13 @@ public class CatMovement : MonoBehaviour
             flip();
         }
 
-        //if (Mathf.Abs(transform.rotation.z) >= 0.5)
-        //{
-            //float z = 1 - transform.rotation.z;
-            Debug.Log(transform.rotation.z);
-            Quaternion counterRotate = Quaternion.Euler(0, 0, Mathf.Clamp(transform.eulerAngles.z, -0.5f, 0.5f));
-            transform.rotation = counterRotate;
-            //transform.rotation = Quaternion.Slerp(transform.rotation, counterRotate, Time.deltaTime * 0.01f);
-
-            /*
-            newRotation.eulerAngles = currentEuler;
-            transform.rotation = newRotation;*/
-        //}
-        
-        
-        
-        /*
-        Debug.Log(transform.rotation.z);
-        if (Mathf.Abs(transform.rotation.z) >= 0.1)
+        if (grounded)
         {
-            Quaternion cancelRotate = Quaternion.Euler(0, 0, 0);
-            transform.rotation = Quaternion.Slerp(transform.rotation, cancelRotate, Time.deltaTime * 0.1f);
-        }*/
+            CheckGround(new Vector3(transform.position.x, transform.position.y - (boxcollider2D.size.x / 2) + 0.2f, transform.position.z));
+            Quaternion newAngle = Quaternion.Euler(0, 0, groundSlopeAngle);
+            transform.rotation = Quaternion.Slerp(transform.rotation, newAngle, 0.1f);
+        }
+            Debug.Log(transform.rotation.z);
     }
 
     void Update()
@@ -117,5 +103,64 @@ public class CatMovement : MonoBehaviour
             return true;
         }
         return false;*/
+    }
+
+    public void CheckGround(Vector3 origin)
+    {
+        Vector3 groundSlopeDir;
+        float startDistanceFromBottom = 0.2f;   // Should probably be higher than skin width
+        float sphereCastRadius = 0.25f;
+        float sphereCastDistance = 0.75f;
+        Vector3 rayOriginOffset1 = new Vector3(-0.2f, 0f, 0.16f);
+        Vector3 rayOriginOffset2 = new Vector3(0.2f, 0f, -0.16f);
+        float raycastLength = 0.75f;
+        bool showDebug = true;
+        
+        // Out hit point from our cast(s)
+        RaycastHit hit;
+
+        // SPHERECAST
+        // "Casts a sphere along a ray and returns detailed information on what was hit."
+        if (Physics.SphereCast(origin, sphereCastRadius, Vector3.down, out hit, sphereCastDistance, Ground))
+        {
+            // Angle of our slope (between these two vectors). 
+            // A hit normal is at a 90 degree angle from the surface that is collided with (at the point of collision).
+            // e.g. On a flat surface, both vectors are facing straight up, so the angle is 0.
+            groundSlopeAngle = Vector3.Angle(hit.normal, Vector3.up);
+        }
+
+        // Now that's all fine and dandy, but on edges, corners, etc, we get angle values that we don't want.
+        // To correct for this, let's do some raycasts. You could do more raycasts, and check for more
+        // edge cases here. There are lots of situations that could pop up, so test and see what gives you trouble.
+        RaycastHit slopeHit1;
+        RaycastHit slopeHit2;
+
+        // FIRST RAYCAST
+        if (Physics.Raycast(origin + rayOriginOffset1, Vector3.down, out slopeHit1, raycastLength))
+        {
+            // Debug line to first hit point
+            if (showDebug) { Debug.DrawLine(origin + rayOriginOffset1, slopeHit1.point, Color.red); }
+            // Get angle of slope on hit normal
+            float angleOne = Vector3.Angle(slopeHit1.normal, Vector3.up);
+
+            // 2ND RAYCAST
+            if (Physics.Raycast(origin + rayOriginOffset2, Vector3.down, out slopeHit2, raycastLength))
+            {
+                // Debug line to second hit point
+                if (showDebug) { Debug.DrawLine(origin + rayOriginOffset2, slopeHit2.point, Color.red); }
+                // Get angle of slope of these two hit points.
+                float angleTwo = Vector3.Angle(slopeHit2.normal, Vector3.up);
+                // 3 collision points: Take the MEDIAN by sorting array and grabbing middle.
+                float[] tempArray = new float[] { groundSlopeAngle, angleOne, angleTwo };
+                Array.Sort(tempArray);
+                groundSlopeAngle = tempArray[1];
+            }
+            else
+            {
+                // 2 collision points (sphere and first raycast): AVERAGE the two
+                float average = (groundSlopeAngle + angleOne) / 2;
+		        groundSlopeAngle = average;
+            }
+        }
     }
 }
