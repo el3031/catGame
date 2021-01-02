@@ -6,14 +6,12 @@ using System;
 public class CatMovement : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float maxSpeed = 3f;
+    private float maxSpeed = 5f;
     private bool facingLeft = true;
     private Animator anim;
     private BoxCollider2D boxcollider2D;
     private Vector3 currentEuler;
     private Quaternion newRotation;
-    private GameObject cat;
-
     private bool grounded;
     [SerializeField] private LayerMask Ground;
     private float jumpForce = 300f;
@@ -46,10 +44,14 @@ public class CatMovement : MonoBehaviour
         if (grounded)
         {
             CheckGround(new Vector3(transform.position.x, transform.position.y - (boxcollider2D.size.x / 2) + 0.2f, transform.position.z));
-            Quaternion newAngle = Quaternion.Euler(0, 0, groundSlopeAngle);
-            transform.rotation = Quaternion.Slerp(transform.rotation, newAngle, 0.1f);
         }
-            Debug.Log(transform.rotation.z);
+        else
+        {
+            groundSlopeAngle = 0f;
+        }
+        Quaternion newAngle = Quaternion.Euler(0, 0, groundSlopeAngle);
+        transform.rotation = Quaternion.Slerp(transform.rotation, newAngle, 0.1f);
+        Debug.Log(transform.rotation.z);
     }
 
     void Update()
