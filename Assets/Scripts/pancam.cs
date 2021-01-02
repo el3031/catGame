@@ -20,22 +20,26 @@ public class pancam : MonoBehaviour {
 		playerScore += amount;
 	}
 
-
 	// Update is called once per frame
 	void Update () {
 		//check that player exists and then proceed. otherwise we get an error when player dies
 		if (player) {
 			//if player has passed the x position of startScroll then start moving camera forward with a randomish Y position
 			double startScroll = -5.5;
-			if (player.transform.position.x > startScroll) {
+			
+			Debug.Log(player.transform.position);
+			Debug.Log(transform.position);
 
-				if (player.transform.position.y < Camera.main.orthographicSize / 2)
-				{
-					ydir = -Camera.main.orthographicSize / 4;
-				}
-				else if (player.transform.position.y > Camera.main.orthographicSize * 3 / 2)
+
+			if (player.transform.position.x > startScroll) {
+				
+				if (player.transform.position.y > (transform.position.y + transform.position.y + Camera.main.orthographicSize) / 2)
 				{
 					ydir = Camera.main.orthographicSize / 4;
+				}
+				else if (player.transform.position.y < (transform.position.y + transform.position.y - Camera.main.orthographicSize) / 2)
+				{
+					ydir = -Camera.main.orthographicSize / 4;
 				}
 				else
 				{
