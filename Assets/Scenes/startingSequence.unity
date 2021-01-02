@@ -405,7 +405,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 613f2e81ee055471297a66433d497f17, type: 3}
   m_Name: 
@@ -645,7 +645,7 @@ GameObject:
   - component: {fileID: 819110624}
   - component: {fileID: 819110623}
   - component: {fileID: 819110625}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: buildings-08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
