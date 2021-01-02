@@ -12,9 +12,9 @@ public class pancam : MonoBehaviour {
 	void Update () {
 		//check that player exists and then proceed. otherwise we get an error when player dies
 		if (player) {
-			//if player has passed the x position of -1 then start moving camera forward with a randomish Y position
-			Debug.Log(player.transform.position.x);
-			if (player.transform.position.x > -5.5) {
+			//if player has passed the x position of startScroll then start moving camera forward with a randomish Y position
+			double startScroll = -5.5;
+			if (player.transform.position.x > startScroll) {
 
 				float randy = 0f;
 				randy = Random.Range (0f, 100f);
@@ -25,6 +25,8 @@ public class pancam : MonoBehaviour {
 				} else if (randy > 80) {
 					ydir = 0f;
 				}
+
+				//panSpeed is how much we pan in the x-direction every time
 				float panSpeed = 0.01f;
 				transform.position = new Vector3 (transform.position.x + panSpeed, transform.position.y + ydir, -10);
 			}
