@@ -1,12 +1,25 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class pancam : MonoBehaviour {
 
 	float ydir = 0f;
 	public GameObject player;
 
-	// Use this for initialization
+	//for our GUIText object and our score
+	public Text gui;
+	float playerScore = 0;
+
+	//this function updates our guitext object
+	void OnGUI(){
+		gui.text = "Score: " + ((int)(playerScore * 10)).ToString ();
+	}
+	//this is generic function we can call to increase the score by an amount
+	public void increaseScore(int amount){
+		playerScore += amount;
+	}
+
 
 	// Update is called once per frame
 	void Update () {
