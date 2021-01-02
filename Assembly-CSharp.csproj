@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\CatMovement.cs" />
+     <Compile Include="Assets\Scripts\pancam.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/Users/daviddeng8/Documents/Projects/CatGame/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
