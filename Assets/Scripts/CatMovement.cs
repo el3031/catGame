@@ -45,8 +45,10 @@ public class CatMovement : MonoBehaviour
         //if (Mathf.Abs(transform.rotation.z) >= 0.5)
         //{
             //float z = 1 - transform.rotation.z;
+            Debug.Log(transform.rotation.z);
             Quaternion counterRotate = Quaternion.Euler(0, 0, Mathf.Clamp(transform.eulerAngles.z, -0.5f, 0.5f));
-            transform.rotation = Quaternion.Slerp(transform.rotation, counterRotate, Time.deltaTime * 0.01f);
+            transform.rotation = counterRotate;
+            //transform.rotation = Quaternion.Slerp(transform.rotation, counterRotate, Time.deltaTime * 0.01f);
 
             /*
             newRotation.eulerAngles = currentEuler;
