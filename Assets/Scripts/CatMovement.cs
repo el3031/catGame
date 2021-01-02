@@ -9,6 +9,8 @@ public class CatMovement : MonoBehaviour
     private bool facingLeft = true;
     private Animator anim;
     private BoxCollider2D boxcollider2D;
+    private Vector3 currentEuler;
+    private Quaternion newRotation;
 
     private bool grounded;
     [SerializeField] private LayerMask Ground;
@@ -37,6 +39,27 @@ public class CatMovement : MonoBehaviour
         {
             flip();
         }
+
+        if (Mathf.Abs(transform.rotation.z) >= 0.5)
+        {
+            float x = 1 - transform.rotation.x;
+            float y = 1 - transform.rotation.y;
+            float z = 1 - transform.rotation.z;
+            currentEuler = new Vector3(x, y, z) * Time.deltaTime * 45;
+
+            newRotation.eulerAngles = currentEuler;
+            transform.rotation = newRotation;
+        }
+        
+        
+        
+        /*
+        Debug.Log(transform.rotation.z);
+        if (Mathf.Abs(transform.rotation.z) >= 0.1)
+        {
+            Quaternion cancelRotate = Quaternion.Euler(0, 0, 0);
+            transform.rotation = Quaternion.Slerp(transform.rotation, cancelRotate, Time.deltaTime * 0.1f);
+        }*/
     }
 
     void Update()
