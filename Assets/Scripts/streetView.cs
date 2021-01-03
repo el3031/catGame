@@ -10,7 +10,7 @@ public class streetView : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lastx = transform.position.x;
+        lastx = Camera.main.orthographicSize;
     }
 
     // Update is called once per frame
