@@ -6,6 +6,7 @@ public class pancam : MonoBehaviour {
 
 	float ydir = 0f;
 	public GameObject player;
+	public GameObject street;
 
 	//for our GUIText object and our score
 	public Text gui;
@@ -45,10 +46,15 @@ public class pancam : MonoBehaviour {
 				}
 
 				//panSpeed is how much we pan in the x-direction every time
-				float panSpeed = 0.01f;
+				float panSpeed = 1f;
 
+				float newY = transform.position.y + ydir;
+				if (newY < street.transform.position.y)
+				{
+					newY = street.transform.position.y;
+				}
 				//MoveTowards for smoother camera transitions 
-				Vector3 newVec = new Vector3 (transform.position.x + panSpeed, transform.position.y + ydir, transform.position.z);
+				Vector3 newVec = new Vector3 (transform.position.x + panSpeed, newY, transform.position.z);
 				float speed = player.GetComponent<Rigidbody2D>().velocity.magnitude;
 				float step = Mathf.Abs(speed * Time.deltaTime);
 				transform.position = Vector3.MoveTowards(transform.position, newVec, step);
