@@ -54,7 +54,7 @@ public class pancam : MonoBehaviour {
 					newY = street.transform.position.y;
 				}
 				//MoveTowards for smoother camera transitions 
-				Vector3 newVec = new Vector3 (transform.position.x + panSpeed, newY, transform.position.z);
+				Vector3 newVec = new Vector3 (player.transform.position.x, newY, transform.position.z);
 				float speed = player.GetComponent<Rigidbody2D>().velocity.magnitude;
 				float step = Mathf.Abs(speed * Time.deltaTime);
 				transform.position = Vector3.MoveTowards(transform.position, newVec, step);
