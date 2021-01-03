@@ -27,12 +27,10 @@ public class pancam : MonoBehaviour {
 			//if player has passed the x position of startScroll then start moving camera forward with a randomish Y position
 			double startScroll = -5.5;
 			
-			Debug.Log(player.transform.position);
-			Debug.Log(transform.position);
-
 
 			if (player.transform.position.x > startScroll) {
 				
+				//move up the camera if we are above the 3/4ths mark, move down if we are below the 1/4th mark of the screen
 				if (player.transform.position.y > (transform.position.y + transform.position.y + Camera.main.orthographicSize) / 2)
 				{
 					ydir = Camera.main.orthographicSize / 4;
@@ -48,7 +46,9 @@ public class pancam : MonoBehaviour {
 
 				//panSpeed is how much we pan in the x-direction every time
 				float panSpeed = 0.01f;
-				Vector3 newVec = new Vector3 (transform.position.x + panSpeed, transform.position.y + ydir, -10);
+
+				//MoveTowards for smoother camera transitions 
+				Vector3 newVec = new Vector3 (transform.position.x + panSpeed, transform.position.y + ydir, transform.position.z);
 				float speed = player.GetComponent<Rigidbody2D>().velocity.magnitude;
 				float step = Mathf.Abs(speed * Time.deltaTime);
 				transform.position = Vector3.MoveTowards(transform.position, newVec, step);
