@@ -48,7 +48,10 @@ public class pancam : MonoBehaviour {
 
 				//panSpeed is how much we pan in the x-direction every time
 				float panSpeed = 0.01f;
-				transform.position = new Vector3 (transform.position.x + panSpeed, transform.position.y + ydir, -10);
+				Vector3 newVec = new Vector3 (transform.position.x + panSpeed, transform.position.y + ydir, -10);
+				float speed = player.GetComponent<Rigidbody2D>().velocity.magnitude;
+				float step = Mathf.Abs(speed * Time.deltaTime);
+				transform.position = Vector3.MoveTowards(transform.position, newVec, step);
 			}
 		}
 	}
