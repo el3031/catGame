@@ -47,6 +47,10 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\pancam.cs" />
+     <Compile Include="Assets\Scripts\CatMovement.cs" />
+     <Compile Include="Assets\Scripts\streetView.cs" />
+     <Compile Include="Assets\streetParallax.cs" />
     <Reference Include="UnityEngine">
       <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
