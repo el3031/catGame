@@ -51,7 +51,6 @@ public class CatMovement : MonoBehaviour
         }
         Quaternion newAngle = Quaternion.Euler(0, 0, groundSlopeAngle);
         transform.rotation = Quaternion.Slerp(transform.rotation, newAngle, 0.1f);
-        Debug.Log(transform.rotation.z);
     }
 
     void Update()

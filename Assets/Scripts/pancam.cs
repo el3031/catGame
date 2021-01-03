@@ -44,7 +44,7 @@ public class pancam : MonoBehaviour {
 
 				//panSpeed is how much we pan in the x-direction every time
 				float panSpeed = 0.01f;
-				transform.position = new Vector3 (transform.position.x + panSpeed, transform.position.y + ydir, -10);
+				transform.position = new Vector3 (transform.position.x + panSpeed, transform.position.y, -10);
 			}
 		}
 	}

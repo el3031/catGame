@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class streetView : MonoBehaviour
 {
-    private GameObject street;
-    float lastx = 0f;
+    public GameObject street;
+    float lastx;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        lastx = transform.position.x;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.x > lastx + 0.02f)
+        Debug.Log("transform.position.x: " + transform.position.x);
+        Debug.Log("lastx: " + lastx);
+        if (transform.position.x + (float) 2 * street.GetComponent<BoxCollider2D>().size.x * street.transform.localScale.x > lastx)
         {
             Instantiate (street, transform.position, Quaternion.identity);
-			lastx = transform.position.x;
+			lastx += (float) street.GetComponent<BoxCollider2D>().size.x * street.transform.localScale.x;
         }
     }
 }
