@@ -14,7 +14,7 @@ public class CatMovement : MonoBehaviour
     private Quaternion newRotation;
     private bool grounded;
     [SerializeField] private LayerMask Ground;
-    private float jumpForce = 300f;
+    private float jumpForce = 400f;
     private float groundSlopeAngle = 0f;
 
     void Awake()
