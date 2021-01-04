@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2636663592632869692}
   - component: {fileID: 2636663592632869693}
   - component: {fileID: 2636663592632869694}
+  - component: {fileID: -3879417366591163466}
   m_Layer: 8
   m_Name: buildings-08
   m_TagString: Building
@@ -296,3 +297,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-3879417366591163466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2636663592632869666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a30fdb7ce59f54f30b127a4c208dbaea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

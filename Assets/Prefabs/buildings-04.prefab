@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2878832608820731217}
   - component: {fileID: 1105250967312999844}
   - component: {fileID: 3615337409401665972}
+  - component: {fileID: 7534765813635440659}
   m_Layer: 0
   m_Name: buildings-04
   m_TagString: Untagged
@@ -167,3 +168,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7534765813635440659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096466408963456130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a30fdb7ce59f54f30b127a4c208dbaea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

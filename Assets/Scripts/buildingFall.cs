@@ -1,0 +1,35 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class buildingFall : MonoBehaviour
+{
+    // Start is called before the first frame update
+    Rigidbody2D rb;
+    private bool stop;
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        stop = false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if  (!stop)
+        {
+            rb.velocity = new Vector3(0, -2f, 0);
+        }
+    }
+    
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Street"))
+        {
+            Debug.Log("colliding with street");
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = 0f;
+            stop = true;
+        }
+    }
+}

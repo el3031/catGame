@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6060276163420961586}
   - component: {fileID: -6170343501697435947}
   - component: {fileID: -569094649063199087}
+  - component: {fileID: 1523107085989444573}
   m_Layer: 0
   m_Name: buildings-07
   m_TagString: Untagged
@@ -160,3 +161,15 @@ PolygonCollider2D:
       - {x: 26.28, y: 31.025002}
       - {x: 26.873125, y: 31.025002}
       - {x: 26.964376, y: 31.116251}
+--- !u!114 &1523107085989444573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2435813042399662604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a30fdb7ce59f54f30b127a4c208dbaea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

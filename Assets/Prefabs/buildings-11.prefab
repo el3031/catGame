@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7618470999500083930}
   - component: {fileID: 367714013873134490}
   - component: {fileID: -3560702165543369921}
+  - component: {fileID: 4138201524386972237}
   m_Layer: 0
   m_Name: buildings-11
   m_TagString: Untagged
@@ -671,3 +672,15 @@ PolygonCollider2D:
       - {x: -8.270196, y: 14.203162}
       - {x: -8.270196, y: 15.281884}
       - {x: -8.48594, y: 15.569543}
+--- !u!114 &4138201524386972237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778343912998281829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a30fdb7ce59f54f30b127a4c208dbaea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
