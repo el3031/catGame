@@ -6,20 +6,10 @@ public class Destroyer : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Building"))
         {
-            Debug.Break();
-            return;
-        }
-        if (other.gameObject.transform.parent) 
-        {
-            Debug.Log("destroyed parent gameobject");
-            Destroy (other.gameObject.transform.parent.gameObject);
-        } 
-        else
-        {
-            Debug.Log("destroyed object");
-            Destroy (other.gameObject);		
+            //Debug.Log("Destroyed building");
+            Destroy(other.gameObject);
         }
     }
 }
