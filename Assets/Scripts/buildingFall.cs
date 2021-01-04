@@ -18,7 +18,7 @@ public class buildingFall : MonoBehaviour
     {
         if  (!stop)
         {
-            rb.velocity = new Vector3(0, -2f, 0);
+            rb.velocity = new Vector3(0, -20f, 0);
         }
     }
     

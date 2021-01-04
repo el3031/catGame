@@ -14,17 +14,17 @@ public class BuildingSpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Spawn();
         lastBuildingRight = lastConstructedBuilding.GetComponent<PolygonCollider2D>().bounds.max.x;
         lastBuildingLeft = lastConstructedBuilding.GetComponent<PolygonCollider2D>().bounds.min.x;
-
+        Spawn();
     }
 
     void Spawn()
     {
         int rand = Random.Range(0, buildings.Length);
         GameObject building = buildings[rand];
-        GameObject buildingClone = Instantiate(building, transform.position, Quaternion.identity);
+        Vector3 spawnLocation = new Vector3(transform.position.x, transform.position.y, 0);
+        GameObject buildingClone = Instantiate(building, spawnLocation, Quaternion.identity);
         Debug.Log(building.name);
         float buildingBounds = buildingClone.GetComponent<PolygonCollider2D>().bounds.extents.x;
         float buildingRight = transform.position.x + buildingBounds;
