@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 
 public class CatMovement : MonoBehaviour
@@ -9,6 +10,8 @@ public class CatMovement : MonoBehaviour
     private float maxSpeed = 5f;
     private bool facingLeft = true;
     private Animator anim;
+    [SerializeField] private Animator gameOverAnim;
+    [SerializeField] private string nextScene;
     private BoxCollider2D boxcollider2D;
     private Vector3 currentEuler;
     private Quaternion newRotation;
@@ -21,6 +24,11 @@ public class CatMovement : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         boxcollider2D = transform.GetComponent<BoxCollider2D>();
+        
+        if (PlayerPrefs.GetInt("Restart") == 1)
+        {
+            gameOverAnim.SetTrigger("restart");
+        }
     }
 
     void FixedUpdate()
@@ -88,22 +96,7 @@ public class CatMovement : MonoBehaviour
         Debug.DrawRay(boxcollider2D.bounds.center - new Vector3(boxcollider2D.bounds.extents.x, 0), Vector2.down * (boxcollider2D.bounds.extents.y + extraHeight), rayColor);
         Debug.DrawRay(boxcollider2D.bounds.center - new Vector3(0, boxcollider2D.bounds.extents.y), Vector2.right * (boxcollider2D.bounds.extents.y + extraHeight), rayColor);
 
-        
-        //Debug.DrawRay(boxcollider2D.bounds.center, Vector2.down, rayColor);
         return raycastHit.collider != null;
-        
-        /*
-        Vector2 RayCastCenter = new Vector2(transform.position.x, transform.position.y);
-        Vector2 direction = Vector2.down;
-        float distance = 1.0f;
-        
-        RaycastHit2D hit = Physics2D.Raycast(RayCastCenter, direction, distance, Ground);
-        Debug.DrawRay(RayCastCenter, direction, Color.green);
-        if (hit.collider != null)
-        {
-            return true;
-        }
-        return false;*/
     }
 
     public void CheckGround(Vector3 origin)
@@ -163,5 +156,21 @@ public class CatMovement : MonoBehaviour
 		        groundSlopeAngle = average;
             }
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Street") || other.CompareTag("Pigeon"))
+        {
+            transform.position = Vector3.zero;
+            StartCoroutine(LoadScene());
+        }
+    }
+
+    IEnumerator LoadScene()
+    {
+        gameOverAnim.SetTrigger("end");
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene(nextScene);
     }
 }

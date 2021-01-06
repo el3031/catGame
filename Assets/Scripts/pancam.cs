@@ -4,15 +4,21 @@ using UnityEngine.UI;
 
 public class pancam : MonoBehaviour {
 
-	float ydir = 0f;
+	private float ydir = 0f;
 	public GameObject player;
 	public GameObject street;
+	private float playerMaxX;
 
 	//for our GUIText object and our score
 	public Text gui;
-	float playerScore = 0;
+	private float playerScore = 0;
 
 	//this function updates our guitext object
+	void Start()
+	{
+		playerMaxX = player.transform.position.x;
+	}
+	
 	void OnGUI(){
 		gui.text = "Score: " + ((int)(playerScore * 10)).ToString ();
 	}
@@ -27,7 +33,15 @@ public class pancam : MonoBehaviour {
 		if (player) {
 			//if player has passed the x position of startScroll then start moving camera forward with a randomish Y position
 			double startScroll = -5.5;
-			
+
+			Debug.Log("playerMaxX " + playerMaxX);
+			if (player.transform.position.x > playerMaxX)
+			{
+				playerScore += (player.transform.position.x - playerMaxX);
+				playerMaxX = player.transform.position.x;
+				Debug.Log(playerScore);
+				//gui.text = "Score: " + ((int)(playerScore * 10)).ToString ();
+			}
 
 			if (player.transform.position.x > startScroll) {
 				
@@ -60,5 +74,10 @@ public class pancam : MonoBehaviour {
 				transform.position = Vector3.MoveTowards(transform.position, newVec, step);
 			}
 		}
+	}
+
+	void onDisable()
+	{
+		PlayerPrefs.SetInt("Score", (int) playerScore);
 	}
 }

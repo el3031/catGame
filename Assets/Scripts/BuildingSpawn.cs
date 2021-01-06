@@ -25,23 +25,22 @@ public class BuildingSpawn : MonoBehaviour
         GameObject building = buildings[rand];
         Vector3 spawnLocation = new Vector3(transform.position.x, transform.position.y, 0);
         GameObject buildingClone = Instantiate(building, spawnLocation, Quaternion.identity);
-        Debug.Log(building.name);
         float buildingBounds = buildingClone.GetComponent<PolygonCollider2D>().bounds.extents.x;
         float buildingRight = transform.position.x + buildingBounds;
         float buildingLeft = transform.position.x - buildingBounds;
-        Debug.Log("buildingLeft " + buildingLeft + ", lastBuildingRight" + lastBuildingRight + ", transform.position.x " + transform.position.x + ", buildingBounds " + buildingClone.GetComponent<PolygonCollider2D>().bounds.extents.x);
 
 
         if (buildingLeft <= lastBuildingRight)
         {
             Destroy(buildingClone);
+            Invoke("Spawn", Random.Range(0.3f, 0.5f));
         }
         else
         {
             lastBuildingLeft = buildingLeft;
             lastBuildingRight = buildingRight;
+            Invoke("Spawn", Random.Range(minSpawn, maxSpawn));
         }
-        Invoke("Spawn", Random.Range(minSpawn, maxSpawn));
     }
 
     // Update is called once per frame

@@ -26,13 +26,4 @@ public class newStreetPar : MonoBehaviour
             transform.position = new Vector2(mainCameraPosition.position.x + offsetByX, transform.position.y);
         }
     }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Debug.Break();
-            return;
-        }
-    }
 }
