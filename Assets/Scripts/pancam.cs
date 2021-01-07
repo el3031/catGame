@@ -8,6 +8,7 @@ public class pancam : MonoBehaviour {
 	public GameObject player;
 	public GameObject street;
 	private float playerMaxX;
+	private Vector3 camOriginalPosition;
 
 	//for our GUIText object and our score
 	public Text gui;
@@ -16,11 +17,13 @@ public class pancam : MonoBehaviour {
 	//this function updates our guitext object
 	void Start()
 	{
+		gui.horizontalOverflow = HorizontalWrapMode.Overflow;
 		playerMaxX = player.transform.position.x;
+		camOriginalPosition = transform.position;
 	}
 	
 	void OnGUI(){
-		gui.text = "Score: " + ((int)(playerScore * 10)).ToString ();
+		gui.text = "Score: " + ((int)(playerScore * 10)).ToString();
 	}
 	//this is generic function we can call to increase the score by an amount
 	public void increaseScore(int amount){
@@ -28,13 +31,15 @@ public class pancam : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate() {
+		
+		
 		//check that player exists and then proceed. otherwise we get an error when player dies
 		if (player) {
 			//if player has passed the x position of startScroll then start moving camera forward with a randomish Y position
 			double startScroll = -5.5;
 
-			Debug.Log("playerMaxX " + playerMaxX);
+			//Debug.Log("playerMaxX " + playerMaxX);
 			if (player.transform.position.x > playerMaxX)
 			{
 				playerScore += (player.transform.position.x - playerMaxX);
@@ -59,25 +64,20 @@ public class pancam : MonoBehaviour {
 					ydir = 0;
 				}
 
-				//panSpeed is how much we pan in the x-direction every time
-				float panSpeed = 1f;
-
-				float newY = transform.position.y + ydir;
-				if (newY < street.transform.position.y)
-				{
-					newY = street.transform.position.y;
-				}
 				//MoveTowards for smoother camera transitions 
-				Vector3 newVec = new Vector3 (player.transform.position.x + 5.5f, newY, transform.position.z);
+				float newY = (player.transform.position.y - 2.5f < camOriginalPosition.y) ? camOriginalPosition.y : player.transform.position.y - 2.5f;
+				var newVec = new Vector3 (player.transform.position.x + 5.5f, newY, transform.position.z);
 				float speed = player.GetComponent<Rigidbody2D>().velocity.magnitude;
 				float step = Mathf.Abs(speed * Time.deltaTime);
-				transform.position = Vector3.MoveTowards(transform.position, newVec, step);
+				transform.position = Vector3.Lerp(transform.position, newVec, 0.125f);
 			}
 		}
 	}
 
-	void onDisable()
+	void OnDisable()
 	{
-		PlayerPrefs.SetInt("Score", (int) playerScore);
+		PlayerPrefs.SetInt("Score", (int) playerScore * 10);
+		Debug.Log("camera disable player score "
+            + PlayerPrefs.GetInt("Score"));
 	}
 }

@@ -33,7 +33,7 @@ public class BuildingSpawn : MonoBehaviour
         if (buildingLeft <= lastBuildingRight)
         {
             Destroy(buildingClone);
-            Invoke("Spawn", Random.Range(0.3f, 0.5f));
+            Invoke("Spawn", Random.Range(0.5f, 0.7f));
         }
         else
         {
@@ -41,11 +41,5 @@ public class BuildingSpawn : MonoBehaviour
             lastBuildingRight = buildingRight;
             Invoke("Spawn", Random.Range(minSpawn, maxSpawn));
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
