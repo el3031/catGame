@@ -26,7 +26,6 @@ public class buildingFall : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Street"))
         {
-            Debug.Log("colliding with street");
             rb.velocity = Vector3.zero;
             rb.angularVelocity = 0f;
             stop = true;
