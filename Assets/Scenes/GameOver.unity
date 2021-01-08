@@ -588,7 +588,7 @@ GameObject:
   - component: {fileID: 1532436378}
   - component: {fileID: 1532436377}
   m_Layer: 5
-  m_Name: Restart (1)
+  m_Name: Quit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -895,7 +895,7 @@ MonoBehaviour:
   scoreCard: {fileID: 659134444}
   mainCameraPosition: {fileID: 1672377404}
   restart: {fileID: 362699089}
-  quit: {fileID: 0}
+  quit: {fileID: 1532436377}
 --- !u!114 &1924501904
 MonoBehaviour:
   m_ObjectHideFlags: 0
