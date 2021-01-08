@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Building
   - Street
+  - Pigeon
   layers:
   - Default
   - TransparentFX
