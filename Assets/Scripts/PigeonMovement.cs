@@ -67,16 +67,6 @@ public class PigeonMovement : MonoBehaviour
     }
 
     //freeze game upon the pigeon touching the cat
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        //Debug.Log(other);
-        //make sure that one of the rigid bodies in the collision has "Is Trigger" checked – not sure why
-        if (other.CompareTag("Player"))
-        {
-            Debug.Break();
-            return;
-        }
-    }
 
     void OnTriggerStay2D(Collider2D other) {
     }
