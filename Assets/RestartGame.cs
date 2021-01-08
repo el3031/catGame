@@ -11,6 +11,8 @@ public class RestartGame : MonoBehaviour
     [SerializeField] private Text scoreGUI;
     [SerializeField] private GameObject scoreCard;
     [SerializeField] private Transform mainCameraPosition;
+    [SerializeField] private Button restart;
+    [SerializeField] private Button quit;
     private Vector3 scoreCardHidden;
 
     private int score;
@@ -21,6 +23,10 @@ public class RestartGame : MonoBehaviour
         score = PlayerPrefs.GetInt("Score");
         scoreGUI.horizontalOverflow = HorizontalWrapMode.Overflow;
         scoreCardHidden = new Vector3(0, 10f, 0);
+        //restart.Text = "Restart";
+        //quit.Text = "Quit";
+        restart.onClick.AddListener(RestartOnClick);
+        quit.onClick.AddListener(Quit);
     }
     
     void FixedUpdate()
@@ -32,7 +38,8 @@ public class RestartGame : MonoBehaviour
     void OnGUI()
     {    
         scoreGUI.text = score.ToString();
-        Debug.Log("game over score " + score.ToString());
+        
+        /*
         if (GUI.Button(new Rect(Screen.width/2-50,Screen.height/2 +150,100,40),"Retry?"))
         {
             StartCoroutine(LoadScene());
@@ -40,7 +47,17 @@ public class RestartGame : MonoBehaviour
         if(GUI.Button(new Rect(Screen.width/2-50,Screen.height/2 +200,100,40),"Quit"))
         {
             Application.Quit();
-        }
+        }*/
+    }
+
+    void RestartOnClick()
+    {
+        StartCoroutine(LoadScene());
+    }
+
+    void Quit()
+    {
+        Application.Quit();
     }
     
     IEnumerator LoadScene()
