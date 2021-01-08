@@ -44,7 +44,6 @@ public class pancam : MonoBehaviour {
 			{
 				playerScore += (player.transform.position.x - playerMaxX);
 				playerMaxX = player.transform.position.x;
-				Debug.Log(playerScore);
 				//gui.text = "Score: " + ((int)(playerScore * 10)).ToString ();
 			}
 
@@ -76,8 +75,6 @@ public class pancam : MonoBehaviour {
 
 	void OnDisable()
 	{
-		PlayerPrefs.SetInt("Score", (int) playerScore * 10);
-		Debug.Log("camera disable player score "
-            + PlayerPrefs.GetInt("Score"));
+		PlayerPrefs.SetInt("Score", (int) (playerScore * 10));
 	}
 }
