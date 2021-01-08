@@ -40,15 +40,6 @@ public class CatMovement : MonoBehaviour
         
         //horizontal motion
         float move = Input.GetAxis("Horizontal");
-        GetComponent<Rigidbody2D>().velocity = new Vector3
-                    (move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
-        anim.SetFloat("Speed", Mathf.Abs(move));
-
-        if (move < 0 && facingLeft || move > 0 && !facingLeft)
-        {
-            flip();
-        }
-
         if (grounded)
         {
             CheckGround(new Vector3(transform.position.x, transform.position.y - (boxcollider2D.size.x / 2) + 0.2f, transform.position.z));
@@ -58,7 +49,16 @@ public class CatMovement : MonoBehaviour
             groundSlopeAngle = 0f;
         }
         Quaternion newAngle = Quaternion.Euler(0, 0, groundSlopeAngle);
-        transform.rotation = Quaternion.Slerp(transform.rotation, newAngle, 0.1f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, newAngle, 0.5f);
+
+        GetComponent<Rigidbody2D>().velocity = new Vector3
+                    (move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
+        anim.SetFloat("Speed", Mathf.Abs(move));
+
+        if (move < 0 && facingLeft || move > 0 && !facingLeft)
+        {
+            flip();
+        }
     }
 
     void Update()
