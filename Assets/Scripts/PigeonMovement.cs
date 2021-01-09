@@ -14,7 +14,7 @@ public class PigeonMovement : MonoBehaviour
     
     //variable to see if the pigeon has just changed directions
     private bool justFlipped = false;
-
+    private bool onBuilding = false;
 
     private BoxCollider2D boxcollider2D;
     [SerializeField] private LayerMask Ground;
@@ -39,41 +39,40 @@ public class PigeonMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool grounded = isGrounded();
-        if (justFlipped) {
-            if (grounded) {
-                justFlipped = false;
+        if (onBuilding)
+        {
+            bool grounded = isGrounded();
+            if (justFlipped) {
+                if (grounded) {
+                    justFlipped = false;
+                }
             }
-        }
-        else if (!grounded) {
-            flip();
-            justFlipped = true;
-        }
-        transform.Translate(userDirection * movespeed * Time.deltaTime);
-        
-        /*
-        if (numMoves == maxMoves) {
-            numMoves = 0;
-            flip();
-            if (facingLeft) {
-                userDirection = Vector3.left;
+            else if (!grounded) {
+                flip();
+                justFlipped = true;
             }
-            else {
-                userDirection = Vector3.right;
-            }
+            transform.Translate(userDirection * movespeed * Time.deltaTime);
         }
-        numMoves = numMoves + 1;
-        transform.Translate(userDirection * movespeed * Time.deltaTime);*/
+        else
+        {
+            GetComponent<Rigidbody2D>().velocity = Vector3.down * 5f;
+        }
     }
 
     //freeze game upon the pigeon touching the cat
-
-    void OnTriggerStay2D(Collider2D other) {
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Building"))
+        {
+            GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+            onBuilding = true;
+        }
+        else if (other.CompareTag("Street"))
+        {
+            Destroy(gameObject);
+        }
     }
-
-    void OnTriggerExit2D(Collider2D other) {
-    }
-
+    
     bool isGrounded()
     {
         float extraHeight = 0.5f;
