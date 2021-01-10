@@ -401,7 +401,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 169660081}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.88, y: 7.45, z: 0}
+  m_LocalPosition: {x: 12.73, y: 5.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 519420032}
@@ -424,7 +424,7 @@ MonoBehaviour:
   maxTime: 7
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
 --- !u!212 &169660084
 SpriteRenderer:
   m_ObjectHideFlags: 0
