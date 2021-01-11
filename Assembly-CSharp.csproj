@@ -47,6 +47,7 @@
      <Compile Include="Assets\RestartGame.cs" />
      <Compile Include="Assets\Scripts\PigeonMovement.cs" />
      <Compile Include="Assets\Scripts\PigeonSpawn.cs" />
+     <Compile Include="Assets\Scripts\CanvasFade.cs" />
     <Reference Include="UnityEngine">
         <HintPath>/Applications/Unity/Hub/Editor/2020.1.2f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
