@@ -16,7 +16,7 @@ public class buildingFall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if  (!stop)
+        if (!stop)
         {
             rb.velocity = new Vector3(0, -20f, 0);
         }

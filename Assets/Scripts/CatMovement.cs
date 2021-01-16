@@ -163,7 +163,6 @@ public class CatMovement : MonoBehaviour
         Debug.Log(other);
         if (other.CompareTag("Street") || other.CompareTag("Pigeon"))
         {
-            Debug.Log("hi");
             transform.position = Vector3.zero;
             StartCoroutine(LoadScene());
         }
@@ -172,11 +171,7 @@ public class CatMovement : MonoBehaviour
     IEnumerator LoadScene()
     {
         gameOverAnim.SetTrigger("end");
-        Debug.Log("first line");
         yield return new WaitForSeconds(.5f);
-        Debug.Log("second line");
         SceneManager.LoadScene(nextScene);
-        Debug.Log("please work");
-
     }
 }

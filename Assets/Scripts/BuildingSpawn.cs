@@ -8,6 +8,7 @@ public class BuildingSpawn : MonoBehaviour
     [SerializeField] private float maxSpawn = 3f;
     [SerializeField] private float minSpawn = 2f;
     [SerializeField] private GameObject lastConstructedBuilding;
+    [SerializeField] private GameObject pigeon;
     private float lastBuildingLeft;
     private float lastBuildingRight;
     private int prev;
@@ -37,9 +38,14 @@ public class BuildingSpawn : MonoBehaviour
         float buildingRight = transform.position.x + buildingBounds;
         float buildingLeft = transform.position.x - buildingBounds;
 
+/*
+        Vector3 pigeonSpawnLoc = new Vector3((lastBuildingLeft + lastBuildingRight) / 2, transform.position.y, 0);
+        GameObject pigeonClone = Instantiate(pigeon, pigeonSpawnLoc, Quaternion.identity);*/
+
         if (buildingLeft <= lastBuildingRight)
         {
             Destroy(buildingClone);
+            //Destroy(pigeonClone);
             Invoke("Spawn", Random.Range(0.5f, 0.7f));
         }
         else
