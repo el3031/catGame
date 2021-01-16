@@ -9,22 +9,25 @@ public class CanvasFade : MonoBehaviour
     [SerializeField] private CanvasGroup pigeonMessage;
     void Start()
     {
-        //welcomeMessage.alpha = 0;
-        //pigeonMessage.alpha = 0;
-        //if (PlayerPrefs.GetInt("Score") == 0)
-        //{
-            FadeText(welcomeMessage, 0f, 1f, 1.5f);
-            //yield WaitForSeconds(3);
-            FadeText(welcomeMessage, 1f, 0f, 1.5f);
-            FadeText(pigeonMessage, 0f, 1f, 1.5f);
-            //yield WaitForSeconds(3);
-            FadeText(pigeonMessage, 1f, 0f, 1.5f);
-        //}
+        welcomeMessage.alpha = 0;
+        pigeonMessage.alpha = 0;
+        StartCoroutine(FadeInOut(welcomeMessage, pigeonMessage));
     }
 
-    void FadeText(CanvasGroup text, float startAlpha, float endAlpha, float duration)
+    IEnumerator FadeInOut(CanvasGroup firstMessage, CanvasGroup secondMessage)
     {
-        var startTime = Time.time;
+        StartCoroutine(FadeText(firstMessage, 0f, 1f, 0.5f));
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(FadeText(firstMessage, 1f, 0f, 0.5f));
+        yield return new WaitForSeconds(2f);
+        StartCoroutine(FadeText(secondMessage, 0f, 1f, 0.5f));
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(FadeText(secondMessage, 1f, 0f, 0.5f));
+    }
+
+    IEnumerator FadeText(CanvasGroup text, float startAlpha, float endAlpha, float duration)
+    {
+         var startTime = Time.time;
          var endTime = Time.time + duration;
          var elapsedTime = 0f;
  
@@ -44,10 +47,10 @@ public class CanvasFade : MonoBehaviour
                  text.alpha = startAlpha + percentage; // calculate the new alpha
              }
  
-             //yield return new WaitForEndOfFrame(); // wait for the next frame before continuing the loop
+             yield return new WaitForEndOfFrame(); // wait for the next frame before continuing the loop
         }
         text.alpha = endAlpha;
-        //yield return new WaitForSeconds(3f);
-        Debug.Log("faded " + text + " " + "startAlpha: " + startAlpha + "endAlpha: " + endAlpha);
+        //yield return new WaitForSeconds(3f);      
+        //Debug.Log("faded " + text + " " + "startAlpha: " + startAlpha + "endAlpha: " + endAlpha);
     }
 }
