@@ -425,6 +425,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
+  canSpawn: 0
 --- !u!212 &169660084
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -947,6 +948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   welcomeMessage: {fileID: 1671867946}
   pigeonMessage: {fileID: 833740623}
+  pigeonSpawn: {fileID: 169660081}
 --- !u!1 &795269986
 GameObject:
   m_ObjectHideFlags: 0

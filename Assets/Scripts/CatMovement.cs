@@ -6,20 +6,28 @@ using System;
 
 public class CatMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
+    /**** instance variables for horizontal movement ***/
     private float maxSpeed = 5f;
     private bool facingLeft = true;
     private Animator anim;
+    
+    /**** for restarting game ****/
     [SerializeField] private Animator gameOverAnim;
     [SerializeField] private string nextScene;
     private BoxCollider2D boxcollider2D;
+    
+    /**** for rotating the cat ****/
     private Vector3 currentEuler;
     private Quaternion newRotation;
+    private float groundSlopeAngle = 0f;
+    
+    /**** ground detection for vertical motion ****/
     private bool grounded;
     [SerializeField] private LayerMask Ground;
+    
+    /**** max jump force ****/
     private float jumpForce = 400f;
-    private float groundSlopeAngle = 0f;
-
+    
     void Awake()
     {
         anim = GetComponent<Animator>();
