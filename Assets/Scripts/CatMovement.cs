@@ -27,11 +27,15 @@ public class CatMovement : MonoBehaviour
     
     /**** max jump force ****/
     private float jumpForce = 400f;
+
+    /**** cat sound effects ****/
+    private AudioSource meow;
     
     void Awake()
     {
         anim = GetComponent<Animator>();
         boxcollider2D = transform.GetComponent<BoxCollider2D>();
+        meow = GetComponent<AudioSource>();
         
         if (PlayerPrefs.GetInt("Restart") == 1)
         {
@@ -168,10 +172,10 @@ public class CatMovement : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other);
         if (other.CompareTag("Street") || other.CompareTag("Pigeon"))
         {
             transform.position = Vector3.zero;
+            meow.Play();
             StartCoroutine(LoadScene());
         }
     }
@@ -179,7 +183,7 @@ public class CatMovement : MonoBehaviour
     IEnumerator LoadScene()
     {
         gameOverAnim.SetTrigger("end");
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(nextScene);
     }
 }
