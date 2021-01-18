@@ -30,6 +30,7 @@ public class CatMovement : MonoBehaviour
 
     /**** cat sound effects ****/
     private AudioSource meow;
+    [SerializeField] private GameObject BGMusic;
     
     void Awake()
     {
@@ -175,6 +176,7 @@ public class CatMovement : MonoBehaviour
         if (other.CompareTag("Street") || other.CompareTag("Pigeon"))
         {
             transform.position = Vector3.zero;
+            BGMusic.GetComponent<BGMusic>().stop = true;
             meow.Play();
             StartCoroutine(LoadScene());
         }
