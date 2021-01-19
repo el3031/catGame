@@ -42,7 +42,7 @@ public class BuildingSpawn : MonoBehaviour
         Vector3 pigeonSpawnLoc = new Vector3((lastBuildingLeft + lastBuildingRight) / 2, transform.position.y, 0);
         GameObject pigeonClone = Instantiate(pigeon, pigeonSpawnLoc, Quaternion.identity);*/
 
-        if (buildingLeft <= lastBuildingRight)
+        if (buildingLeft <= lastBuildingRight + 1f)
         {
             Destroy(buildingClone);
             //Destroy(pigeonClone);

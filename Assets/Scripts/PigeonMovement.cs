@@ -55,11 +55,13 @@ public class PigeonMovement : MonoBehaviour
             
             bool grounded = isGrounded();
             if (justFlipped) {
+                //Debug.Log("baseball is boring");
                 if (grounded) {
                     justFlipped = false;
                 }
             }
             else if (!grounded || slopeAngle != prevSlope) {
+                //Debug.Log("Not grounded: stupid");
                 flip();
                 justFlipped = true;
             }
@@ -80,6 +82,11 @@ public class PigeonMovement : MonoBehaviour
     //freeze game upon the pigeon touching the cat
     void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("min x");
+        Debug.Log(boxcollider2D.bounds.min.x);
+        Debug.Log("max x");
+        Debug.Log(boxcollider2D.bounds.max.x);
+
         if (other.CompareTag("Building"))
         {
             GetComponent<Rigidbody2D>().velocity = Vector3.zero;
