@@ -896,6 +896,7 @@ MonoBehaviour:
   mainCameraPosition: {fileID: 1672377404}
   restart: {fileID: 362699089}
   quit: {fileID: 1532436377}
+  player: {fileID: 0}
 --- !u!114 &1924501904
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ public class PigeonMovement : MonoBehaviour
     //variable to see if the pigeon has just changed directions
     private bool justFlipped = false;
     private bool onBuilding = false;
+    private AudioSource pigeonCoo;
 
     private BoxCollider2D boxcollider2D;
     [SerializeField] private LayerMask Ground;
@@ -24,7 +25,10 @@ public class PigeonMovement : MonoBehaviour
     void Start()
     {
         boxcollider2D = transform.GetComponent<BoxCollider2D>();
+        pigeonCoo = GetComponent<AudioSource>();
 
+        adjustVolume();
+        pigeonCoo.Play();
     }
 
     void flip()
@@ -40,8 +44,10 @@ public class PigeonMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        adjustVolume();
+        
         if (onBuilding)
-        {
+        { 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, 1f, Ground);
             float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
             Quaternion slopeAngleQ = Quaternion.Euler(0, 0, Vector2.Angle(hit.normal, Vector2.up));
@@ -135,5 +141,12 @@ public class PigeonMovement : MonoBehaviour
         
         //Debug.DrawRay(boxcollider2D.bounds.center, Vector2.down, rayColor);
         return raycastHitMin.collider != null && raycastHitMax.collider != null; //&& raycastHitHorizontal.collider != null;
+    }
+
+    void adjustVolume()
+    {
+        float volume = Mathf.Abs(transform.position.x - Camera.main.transform.position.x) / -15f + 1f;
+        float adjustedVolume = Mathf.Clamp(volume, 0f, 1f);
+        pigeonCoo.volume = adjustedVolume;
     }
 }

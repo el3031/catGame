@@ -7,6 +7,7 @@ public class CanvasFade : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private CanvasGroup welcomeMessage;
     [SerializeField] private CanvasGroup pigeonMessage;
+    [SerializeField] private GameObject pigeonSpawn;
     void Start()
     {
         welcomeMessage.alpha = 0;
@@ -23,6 +24,7 @@ public class CanvasFade : MonoBehaviour
         StartCoroutine(FadeText(secondMessage, 0f, 1f, 0.5f));
         yield return new WaitForSeconds(3f);
         StartCoroutine(FadeText(secondMessage, 1f, 0f, 0.5f));
+        pigeonSpawn.GetComponent<PigeonSpawn>().canSpawn = true;
     }
 
     IEnumerator FadeText(CanvasGroup text, float startAlpha, float endAlpha, float duration)

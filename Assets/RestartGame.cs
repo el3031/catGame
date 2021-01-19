@@ -13,6 +13,7 @@ public class RestartGame : MonoBehaviour
     [SerializeField] private Transform mainCameraPosition;
     [SerializeField] private Button restart;
     [SerializeField] private Button quit;
+    [SerializeField] private GameObject player;
     private Vector3 scoreCardHidden;
 
     private int score;

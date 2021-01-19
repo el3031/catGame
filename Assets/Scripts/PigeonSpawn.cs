@@ -8,11 +8,17 @@ public class PigeonSpawn : MonoBehaviour
     [SerializeField] private float minTime;
     [SerializeField] private float maxTime;
     [SerializeField] private LayerMask groundLayer;
+    public bool canSpawn;
+    private int i = 0;
 
     // Start is called before the first frame update
-    void Start()
+    void Update()
     {
-        Spawn();
+        if (canSpawn && i == 0)
+        {
+            Spawn();
+            i++;
+        }
     }
 
     void Spawn()
@@ -20,7 +26,6 @@ public class PigeonSpawn : MonoBehaviour
         RaycastHit2D onBuilding = Physics2D.Raycast(transform.position, Vector2.down, Camera.main.orthographicSize * 2, groundLayer);
         float buildingSlope = Vector2.Angle(onBuilding.normal, Vector2.up);
         Debug.DrawRay(transform.position, Vector2.down * Camera.main.orthographicSize * 2, Color.green);
-        //Vector3 spawnLoc = new Vector3(transform.position.x + pigeon.GetComponent<BoxCollider2D>().bounds.extents.y, transform.position.y, 0);
         Vector3 spawnLoc = new Vector3(onBuilding.point.x, onBuilding.point.y + 3f, 0);
         if (onBuilding.collider != null && Mathf.Abs(buildingSlope) < 5f)
         {

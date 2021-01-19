@@ -8,7 +8,6 @@ public class Destroyer : MonoBehaviour
     {
         if (other.CompareTag("Building") || other.CompareTag("Pigeon"))
         {
-            //Debug.Log("Destroyed building");
             Destroy(other.gameObject);
         }
     }

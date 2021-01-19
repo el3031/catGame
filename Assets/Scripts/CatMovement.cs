@@ -6,24 +6,37 @@ using System;
 
 public class CatMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
+    /**** instance variables for horizontal movement ***/
     private float maxSpeed = 5f;
     private bool facingLeft = true;
     private Animator anim;
+    
+    /**** for restarting game ****/
     [SerializeField] private Animator gameOverAnim;
     [SerializeField] private string nextScene;
     private BoxCollider2D boxcollider2D;
+    
+    /**** for rotating the cat ****/
     private Vector3 currentEuler;
     private Quaternion newRotation;
+    private float groundSlopeAngle = 0f;
+    
+    /**** ground detection for vertical motion ****/
     private bool grounded;
     [SerializeField] private LayerMask Ground;
+    
+    /**** max jump force ****/
     private float jumpForce = 400f;
-    private float groundSlopeAngle = 0f;
 
+    /**** cat sound effects ****/
+    private AudioSource meow;
+    [SerializeField] private GameObject BGMusic;
+    
     void Awake()
     {
         anim = GetComponent<Animator>();
         boxcollider2D = transform.GetComponent<BoxCollider2D>();
+        meow = GetComponent<AudioSource>();
         
         if (PlayerPrefs.GetInt("Restart") == 1)
         {
@@ -160,10 +173,11 @@ public class CatMovement : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other);
         if (other.CompareTag("Street") || other.CompareTag("Pigeon"))
         {
             transform.position = Vector3.zero;
+            BGMusic.GetComponent<BGMusic>().stop = true;
+            meow.Play();
             StartCoroutine(LoadScene());
         }
     }
@@ -171,7 +185,7 @@ public class CatMovement : MonoBehaviour
     IEnumerator LoadScene()
     {
         gameOverAnim.SetTrigger("end");
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(nextScene);
     }
 }
