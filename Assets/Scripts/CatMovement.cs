@@ -13,6 +13,7 @@ public class CatMovement : MonoBehaviour
     
     /**** for restarting game ****/
     [SerializeField] private Animator gameOverAnim;
+    [SerializeField] private Animator restartAnim;
     [SerializeField] private string nextScene;
     private BoxCollider2D boxcollider2D;
     
@@ -30,17 +31,25 @@ public class CatMovement : MonoBehaviour
 
     /**** cat sound effects ****/
     private AudioSource meow;
-    [SerializeField] private GameObject BGMusic;
+    [SerializeField] private GameObject BGMusicObject;
+    private AudioSource BGMusic;
     
     void Awake()
     {
         anim = GetComponent<Animator>();
         boxcollider2D = transform.GetComponent<BoxCollider2D>();
+        BGMusic = BGMusicObject.GetComponent<AudioSource>();
         meow = GetComponent<AudioSource>();
+
         
         if (PlayerPrefs.GetInt("Restart") == 1)
         {
-            gameOverAnim.SetTrigger("restart");
+            StartCoroutine(RestartAnimation());
+        }
+        else
+        {
+            BGMusic.Play();
+            meow.Play();
         }
     }
 
@@ -176,7 +185,7 @@ public class CatMovement : MonoBehaviour
         if (other.CompareTag("Street") || other.CompareTag("Pigeon"))
         {
             transform.position = Vector3.zero;
-            BGMusic.GetComponent<BGMusic>().stop = true;
+            BGMusic.Stop();
             meow.Play();
             StartCoroutine(LoadScene());
         }
@@ -187,5 +196,15 @@ public class CatMovement : MonoBehaviour
         gameOverAnim.SetTrigger("end");
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(nextScene);
+    }
+
+    IEnumerator RestartAnimation()
+    {
+        restartAnim.SetTrigger("restart");
+        restartAnim.SetTrigger("inGame");
+        yield return new WaitForSeconds(1f);
+        PlayerPrefs.SetInt("Restart", 0);
+        meow.Play();
+        BGMusic.Play();
     }
 }
