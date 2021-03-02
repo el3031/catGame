@@ -189,6 +189,12 @@ public class CatMovement : MonoBehaviour
             meow.Play();
             StartCoroutine(LoadScene());
         }
+        else if (other.CompareTag("Cheese"))
+        {
+            Camera.main.GetComponent<pancam>().playerScore += 100;
+            Debug.Log("cheese touch!");
+            Destroy(other.gameObject);
+        }
     }
 
     IEnumerator LoadScene()
