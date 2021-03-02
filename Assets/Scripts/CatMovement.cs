@@ -27,7 +27,7 @@ public class CatMovement : MonoBehaviour
     [SerializeField] private LayerMask Ground;
     
     /**** max jump force ****/
-    private float jumpForce = 400f;
+    private float jumpForce = 500f;
 
     /**** cat sound effects ****/
     private AudioSource meow;
@@ -103,9 +103,17 @@ public class CatMovement : MonoBehaviour
     bool isGrounded()
     {
         float extraHeight = 0.5f;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxcollider2D.bounds.center, boxcollider2D.bounds.size, 0f, Vector2.down, extraHeight, Ground);
+        
+        Vector2 backFeetOrigin = new Vector2(boxcollider2D.bounds.min.x, boxcollider2D.bounds.min.y);
+        Vector2 frontFeetOrigin = new Vector2(boxcollider2D.bounds.max.x, boxcollider2D.bounds.min.y);
+
+        RaycastHit2D backFeet = Physics2D.Raycast(backFeetOrigin, Vector2.down, extraHeight, Ground);
+        RaycastHit2D frontFeet = Physics2D.Raycast(frontFeetOrigin, Vector2.down, extraHeight, Ground);
+
+        
+        //RaycastHit2D raycastHit = Physics2D.BoxCast(boxcollider2D.bounds.center, boxcollider2D.bounds.size, 0f, Vector2.down, extraHeight, Ground);
         Color rayColor;
-        if (raycastHit.collider != null)
+        if (backFeet.collider != null && frontFeet.collider != null)
         {
             rayColor = Color.green;
         }
@@ -113,12 +121,15 @@ public class CatMovement : MonoBehaviour
         {
             rayColor = Color.red;
         }
-        
-        Debug.DrawRay(boxcollider2D.bounds.center + new Vector3(boxcollider2D.bounds.extents.x, 0), Vector2.down * (boxcollider2D.bounds.extents.y + extraHeight), rayColor);
-        Debug.DrawRay(boxcollider2D.bounds.center - new Vector3(boxcollider2D.bounds.extents.x, 0), Vector2.down * (boxcollider2D.bounds.extents.y + extraHeight), rayColor);
-        Debug.DrawRay(boxcollider2D.bounds.center - new Vector3(0, boxcollider2D.bounds.extents.y), Vector2.right * (boxcollider2D.bounds.extents.y + extraHeight), rayColor);
+        Debug.DrawRay(backFeetOrigin, Vector2.down * (boxcollider2D.bounds.extents.y + extraHeight), rayColor);
+        Debug.DrawRay(frontFeetOrigin, Vector2.down * (boxcollider2D.bounds.extents.y + extraHeight), rayColor);
 
-        return raycastHit.collider != null;
+
+        //Debug.DrawRay(boxcollider2D.bounds.center + new Vector3(boxcollider2D.bounds.extents.x, 0), Vector2.down * (boxcollider2D.bounds.extents.y + extraHeight), rayColor);
+        //Debug.DrawRay(boxcollider2D.bounds.center - new Vector3(boxcollider2D.bounds.extents.x, 0), Vector2.down * (boxcollider2D.bounds.extents.y + extraHeight), rayColor);
+        //Debug.DrawRay(boxcollider2D.bounds.center - new Vector3(0, boxcollider2D.bounds.extents.y), Vector2.right * (boxcollider2D.bounds.extents.y + extraHeight), rayColor);
+
+        return backFeet.collider != null && frontFeet.collider != null;
     }
 
     public void CheckGround(Vector3 origin)
