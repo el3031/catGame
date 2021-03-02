@@ -12,7 +12,7 @@ public class pancam : MonoBehaviour {
 	private AudioSource thousandPoints;
 	//for our GUIText object and our score
 	public Text gui;
-	private float playerScore = 0;
+	public float playerScore = 0;
 
 	//this function updates our guitext object
 	void Start()
@@ -52,29 +52,27 @@ public class pancam : MonoBehaviour {
 				//gui.text = "Score: " + ((int)(playerScore * 10)).ToString ();
 			}
 
-			if (player.transform.position.x > startScroll) {
 				
-				//move up the camera if we are above the 3/4ths mark, move down if we are below the 1/4th mark of the screen
-				if (player.transform.position.y > (transform.position.y + transform.position.y + Camera.main.orthographicSize) / 2)
-				{
-					ydir = Camera.main.orthographicSize / 4;
-				}
-				else if (player.transform.position.y < (transform.position.y + transform.position.y - Camera.main.orthographicSize) / 2)
-				{
-					ydir = -Camera.main.orthographicSize / 4;
-				}
-				else
-				{
-					ydir = 0;
-				}
-
-				//MoveTowards for smoother camera transitions 
-				float newY = (player.transform.position.y - 2.5f < camOriginalPosition.y) ? camOriginalPosition.y : player.transform.position.y - 2.5f;
-				var newVec = new Vector3 (player.transform.position.x + 5.5f, newY, transform.position.z);
-				float speed = player.GetComponent<Rigidbody2D>().velocity.magnitude;
-				float step = Mathf.Abs(speed * Time.deltaTime);
-				transform.position = Vector3.Lerp(transform.position, newVec, 0.125f);
+			//move up the camera if we are above the 3/4ths mark, move down if we are below the 1/4th mark of the screen
+			if (player.transform.position.y > (transform.position.y + transform.position.y + Camera.main.orthographicSize) / 2)
+			{
+				ydir = Camera.main.orthographicSize / 4;
 			}
+			else if (player.transform.position.y < (transform.position.y + transform.position.y - Camera.main.orthographicSize) / 2)
+			{
+				ydir = -Camera.main.orthographicSize / 4;
+			}
+			else
+			{
+				ydir = 0;
+			}
+
+			//MoveTowards for smoother camera transitions 
+			float newY = (player.transform.position.y - 2.5f < camOriginalPosition.y) ? camOriginalPosition.y : player.transform.position.y - 2.5f;
+			var newVec = new Vector3 (player.transform.position.x + 5.5f, newY, transform.position.z);
+			float speed = player.GetComponent<Rigidbody2D>().velocity.magnitude;
+			float step = Mathf.Abs(speed * Time.deltaTime);
+			transform.position = Vector3.Lerp(transform.position, newVec, 0.125f);
 		}
 	}
 

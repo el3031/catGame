@@ -9,15 +9,14 @@ public class PigeonSpawn : MonoBehaviour
     [SerializeField] private float maxTime;
     [SerializeField] private LayerMask groundLayer;
     public bool canSpawn;
-    private int i = 0;
 
     // Start is called before the first frame update
     void Update()
     {
-        if (canSpawn && i == 0)
+        if (canSpawn)
         {
             Spawn();
-            i++;
+            canSpawn = false;
         }
     }
 
