@@ -27,7 +27,7 @@ public class CatMovement : MonoBehaviour
     [SerializeField] private LayerMask Ground;
     
     /**** max jump force ****/
-    private float jumpForce = 500f;
+    private float jumpForce = 700f;
 
     /**** cat sound effects ****/
     private AudioSource meow;
@@ -98,6 +98,28 @@ public class CatMovement : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Building")
+        {
+            //Debug.Log("contact points: " + other.contactCount);
+            Debug.Log("min x: " + other.collider.bounds.min.x);
+            Debug.Log("max y: " + other.collider.bounds.max.y);
+            for (int i = 0; i < other.contactCount; i++)
+            {
+                Vector2 contactPoint = other.GetContact(i).point;
+                Debug.Log("contactPoint: " + contactPoint);
+                if ((Mathf.Abs(contactPoint.x - other.collider.bounds.min.x) < 0.1f || Mathf.Abs(contactPoint.x - other.collider.bounds.max.x) < 0.1f) && contactPoint.y < other.collider.bounds.max.y)
+                {
+                    Debug.Log("collide with side of building");
+                    GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -9.8f));
+                    //GetComponent<Rigidbody2D>().Sleep();
+                    //boxcollider2D.enabled = false;
+                }
+            }   
+        }
     }
 
     bool isGrounded()
@@ -203,7 +225,6 @@ public class CatMovement : MonoBehaviour
         else if (other.CompareTag("Cheese"))
         {
             Camera.main.GetComponent<pancam>().playerScore += 100;
-            Debug.Log("cheese touch!");
             Destroy(other.gameObject);
         }
     }

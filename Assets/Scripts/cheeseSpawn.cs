@@ -31,7 +31,6 @@ public class cheeseSpawn : MonoBehaviour
             spawnY = Random.Range(Camera.main.orthographicSize * 2, onBuilding.collider.bounds.max.y);
         }
         Vector3 spawnLoc = new Vector3(transform.position.x, spawnY, player.transform.position.z);
-        Debug.Log("cheese spawn spot: " + spawnLoc);
         Instantiate(cheese, spawnLoc, Quaternion.identity);
         Invoke("Spawn", Random.Range(minTime, maxTime));
     }
