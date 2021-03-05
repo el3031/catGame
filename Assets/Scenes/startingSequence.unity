@@ -594,6 +594,7 @@ GameObject:
   - component: {fileID: 332351672}
   - component: {fileID: 332351673}
   - component: {fileID: 332351671}
+  - component: {fileID: 332351674}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -613,7 +614,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 1.8800002
+  m_Mass: 2.7637968
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -847,6 +848,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   BGMusicObject: {fileID: 1206511677}
+--- !u!58 &332351674
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332351666}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -1.3940228, y: -3.8790238}
+  serializedVersion: 2
+  m_Radius: 5.893302
 --- !u!1 &376996241
 GameObject:
   m_ObjectHideFlags: 0
