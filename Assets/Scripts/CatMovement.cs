@@ -19,6 +19,7 @@ public class CatMovement : MonoBehaviour
     [SerializeField] private Animator gameOverAnim;
     [SerializeField] private Animator restartAnim;
     [SerializeField] private string nextScene;
+    private bool onSide = false;
     
     /**** for rotating the cat ****/
     private Vector3 currentEuler;
@@ -104,7 +105,7 @@ public class CatMovement : MonoBehaviour
         transform.localScale = scale;
     }
 
-    void OnCollisionStay2D(Collision2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Building")
         {
@@ -118,13 +119,11 @@ public class CatMovement : MonoBehaviour
                 if ((Mathf.Abs(contactPoint.x - other.collider.bounds.min.x) < 0.1f || Mathf.Abs(contactPoint.x - other.collider.bounds.max.x) < 0.1f) && Mathf.Abs(contactPoint.y - other.collider.bounds.max.y) > 0.7f && !grounded)
                 {
                     Debug.Log("collided with side of building");
-                    float collisionTime = Time.time;
-                    if (Time.time - collisionTime > 1f)
-                    {
-                        boxcollider2D.enabled = false;
-                        Debug.Log("time's up");
-                        GetComponent<CircleCollider2D>().enabled = true;
-                    }
+                    //float collisionTime = Time.time;
+                    //while (Time.time - collisionTime < 1){};
+                    onSide = true;
+                    StartCoroutine(catFall());
+                    
                     //rigidbody2D.AddForce(new Vector2(0, -9.8f));
                     //other.collider.enabled = false;
                     //rigidbody2D.Sleep();
@@ -132,6 +131,25 @@ public class CatMovement : MonoBehaviour
 
                 }
             }   
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Building")
+        {
+            onSide = false;
+        }
+    }
+
+    IEnumerator catFall()
+    {
+        yield return new WaitForSeconds(1f);
+        if (onSide)
+        {
+            Debug.Log("time's up");
+            boxcollider2D.enabled = false;
+            GetComponent<CircleCollider2D>().enabled = true;
         }
     }
 
