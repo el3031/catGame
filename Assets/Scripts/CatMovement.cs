@@ -38,6 +38,9 @@ public class CatMovement : MonoBehaviour
     [SerializeField] private GameObject BGMusicObject;
     private AudioSource BGMusic;
     
+    private bool raycastEnabled = true;
+
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -65,8 +68,11 @@ public class CatMovement : MonoBehaviour
         grounded = isGrounded();
         anim.SetBool("Ground", grounded);
         
+        float move = 0f;
         //horizontal motion
-        float move = Input.GetAxis("Horizontal");
+        if (raycastEnabled) { //if cat is on the side of the building for a long time, disable movement
+            move = Input.GetAxis("Horizontal");
+        }
         if (grounded)
         {
             CheckGround(new Vector3(transform.position.x, transform.position.y - (boxcollider2D.size.x / 2) + 0.2f, transform.position.z));
@@ -116,7 +122,8 @@ public class CatMovement : MonoBehaviour
             {
                 Vector2 contactPoint = other.GetContact(i).point;
                 //Debug.Log("contactPoint: " + contactPoint);
-                if ((Mathf.Abs(contactPoint.x - other.collider.bounds.min.x) < 0.1f || Mathf.Abs(contactPoint.x - other.collider.bounds.max.x) < 0.1f) && Mathf.Abs(contactPoint.y - other.collider.bounds.max.y) > 0.7f && !grounded)
+                if ((Mathf.Abs(contactPoint.x - other.collider.bounds.min.x) < 0.2f || Mathf.Abs(contactPoint.x - other.collider.bounds.max.x) < 0.2f) 
+                    && (contactPoint.y < (other.collider.bounds.max.y * 0.8f)) && !grounded)
                 {
                     Debug.Log("collided with side of building");
                     //float collisionTime = Time.time;
@@ -144,10 +151,13 @@ public class CatMovement : MonoBehaviour
 
     IEnumerator catFall()
     {
-        yield return new WaitForSeconds(1f);
+        Debug.Log("entered cat fall");
+        yield return new WaitForSeconds(0.75f);
         if (onSide)
         {
             Debug.Log("time's up");
+            raycastEnabled = false;
+            //boxcollider2D.size = Vector3.zero;
             boxcollider2D.enabled = false;
             GetComponent<CircleCollider2D>().enabled = true;
         }
@@ -155,10 +165,17 @@ public class CatMovement : MonoBehaviour
 
     bool isGrounded()
     {
+        if (raycastEnabled == false) {
+            return false;
+        }
+
         float extraHeight = 0.5f;
+
+        Debug.Log("sup" + boxcollider2D.enabled + boxcollider2D.bounds.min.x);
+
         
-        Vector2 backFeetOrigin = new Vector2(boxcollider2D.bounds.min.x, boxcollider2D.bounds.min.y);
-        Vector2 frontFeetOrigin = new Vector2(boxcollider2D.bounds.max.x, boxcollider2D.bounds.min.y);
+        Vector2 backFeetOrigin = new Vector2(boxcollider2D.bounds.min.x + .5f, boxcollider2D.bounds.min.y);
+        Vector2 frontFeetOrigin = new Vector2(boxcollider2D.bounds.max.x - .5f, boxcollider2D.bounds.min.y);
 
         RaycastHit2D backFeet = Physics2D.Raycast(backFeetOrigin, Vector2.down, extraHeight, Ground);
         RaycastHit2D frontFeet = Physics2D.Raycast(frontFeetOrigin, Vector2.down, extraHeight, Ground);
