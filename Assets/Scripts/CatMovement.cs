@@ -40,6 +40,8 @@ public class CatMovement : MonoBehaviour
     
     private bool raycastEnabled = true;
 
+    [SerializeField] private GameObject plus100;
+
 
     void Awake()
     {
@@ -272,7 +274,10 @@ public class CatMovement : MonoBehaviour
         }
         else if (other.CompareTag("Cheese"))
         {
-            Camera.main.GetComponent<pancam>().playerScore += 100;
+            Camera.main.GetComponent<pancam>().playerScore += 10;
+            Debug.Log("cheese touch");
+            Vector3 spawn100 = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y + 0.5f, other.gameObject.transform.position.z);
+            Instantiate(plus100, spawn100, Quaternion.identity);
             Destroy(other.gameObject);
         }
     }

@@ -6,7 +6,7 @@ public class Destroyer : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Building") || other.CompareTag("Pigeon") || other.CompareTag("Cheese"))
+        if (!other.CompareTag("Street"))
         {
             Destroy(other.gameObject);
         }
