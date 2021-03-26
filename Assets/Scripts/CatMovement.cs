@@ -37,6 +37,9 @@ public class CatMovement : MonoBehaviour
     private AudioSource meow;
     [SerializeField] private GameObject BGMusicObject;
     private AudioSource BGMusic;
+    [SerializeField] private GameObject cheeseSpawn;
+    private AudioSource cheeseChomp;
+
     
     private bool raycastEnabled = true;
 
@@ -51,6 +54,7 @@ public class CatMovement : MonoBehaviour
         meow = GetComponent<AudioSource>();
         rigidbody2D = GetComponent<Rigidbody2D>();
         GetComponent<CircleCollider2D>().enabled = false;
+        cheeseChomp = cheeseSpawn.GetComponent<AudioSource>();
         
         if (PlayerPrefs.GetInt("Restart") == 1)
         {
@@ -172,9 +176,6 @@ public class CatMovement : MonoBehaviour
         }
 
         float extraHeight = 0.5f;
-
-        Debug.Log("sup" + boxcollider2D.enabled + boxcollider2D.bounds.min.x);
-
         
         Vector2 backFeetOrigin = new Vector2(boxcollider2D.bounds.min.x + .5f, boxcollider2D.bounds.min.y);
         Vector2 frontFeetOrigin = new Vector2(boxcollider2D.bounds.max.x - .5f, boxcollider2D.bounds.min.y);
@@ -274,6 +275,7 @@ public class CatMovement : MonoBehaviour
         }
         else if (other.CompareTag("Cheese"))
         {
+            cheeseChomp.Play();
             Camera.main.GetComponent<pancam>().playerScore += 10;
             Debug.Log("cheese touch");
             Vector3 spawn100 = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y + 0.5f, other.gameObject.transform.position.z);
