@@ -15,7 +15,7 @@ public class PigeonSpawn : MonoBehaviour
     {
         if (canSpawn)
         {
-            Spawn();
+            Invoke("Spawn", Random.Range(minTime, maxTime));
             canSpawn = false;
         }
     }

@@ -6,6 +6,10 @@ using System;
 
 public class CatMovement : MonoBehaviour
 {
+    /**** general movement variables ****/
+    private BoxCollider2D boxcollider2D;
+    private Rigidbody2D rigidbody2D;
+
     /**** instance variables for horizontal movement ***/
     private float maxSpeed = 5f;
     private bool facingLeft = true;
@@ -15,7 +19,7 @@ public class CatMovement : MonoBehaviour
     [SerializeField] private Animator gameOverAnim;
     [SerializeField] private Animator restartAnim;
     [SerializeField] private string nextScene;
-    private BoxCollider2D boxcollider2D;
+    private bool onSide = false;
     
     /**** for rotating the cat ****/
     private Vector3 currentEuler;
@@ -27,20 +31,30 @@ public class CatMovement : MonoBehaviour
     [SerializeField] private LayerMask Ground;
     
     /**** max jump force ****/
-    private float jumpForce = 500f;
+    private float jumpForce = 400f;
 
     /**** cat sound effects ****/
     private AudioSource meow;
     [SerializeField] private GameObject BGMusicObject;
     private AudioSource BGMusic;
+    [SerializeField] private GameObject cheeseSpawn;
+    private AudioSource cheeseChomp;
+
     
+    private bool raycastEnabled = true;
+
+    [SerializeField] private GameObject plus100;
+
+
     void Awake()
     {
         anim = GetComponent<Animator>();
         boxcollider2D = transform.GetComponent<BoxCollider2D>();
         BGMusic = BGMusicObject.GetComponent<AudioSource>();
         meow = GetComponent<AudioSource>();
-
+        rigidbody2D = GetComponent<Rigidbody2D>();
+        GetComponent<CircleCollider2D>().enabled = false;
+        cheeseChomp = cheeseSpawn.GetComponent<AudioSource>();
         
         if (PlayerPrefs.GetInt("Restart") == 1)
         {
@@ -56,12 +70,15 @@ public class CatMovement : MonoBehaviour
     void FixedUpdate()
     {
         //vertical motion
-        anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
+        anim.SetFloat("vSpeed", rigidbody2D.velocity.y);
         grounded = isGrounded();
         anim.SetBool("Ground", grounded);
         
+        float move = 0f;
         //horizontal motion
-        float move = Input.GetAxis("Horizontal");
+        if (raycastEnabled) { //if cat is on the side of the building for a long time, disable movement
+            move = Input.GetAxis("Horizontal");
+        }
         if (grounded)
         {
             CheckGround(new Vector3(transform.position.x, transform.position.y - (boxcollider2D.size.x / 2) + 0.2f, transform.position.z));
@@ -73,8 +90,8 @@ public class CatMovement : MonoBehaviour
         Quaternion newAngle = Quaternion.Euler(0, 0, groundSlopeAngle);
         transform.rotation = Quaternion.Slerp(transform.rotation, newAngle, 0.5f);
 
-        GetComponent<Rigidbody2D>().velocity = new Vector3
-                    (move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
+        rigidbody2D.velocity = new Vector3
+                    (move * maxSpeed, rigidbody2D.velocity.y);
         anim.SetFloat("Speed", Mathf.Abs(move));
 
         if (move < 0 && facingLeft || move > 0 && !facingLeft)
@@ -88,7 +105,7 @@ public class CatMovement : MonoBehaviour
         if (grounded && Input.GetKeyDown(KeyCode.Space))
         {
             anim.SetBool("Ground", false);
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
+            rigidbody2D.AddForce(new Vector2(0, jumpForce));
         }
     }
 
@@ -100,12 +117,68 @@ public class CatMovement : MonoBehaviour
         transform.localScale = scale;
     }
 
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Building")
+        {
+            //Debug.Log("contact points: " + other.contactCount);
+            //Debug.Log("min x: " + other.collider.bounds.min.x);
+            //Debug.Log("max y: " + other.collider.bounds.max.y);
+            for (int i = 0; i < other.contactCount; i++)
+            {
+                Vector2 contactPoint = other.GetContact(i).point;
+                //Debug.Log("contactPoint: " + contactPoint);
+                if ((Mathf.Abs(contactPoint.x - other.collider.bounds.min.x) < 0.2f || Mathf.Abs(contactPoint.x - other.collider.bounds.max.x) < 0.2f) 
+                    && (contactPoint.y < (other.collider.bounds.max.y * 0.8f)) && !grounded)
+                {
+                    Debug.Log("collided with side of building");
+                    //float collisionTime = Time.time;
+                    //while (Time.time - collisionTime < 1){};
+                    onSide = true;
+                    StartCoroutine(catFall());
+                    
+                    //rigidbody2D.AddForce(new Vector2(0, -9.8f));
+                    //other.collider.enabled = false;
+                    //rigidbody2D.Sleep();
+                    
+
+                }
+            }   
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Building")
+        {
+            onSide = false;
+        }
+    }
+
+    IEnumerator catFall()
+    {
+        Debug.Log("entered cat fall");
+        yield return new WaitForSeconds(0.75f);
+        if (onSide)
+        {
+            Debug.Log("time's up");
+            raycastEnabled = false;
+            //boxcollider2D.size = Vector3.zero;
+            boxcollider2D.enabled = false;
+            GetComponent<CircleCollider2D>().enabled = true;
+        }
+    }
+
     bool isGrounded()
     {
+        if (raycastEnabled == false) {
+            return false;
+        }
+
         float extraHeight = 0.5f;
         
-        Vector2 backFeetOrigin = new Vector2(boxcollider2D.bounds.min.x, boxcollider2D.bounds.min.y);
-        Vector2 frontFeetOrigin = new Vector2(boxcollider2D.bounds.max.x, boxcollider2D.bounds.min.y);
+        Vector2 backFeetOrigin = new Vector2(boxcollider2D.bounds.min.x + .5f, boxcollider2D.bounds.min.y);
+        Vector2 frontFeetOrigin = new Vector2(boxcollider2D.bounds.max.x - .5f, boxcollider2D.bounds.min.y);
 
         RaycastHit2D backFeet = Physics2D.Raycast(backFeetOrigin, Vector2.down, extraHeight, Ground);
         RaycastHit2D frontFeet = Physics2D.Raycast(frontFeetOrigin, Vector2.down, extraHeight, Ground);
@@ -195,15 +268,18 @@ public class CatMovement : MonoBehaviour
     {
         if (other.CompareTag("Street") || other.CompareTag("Pigeon"))
         {
-            transform.position = Vector3.zero;
+            rigidbody2D.velocity = Vector3.zero;
             BGMusic.Stop();
             meow.Play();
             StartCoroutine(LoadScene());
         }
         else if (other.CompareTag("Cheese"))
         {
-            Camera.main.GetComponent<pancam>().playerScore += 100;
-            Debug.Log("cheese touch!");
+            cheeseChomp.Play();
+            Camera.main.GetComponent<pancam>().playerScore += 10;
+            Debug.Log("cheese touch");
+            Vector3 spawn100 = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y + 0.5f, other.gameObject.transform.position.z);
+            Instantiate(plus100, spawn100, Quaternion.identity);
             Destroy(other.gameObject);
         }
     }

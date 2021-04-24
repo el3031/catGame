@@ -57,13 +57,13 @@ public class RestartGame : MonoBehaviour
         //restartGameAnim.SetTrigger("restart");
         
         float moveDurationTimer = 0.0f;
-        float moveDuration = 1.5f;
+        float moveDuration = 1.2f;
 
         while (moveDurationTimer < moveDuration) 
         {
             moveDurationTimer += Time.deltaTime;
             // Lerp using initial value!
-            transform.position = Vector2.Lerp(scoreCard.transform.position, scoreCardHidden, moveDurationTimer / moveDuration);
+            scoreCard.transform.position = Vector2.Lerp(scoreCard.transform.position, scoreCardHidden, moveDurationTimer / moveDuration);
             yield return null;
         }
         PlayerPrefs.SetInt("Restart", 1);
