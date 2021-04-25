@@ -8,6 +8,7 @@ public class startGameButton : MonoBehaviour
 {
     private Button startButton;
     [SerializeField] private string nextScene;
+    [SerializeField] private Animator startTransitionAnim;
 
     void Start()
     {
@@ -17,13 +18,14 @@ public class startGameButton : MonoBehaviour
 
     void startGame()
     {
-        SceneManager.LoadScene(nextScene);
-        //StartCoroutine(toStartingSequence());
+        
+        StartCoroutine(toStartingSequence());
     }
 
     IEnumerator toStartingSequence()
     {
-        
-        yield return null;
+        startTransitionAnim.SetTrigger("startGame");
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(nextScene);
     }
 }
