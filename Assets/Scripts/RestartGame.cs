@@ -24,7 +24,7 @@ public class RestartGame : MonoBehaviour
         //change later!
         score = PlayerPrefs.GetInt("Score");
         scoreGUI.horizontalOverflow = HorizontalWrapMode.Overflow;
-        scoreCardHidden = new Vector3(0, 1000, 0);
+        scoreCardHidden = new Vector3(0, 1200, 0);
         scoreCardShown = Vector3.zero;
         restart.onClick.AddListener(RestartOnClick);
         mainMenu.onClick.AddListener(toMainMenu);
@@ -47,7 +47,8 @@ public class RestartGame : MonoBehaviour
 
     void toMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        nextScene = "MainMenu";
+        StartCoroutine(LoadScene());
     }
     
     IEnumerator LoadScene()
@@ -57,7 +58,7 @@ public class RestartGame : MonoBehaviour
         //restartGameAnim.SetTrigger("restart");
         
         float moveDurationTimer = 0.0f;
-        float moveDuration = 1f;
+        float moveDuration = 0.8f;
 
         while (moveDurationTimer < moveDuration) 
         {

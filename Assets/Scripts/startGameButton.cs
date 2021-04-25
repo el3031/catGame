@@ -9,7 +9,15 @@ public class startGameButton : MonoBehaviour
     private Button startButton;
     [SerializeField] private string nextScene;
     [SerializeField] private Animator startTransitionAnim;
+    [SerializeField] private Animator fromGameOverAnim;
 
+    void Awake()
+    {
+        if (PlayerPrefs.GetInt("Restart") != 1)
+        {
+            fromGameOverAnim.enabled = false;
+        }
+    }
     void Start()
     {
         startButton = GetComponent<Button>();
@@ -18,7 +26,6 @@ public class startGameButton : MonoBehaviour
 
     void startGame()
     {
-        
         StartCoroutine(toStartingSequence());
     }
 

@@ -287,7 +287,7 @@ public class CatMovement : MonoBehaviour
     {
         restartAnim.SetTrigger("restart");
         restartAnim.SetTrigger("inGame");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.8f);
         PlayerPrefs.SetInt("Restart", 0);
         meow.Play();
         BGMusic.Play();
