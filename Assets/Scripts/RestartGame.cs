@@ -9,10 +9,10 @@ public class RestartGame : MonoBehaviour
     [SerializeField] private string nextScene;
     [SerializeField] private Animator restartGameAnim;
     [SerializeField] private Text scoreGUI;
-    [SerializeField] private GameObject scoreCard;
+    [SerializeField] private RectTransform scoreCard;
     [SerializeField] private Transform mainCameraPosition;
     [SerializeField] private Button restart;
-    [SerializeField] private Button quit;
+    [SerializeField] private Button mainMenu;
     [SerializeField] private GameObject player;
     private Vector3 scoreCardHidden;
     private Vector3 scoreCardShown;
@@ -24,15 +24,15 @@ public class RestartGame : MonoBehaviour
         //change later!
         score = PlayerPrefs.GetInt("Score");
         scoreGUI.horizontalOverflow = HorizontalWrapMode.Overflow;
-        scoreCardHidden = new Vector3(0, 10f, 0);
+        scoreCardHidden = new Vector3(0, 1000, 0);
         scoreCardShown = Vector3.zero;
         restart.onClick.AddListener(RestartOnClick);
-        quit.onClick.AddListener(Quit);
+        mainMenu.onClick.AddListener(toMainMenu);
     }
     
     void FixedUpdate()
     {
-        scoreCard.transform.position = Vector3.Lerp(scoreCard.transform.position, scoreCardShown, 0.125f);
+        scoreCard.anchoredPosition = Vector3.Lerp(scoreCard.anchoredPosition, scoreCardShown, 0.125f);
     }
     
     void OnGUI()
@@ -45,9 +45,9 @@ public class RestartGame : MonoBehaviour
         StartCoroutine(LoadScene());
     }
 
-    void Quit()
+    void toMainMenu()
     {
-        Application.Quit();
+        SceneManager.LoadScene("MainMenu");
     }
     
     IEnumerator LoadScene()
@@ -57,13 +57,13 @@ public class RestartGame : MonoBehaviour
         //restartGameAnim.SetTrigger("restart");
         
         float moveDurationTimer = 0.0f;
-        float moveDuration = 1.2f;
+        float moveDuration = 1f;
 
         while (moveDurationTimer < moveDuration) 
         {
             moveDurationTimer += Time.deltaTime;
             // Lerp using initial value!
-            scoreCard.transform.position = Vector2.Lerp(scoreCard.transform.position, scoreCardHidden, moveDurationTimer / moveDuration);
+            scoreCard.anchoredPosition = Vector2.Lerp(scoreCard.anchoredPosition, scoreCardHidden, moveDurationTimer / moveDuration);
             yield return null;
         }
         PlayerPrefs.SetInt("Restart", 1);

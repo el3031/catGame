@@ -56,15 +56,7 @@ public class CatMovement : MonoBehaviour
         GetComponent<CircleCollider2D>().enabled = false;
         cheeseChomp = cheeseSpawn.GetComponent<AudioSource>();
         
-        if (PlayerPrefs.GetInt("Restart") == 1)
-        {
-            StartCoroutine(RestartAnimation());
-        }
-        else
-        {
-            BGMusic.Play();
-            meow.Play();
-        }
+        StartCoroutine(StartGameAnimation());
     }
 
     void FixedUpdate()
@@ -291,7 +283,7 @@ public class CatMovement : MonoBehaviour
         SceneManager.LoadScene(nextScene);
     }
 
-    IEnumerator RestartAnimation()
+    IEnumerator StartGameAnimation()
     {
         restartAnim.SetTrigger("restart");
         restartAnim.SetTrigger("inGame");
