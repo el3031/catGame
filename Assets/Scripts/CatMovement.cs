@@ -20,6 +20,9 @@ public class CatMovement : MonoBehaviour
     [SerializeField] private Animator restartAnim;
     [SerializeField] private string nextScene;
     private bool onSide = false;
+    private bool raycastEnabled = true;
+    private bool canStart = false;
+
     
     /**** for rotating the cat ****/
     private Vector3 currentEuler;
@@ -39,12 +42,7 @@ public class CatMovement : MonoBehaviour
     private AudioSource BGMusic;
     [SerializeField] private GameObject cheeseSpawn;
     private AudioSource cheeseChomp;
-
-    
-    private bool raycastEnabled = true;
-
     [SerializeField] private GameObject plus100;
-
 
     void Awake()
     {
@@ -68,7 +66,7 @@ public class CatMovement : MonoBehaviour
         
         float move = 0f;
         //horizontal motion
-        if (raycastEnabled) { //if cat is on the side of the building for a long time, disable movement
+        if (raycastEnabled && canStart) { //if cat is on the side of the building for a long time, disable movement
             move = Input.GetAxis("Horizontal");
         }
         if (grounded)
@@ -287,9 +285,10 @@ public class CatMovement : MonoBehaviour
     {
         restartAnim.SetTrigger("restart");
         restartAnim.SetTrigger("inGame");
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(1f);
         PlayerPrefs.SetInt("Restart", 0);
         meow.Play();
         BGMusic.Play();
+        canStart = true;
     }
 }

@@ -9,7 +9,6 @@ public class pancam : MonoBehaviour {
 	public GameObject street;
 	private float playerMaxX;
 	private Vector3 camOriginalPosition;
-	private AudioSource thousandPoints;
 	//for our GUIText object and our score
 	public Text gui;
 	public float playerScore = 0;
@@ -20,17 +19,12 @@ public class pancam : MonoBehaviour {
 		gui.horizontalOverflow = HorizontalWrapMode.Overflow;
 		playerMaxX = player.transform.position.x;
 		camOriginalPosition = transform.position;
-		thousandPoints = GetComponent<AudioSource>();
 	}
 	
 	void OnGUI()
 	{
 		int properScore = (int)(playerScore * 10);
 		gui.text = "Score: " + properScore.ToString();
-		if (properScore % 1000 == 0 && properScore != 0)
-		{
-			thousandPoints.Play();
-		}
 	}
 	//this is generic function we can call to increase the score by an amount
 	public void increaseScore(int amount){
