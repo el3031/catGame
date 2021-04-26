@@ -9,7 +9,7 @@ public class cheeseSpawn : MonoBehaviour
     [SerializeField] private float minTime;
     [SerializeField] private float maxTime;
     [SerializeField] private LayerMask groundLayer;
-    private float lastSpawnX;
+    private double lastSpawnX;
     
     // Start is called before the first frame update
     void Start()
@@ -29,7 +29,7 @@ public class cheeseSpawn : MonoBehaviour
         float spawnY = Random.Range(Camera.main.orthographicSize * 2, player.transform.position.y);
         if (onBuilding.collider != null)
         {
-            spawnY = Random.Range(Camera.main.orthographicSize * 2, onBuilding.collider.bounds.max.y * 0.8);
+            spawnY = Random.Range(Camera.main.orthographicSize * 2, onBuilding.collider.bounds.max.y * 0.8f);
         }
         Vector3 spawnLoc = new Vector3(transform.position.x, spawnY, player.transform.position.z);
         if (lastSpawnX != spawnLoc.x)
