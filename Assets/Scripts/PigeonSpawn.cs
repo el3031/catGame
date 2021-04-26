@@ -8,9 +8,15 @@ public class PigeonSpawn : MonoBehaviour
     [SerializeField] private float minTime;
     [SerializeField] private float maxTime;
     [SerializeField] private LayerMask groundLayer;
+
+    private double lastSpawnX;
     public bool canSpawn;
 
     // Start is called before the first frame update
+    void Start()
+    {
+        lastSpawnX = transform.position.x;
+    }
     void Update()
     {
         if (canSpawn)
@@ -26,9 +32,10 @@ public class PigeonSpawn : MonoBehaviour
         float buildingSlope = Vector2.Angle(onBuilding.normal, Vector2.up);
         Debug.DrawRay(transform.position, Vector2.down * Camera.main.orthographicSize * 2, Color.green);
         Vector3 spawnLoc = new Vector3(onBuilding.point.x, onBuilding.point.y + 3f, 0);
-        if (onBuilding.collider != null && Mathf.Abs(buildingSlope) < 5f)
+        if (onBuilding.collider != null && Mathf.Abs(buildingSlope) < 5f && lastSpawnX != spawnLoc.x)
         {
             Instantiate(pigeon, spawnLoc, Quaternion.identity);
+            lastSpawnX = spawnLoc.x;
             Invoke("Spawn", Random.Range(minTime, maxTime));
         }
         else
