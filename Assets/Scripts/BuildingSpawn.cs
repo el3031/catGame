@@ -12,6 +12,7 @@ public class BuildingSpawn : MonoBehaviour
     private float lastBuildingLeft;
     private float lastBuildingRight;
     private int prev;
+    private float lastPigeonSpawnedX;
     
     // Start is called before the first frame update
     void Start()

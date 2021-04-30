@@ -52,7 +52,8 @@ public class CatMovement : MonoBehaviour
         meow = GetComponent<AudioSource>();
         rigidbody2D = GetComponent<Rigidbody2D>();
         GetComponent<CircleCollider2D>().enabled = false;
-        cheeseChomp = cheeseSpawn.GetComponent<AudioSource>();        
+        cheeseChomp = cheeseSpawn.GetComponent<AudioSource>();  
+        restartAnim.enabled = true;      
         StartCoroutine(StartGameAnimation());
     }
 
@@ -261,7 +262,6 @@ public class CatMovement : MonoBehaviour
         }
         else if (other.CompareTag("Cheese"))
         {
-            Debug.Log("playing cheeseChomp");
             cheeseChomp.Play();
             Camera.main.GetComponent<pancam>().playerScore += 10;
             Vector3 spawn100 = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y + 0.5f, other.gameObject.transform.position.z);
@@ -280,10 +280,10 @@ public class CatMovement : MonoBehaviour
     IEnumerator StartGameAnimation()
     {
         restartAnim.SetTrigger("CircleB2S");
-        yield return new WaitForSeconds(1f);
-        PlayerPrefs.SetInt("Restart", 0);
         meow.Play();
         BGMusic.Play();
+        yield return new WaitForSeconds(1f);
+        PlayerPrefs.SetInt("Restart", 0);
         canStart = true;
     }
 }

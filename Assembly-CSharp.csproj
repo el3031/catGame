@@ -39,8 +39,10 @@
      <Compile Include="Assets\Scripts\Destroyer.cs" />
      <Compile Include="Assets\Scripts\pancam.cs" />
      <Compile Include="Assets\Scripts\cheeseSpawn.cs" />
+     <Compile Include="Assets\Scripts\startGameButton.cs" />
      <Compile Include="Assets\Scripts\newStreetPar.cs" />
      <Compile Include="Assets\Scripts\PigeonSpawn.cs" />
+     <Compile Include="Assets\Scripts\RotateEyeball.cs" />
      <Compile Include="Assets\Scripts\CatMovement.cs" />
      <Compile Include="Assets\Scripts\BGMusic.cs" />
      <Compile Include="Assets\Scripts\backgroundScale.cs" />
@@ -51,8 +53,7 @@
      <Compile Include="Assets\Scripts\streetParallax.cs" />
      <Compile Include="Assets\Scripts\streetView.cs" />
      <Compile Include="Assets\Scripts\CanvasFade.cs" />
-     <Compile Include="Assets\Scripts\startGameButton.cs" />
-     <Compile Include="Assets\Scripts\RotateEyeball.cs" />
+     <Compile Include="Assets\Scripts\cheeseChoir.cs" />
     <Reference Include="UnityEngine">
         <HintPath>/Applications/Unity/Hub/Editor/2020.1.2f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

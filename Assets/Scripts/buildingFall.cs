@@ -7,6 +7,7 @@ public class buildingFall : MonoBehaviour
     // Start is called before the first frame update
     Rigidbody2D rb;
     private bool stop;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
