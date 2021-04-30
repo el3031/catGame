@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class startGameButton : MonoBehaviour
 {
     private Button startButton;
+    [SerializeField] private Button quit;
     [SerializeField] private string nextScene;
     [SerializeField] private Animator startTransitionAnim;
     [SerializeField] private Animator fromGameOverAnim;
@@ -21,9 +22,14 @@ public class startGameButton : MonoBehaviour
     void Start()
     {
         startButton = GetComponent<Button>();
+        quit.onClick.AddListener(quitGame);
         startButton.onClick.AddListener(startGame);
     }
 
+    void quitGame()
+    {
+        Application.Quit(0);
+    }
     void startGame()
     {
         StartCoroutine(toStartingSequence());
@@ -31,7 +37,7 @@ public class startGameButton : MonoBehaviour
 
     IEnumerator toStartingSequence()
     {
-        startTransitionAnim.SetTrigger("startGame");
+        startTransitionAnim.SetTrigger("CircleS2B");
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(nextScene);
     }

@@ -52,8 +52,7 @@ public class CatMovement : MonoBehaviour
         meow = GetComponent<AudioSource>();
         rigidbody2D = GetComponent<Rigidbody2D>();
         GetComponent<CircleCollider2D>().enabled = false;
-        cheeseChomp = cheeseSpawn.GetComponent<AudioSource>();
-        
+        cheeseChomp = cheeseSpawn.GetComponent<AudioSource>();        
         StartCoroutine(StartGameAnimation());
     }
 
@@ -121,7 +120,6 @@ public class CatMovement : MonoBehaviour
                 if ((Mathf.Abs(contactPoint.x - other.collider.bounds.min.x) < 0.2f || Mathf.Abs(contactPoint.x - other.collider.bounds.max.x) < 0.2f) 
                     && (contactPoint.y < (other.collider.bounds.max.y * 0.8f)) && !grounded)
                 {
-                    Debug.Log("collided with side of building");
                     //float collisionTime = Time.time;
                     //while (Time.time - collisionTime < 1){};
                     onSide = true;
@@ -147,11 +145,9 @@ public class CatMovement : MonoBehaviour
 
     IEnumerator catFall()
     {
-        Debug.Log("entered cat fall");
         yield return new WaitForSeconds(0.75f);
         if (onSide)
         {
-            Debug.Log("time's up");
             raycastEnabled = false;
             //boxcollider2D.size = Vector3.zero;
             boxcollider2D.enabled = false;
@@ -265,9 +261,9 @@ public class CatMovement : MonoBehaviour
         }
         else if (other.CompareTag("Cheese"))
         {
+            Debug.Log("playing cheeseChomp");
             cheeseChomp.Play();
             Camera.main.GetComponent<pancam>().playerScore += 10;
-            Debug.Log("cheese touch");
             Vector3 spawn100 = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y + 0.5f, other.gameObject.transform.position.z);
             Instantiate(plus100, spawn100, Quaternion.identity);
             Destroy(other.gameObject);
@@ -276,15 +272,14 @@ public class CatMovement : MonoBehaviour
 
     IEnumerator LoadScene()
     {
-        gameOverAnim.SetTrigger("end");
+        gameOverAnim.SetTrigger("CircleS2B");
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(nextScene);
     }
 
     IEnumerator StartGameAnimation()
     {
-        restartAnim.SetTrigger("restart");
-        restartAnim.SetTrigger("inGame");
+        restartAnim.SetTrigger("CircleB2S");
         yield return new WaitForSeconds(1f);
         PlayerPrefs.SetInt("Restart", 0);
         meow.Play();

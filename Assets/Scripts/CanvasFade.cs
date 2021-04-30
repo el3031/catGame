@@ -7,45 +7,55 @@ public class CanvasFade : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private CanvasGroup welcomeMessage;
     [SerializeField] private CanvasGroup pigeonMessage;
+    [SerializeField] private CanvasGroup cheeseMessage;
     [SerializeField] private CanvasGroup score;
     [SerializeField] private GameObject pigeonSpawn;
     [SerializeField] private GameObject gameOverCircle;
+    [SerializeField] private GameObject restartCircle;
+    private bool fadeStart = false;
     void Start()
     {
         welcomeMessage.alpha = 0;
         pigeonMessage.alpha = 0;
         score.alpha = 0;
-        StartCoroutine(FadeInOut(welcomeMessage, pigeonMessage));
     }
 
     void Update()
     {
-        if (gameOverCircle.transform.localScale.x > 1)
+        if ((gameOverCircle.transform.localScale.x > 0 || restartCircle.transform.localScale.x > 0) &&
+            !fadeStart)
         {
             welcomeMessage.alpha = 0f;
             score.alpha = 0f;
             pigeonMessage.alpha = 0f;
+            cheeseMessage.alpha = 0f;
+        }
+        else if (gameOverCircle.transform.localScale.x == 0 && 
+                 restartCircle.transform.localScale.x == 0 &&
+                 !fadeStart)
+        {
+            fadeStart = true;
+            score.alpha = 1f;
+            StartCoroutine(FadeInOut());
+            Debug.Log("fadeInOut print\n");
         }
     }
 
-    IEnumerator FadeInOut(CanvasGroup firstMessage, CanvasGroup secondMessage)
+    IEnumerator FadeInOut()
     {
-        bool restarted = false;
-        if (PlayerPrefs.GetInt("Restart") == 1)
+        if (PlayerPrefs.GetInt("Restart") != 1)
         {
-            yield return new WaitForSeconds(1.5f);
-            restarted = true;
-        }
-        score.alpha = 1f;
-        if (!restarted)
-        {
-            StartCoroutine(FadeText(firstMessage, 0f, 1f, 0.5f));
+            StartCoroutine(FadeText(welcomeMessage, 0f, 1f, 0.5f));
             yield return new WaitForSeconds(4f);
-            StartCoroutine(FadeText(firstMessage, 1f, 0f, 0.5f));
+            StartCoroutine(FadeText(welcomeMessage, 1f, 0f, 0.5f));
             yield return new WaitForSeconds(2f);
-            StartCoroutine(FadeText(secondMessage, 0f, 1f, 0.5f));
+            StartCoroutine(FadeText(cheeseMessage, 0f, 1f, 0.5f));
             yield return new WaitForSeconds(3f);
-            StartCoroutine(FadeText(secondMessage, 1f, 0f, 0.5f));
+            StartCoroutine(FadeText(cheeseMessage, 1f, 0f, 0.5f));
+            yield return new WaitForSeconds(2f);
+            StartCoroutine(FadeText(pigeonMessage, 0f, 1f, 0.5f));
+            yield return new WaitForSeconds(3f);
+            StartCoroutine(FadeText(pigeonMessage, 1f, 0f, 0.5f));
         }
         pigeonSpawn.GetComponent<PigeonSpawn>().canSpawn = true;
     }
