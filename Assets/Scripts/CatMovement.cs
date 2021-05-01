@@ -52,8 +52,13 @@ public class CatMovement : MonoBehaviour
         meow = GetComponent<AudioSource>();
         rigidbody2D = GetComponent<Rigidbody2D>();
         GetComponent<CircleCollider2D>().enabled = false;
-        cheeseChomp = cheeseSpawn.GetComponent<AudioSource>();  
-        restartAnim.enabled = true;      
+        cheeseChomp = cheeseSpawn.GetComponent<AudioSource>();      
+        
+    }
+
+    void Start()
+    {
+        restartAnim.enabled = true;
         StartCoroutine(StartGameAnimation());
     }
 
@@ -279,7 +284,6 @@ public class CatMovement : MonoBehaviour
 
     IEnumerator StartGameAnimation()
     {
-        restartAnim.SetTrigger("CircleB2S");
         meow.Play();
         BGMusic.Play();
         yield return new WaitForSeconds(1f);
