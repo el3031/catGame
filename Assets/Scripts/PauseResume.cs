@@ -24,16 +24,8 @@ public class PauseResume : MonoBehaviour
         Color mainMenuButtonColor = resumeButton.GetComponent<Image>().color;
         mainMenuButtonColor.a = 0;
         mainMenuButton.GetComponent<Image>().color = mainMenuButtonColor;
-       
-        Animator resumeButtonAnimator = resumeButton.GetComponent<Animator>();
-        resumeButtonAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
-        
-        Animator mainMenuButtonAnimator = mainMenuButton.GetComponent<Animator>();
-        mainMenuButtonAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
 
         mainMenuButton.GetComponent<Button>().enabled = false;
-
-        gameOverAnim.updateMode = AnimatorUpdateMode.UnscaledTime;
     }
     
     public void LoadMainMenu()
