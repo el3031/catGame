@@ -8,24 +8,38 @@ using UnityEngine.SceneManagement;
 public class PauseResume : MonoBehaviour
 {
     // Start is called before the first frame update
-    private bool paused = false;
+    public static bool paused = false;
     [SerializeField] private GameObject pauseButton;
     [SerializeField] private GameObject resumeButton;
     [SerializeField] private GameObject mainMenuButton;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject quitButton;
+    private Image resumeImage;
+    private Image mainMenuImage;
+    private Image quitImage;
+    private Image pauseImage;
+    private Button resumeButtonButton;
+    private Button pauseButtonButton;
+    private Button quitButtonButton;
+    private Button mainMenuButtonButton;
     [SerializeField] private Animator gameOverAnim;
 
     void Start()
     {
-        Color resumeButtonColor = resumeButton.GetComponent<Image>().color;
-        resumeButtonColor.a = 0;
-        resumeButton.GetComponent<Image>().color = resumeButtonColor;
+        pauseImage = pauseButton.GetComponent<Image>();
+        resumeImage = resumeButton.GetComponent<Image>();
+        mainMenuImage = mainMenuButton.GetComponent<Image>();
+        quitImage = quitButton.GetComponent<Image>();
 
-        Color mainMenuButtonColor = resumeButton.GetComponent<Image>().color;
-        mainMenuButtonColor.a = 0;
-        mainMenuButton.GetComponent<Image>().color = mainMenuButtonColor;
+        pauseButtonButton = pauseButton.GetComponent<Button>();
+        resumeButtonButton = resumeButton.GetComponent<Button>();
+        mainMenuButtonButton = mainMenuButton.GetComponent<Button>();
+        quitButtonButton = quitButton.GetComponent<Button>();
 
-        mainMenuButton.GetComponent<Button>().enabled = false;
+        changeButtonVisibility(pauseImage, pauseButtonButton, 1);
+        changeButtonVisibility(resumeImage, resumeButtonButton, 0);
+        changeButtonVisibility(mainMenuImage, mainMenuButtonButton, 0);
+        changeButtonVisibility(quitImage, quitButtonButton, 0);
     }
     
     public void LoadMainMenu()
@@ -46,24 +60,17 @@ public class PauseResume : MonoBehaviour
     }
     public void pause()
     {
-        Time.timeScale = 0;
-        paused = true;
-        pauseMenu.SetActive(true);
-        
-        Color pauseButtonColor = pauseButton.GetComponent<Image>().color;
-        pauseButtonColor.a = 0;
-        pauseButton.GetComponent<Image>().color = pauseButtonColor;
-
-        Color resumeButtonColor = resumeButton.GetComponent<Image>().color;
-        resumeButtonColor.a = 1;
-        resumeButton.GetComponent<Image>().color = resumeButtonColor;
-
-        Color mainMenuButtonColor = resumeButton.GetComponent<Image>().color;
-        mainMenuButtonColor.a = 1;
-        mainMenuButton.GetComponent<Image>().color = mainMenuButtonColor;
-
-        mainMenuButton.GetComponent<Button>().enabled = true;
-        
+        if (CatMovement.canPause)
+        {
+            Time.timeScale = 0;
+            paused = true;
+            pauseMenu.SetActive(true);
+            
+            changeButtonVisibility(pauseImage, pauseButtonButton, 0);
+            changeButtonVisibility(resumeImage, resumeButtonButton, 1);
+            changeButtonVisibility(mainMenuImage, mainMenuButtonButton, 1);
+            changeButtonVisibility(quitImage, quitButtonButton, 1);
+        }
     }
 
     public void resume()
@@ -72,20 +79,15 @@ public class PauseResume : MonoBehaviour
         paused = false;
         pauseMenu.SetActive(false);
         
-        mainMenuButton.GetComponent<Button>().enabled = false;
+        changeButtonVisibility(pauseImage, pauseButtonButton, 1);
+        changeButtonVisibility(resumeImage, resumeButtonButton, 0);
+        changeButtonVisibility(mainMenuImage, mainMenuButtonButton, 0);
+        changeButtonVisibility(quitImage, quitButtonButton, 0);
+    }
 
-        Color pauseButtonColor = pauseButton.GetComponent<Image>().color;
-        pauseButtonColor.a = 1;
-        pauseButton.GetComponent<Image>().color = pauseButtonColor;
-
-        Color resumeButtonColor = resumeButton.GetComponent<Image>().color;
-        resumeButtonColor.a = 0;
-        resumeButton.GetComponent<Image>().color = resumeButtonColor;
-        
-        Color mainMenuButtonColor = resumeButton.GetComponent<Image>().color;
-        mainMenuButtonColor.a = 0;
-        mainMenuButton.GetComponent<Image>().color = mainMenuButtonColor;
-        
+    public void quit()
+    {
+        Application.Quit(0);
     }
 
     void Update()
@@ -101,5 +103,13 @@ public class PauseResume : MonoBehaviour
                 pause();
             }
         }
+    }
+
+    void changeButtonVisibility(Image image, Button button, int enabled)
+    {
+        Color color = image.color;
+        color.a = enabled;
+        image.color = color;
+        button.enabled = (enabled == 1) ? true : false;
     }
 }

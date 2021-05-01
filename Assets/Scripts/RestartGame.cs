@@ -24,8 +24,8 @@ public class RestartGame : MonoBehaviour
         //change later!
         score = PlayerPrefs.GetInt("Score");
         scoreGUI.horizontalOverflow = HorizontalWrapMode.Overflow;
-        scoreCardHidden = new Vector3(0, 1200, 0);
-        scoreCardShown = Vector3.zero;
+        scoreCardHidden = new Vector3(0, 1300, 0);
+        scoreCardShown = new Vector3(0, 70, 0);
         restart.onClick.AddListener(RestartOnClick);
         mainMenu.onClick.AddListener(toMainMenu);
     }

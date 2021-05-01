@@ -44,6 +44,9 @@ public class CatMovement : MonoBehaviour
     private AudioSource cheeseChomp;
     [SerializeField] private GameObject plus100;
 
+    /**** for pausing game ****/
+    public static bool canPause;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -52,12 +55,8 @@ public class CatMovement : MonoBehaviour
         meow = GetComponent<AudioSource>();
         rigidbody2D = GetComponent<Rigidbody2D>();
         GetComponent<CircleCollider2D>().enabled = false;
-        cheeseChomp = cheeseSpawn.GetComponent<AudioSource>();      
-        
-    }
-
-    void Start()
-    {
+        cheeseChomp = cheeseSpawn.GetComponent<AudioSource>();
+        canPause = true;
         restartAnim.enabled = true;
         StartCoroutine(StartGameAnimation());
     }
@@ -260,6 +259,7 @@ public class CatMovement : MonoBehaviour
     {
         if (other.CompareTag("Street") || other.CompareTag("Pigeon"))
         {
+            canPause = false;
             rigidbody2D.velocity = Vector3.zero;
             BGMusic.Stop();
             meow.Play();
@@ -277,9 +277,13 @@ public class CatMovement : MonoBehaviour
 
     IEnumerator LoadScene()
     {
-        gameOverAnim.SetTrigger("CircleS2B");
-        yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene(nextScene);
+        if (!(PauseResume.paused))
+        {
+            gameOverAnim.SetTrigger("CircleS2B");
+            yield return new WaitForSeconds(1f);
+            SceneManager.LoadScene(nextScene);
+        }
+        
     }
 
     IEnumerator StartGameAnimation()
