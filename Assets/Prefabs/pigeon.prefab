@@ -168,6 +168,10 @@ MonoBehaviour:
   Ground:
     serializedVersion: 2
     m_Bits: 256
+  minMaxX:
+  - {x: 8.4, y: 2.2}
+  - {x: 11.9, y: 2.2}
+  speed: 5
 --- !u!82 &6355306058377327233
 AudioSource:
   m_ObjectHideFlags: 0

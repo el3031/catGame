@@ -8,6 +8,7 @@ public class PigeonSpawn : MonoBehaviour
     [SerializeField] private float minTime;
     [SerializeField] private float maxTime;
     [SerializeField] private LayerMask groundLayer;
+    private BoxCollider2D pigeonSpawnCollider;
 
     private double lastSpawnX;
     public bool canSpawn;
@@ -16,6 +17,7 @@ public class PigeonSpawn : MonoBehaviour
     void Start()
     {
         lastSpawnX = transform.position.x;
+        pigeonSpawnCollider = GetComponent<BoxCollider2D>();
     }
     void Update()
     {
@@ -28,19 +30,32 @@ public class PigeonSpawn : MonoBehaviour
 
     void Spawn()
     {
+        Vector2 pigeonSpawnRayCastLeft = new Vector2(pigeonSpawnCollider.bounds.min.x, transform.position.y);
+        Vector2 pigeonSpawnRayCastRight = new Vector2(pigeonSpawnCollider.bounds.max.x, transform.position.y);
+
+        RaycastHit2D pigeonSpawnLeft = Physics2D.Raycast(pigeonSpawnRayCastLeft, Vector2.down, Camera.main.orthographicSize * 2, groundLayer);
+        RaycastHit2D pigeonSpawnRight = Physics2D.Raycast(pigeonSpawnRayCastRight, Vector2.down, Camera.main.orthographicSize * 2, groundLayer);
+
+        
+        
         RaycastHit2D onBuilding = Physics2D.Raycast(transform.position, Vector2.down, Camera.main.orthographicSize * 2, groundLayer);
         float buildingSlope = Vector2.Angle(onBuilding.normal, Vector2.up);
-        Debug.DrawRay(transform.position, Vector2.down * Camera.main.orthographicSize * 2, Color.green);
+        
+        Debug.DrawRay(pigeonSpawnRayCastLeft, Vector2.down * Camera.main.orthographicSize * 2, Color.green);
+        Debug.DrawRay(pigeonSpawnRayCastRight, Vector2.down * Camera.main.orthographicSize * 2, Color.green);
+
+
+        //Debug.DrawRay(transform.position, Vector2.down * Camera.main.orthographicSize * 2, Color.green);
         Vector3 spawnLoc = new Vector3(onBuilding.point.x, onBuilding.point.y + 3f, 0);
-        if (onBuilding.collider != null && Mathf.Abs(buildingSlope) < 5f && lastSpawnX != spawnLoc.x)
+        if (pigeonSpawnRayCastLeft != null && pigeonSpawnRayCastRight != null && Mathf.Abs(buildingSlope) < 5f && lastSpawnX != spawnLoc.x)
         {
             Instantiate(pigeon, spawnLoc, Quaternion.identity);
             lastSpawnX = spawnLoc.x;
-            Invoke("Spawn", Random.Range(minTime, maxTime));
+            Invoke("Spawn", Random.Range(minTime * 1.5f, maxTime * 1.5f));
         }
         else
         {
-            Invoke("Spawn", Random.Range(minTime * 2, maxTime * 2));
+            Invoke("Spawn", Random.Range(minTime, maxTime));
         }
     }
 }

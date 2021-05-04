@@ -6,7 +6,7 @@ public class PigeonMovement : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    private float movespeed = 1f;
+    private float movespeedf;
 
     //initializing direction to start moving to the left
     private bool facingLeft = true;
@@ -15,17 +15,25 @@ public class PigeonMovement : MonoBehaviour
     
     //variable to see if the pigeon has just changed directions
     private bool justFlipped = false;
-    private bool onBuilding = false;
+    private bool onBuilding;
     private AudioSource pigeonCoo;
 
     private BoxCollider2D boxcollider2D;
     [SerializeField] private LayerMask Ground;
+    [SerializeField] private Vector2[] minMaxX;
+    private int minIndex;
+    private int maxIndex;
+    private int index;
+    [SerializeField] private float speed;
 
 
     void Start()
     {
+        onBuilding = false;
         boxcollider2D = transform.GetComponent<BoxCollider2D>();
         pigeonCoo = GetComponent<AudioSource>();
+
+        movespeedf = Random.Range(0.05f, 0.5f);
 
         adjustVolume();
         pigeonCoo.Play();
@@ -38,7 +46,6 @@ public class PigeonMovement : MonoBehaviour
         scale.x *= -1;
         transform.localScale = scale;
         userDirection = userDirection * -1;
-
     }
 
     // Update is called once per frame
@@ -48,6 +55,21 @@ public class PigeonMovement : MonoBehaviour
         
         if (onBuilding)
         { 
+            transform.position = Vector2.MoveTowards(transform.position, minMaxX[index], Time.deltaTime * speed);
+            
+            if (transform.position.x == minMaxX[maxIndex].x)
+            {
+                flip();
+                index = minIndex;
+                Debug.Log("maxIndex reached. max_index: " + maxIndex + ", minIndex: " + minIndex);
+            }
+            else if (transform.position.x == minMaxX[minIndex].x)
+            {
+                flip();
+                index = maxIndex;
+                Debug.Log("minIndex reached: " + maxIndex);
+            }
+            /*
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, 1f, Ground);
             float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
             Quaternion slopeAngleQ = Quaternion.Euler(0, 0, Vector2.Angle(hit.normal, Vector2.up));
@@ -70,6 +92,7 @@ public class PigeonMovement : MonoBehaviour
             //GetComponent<Rigidbody2D>().velocity = new Vector3(userDirection.x * 2f, GetComponent<Rigidbody2D>().velocity.y);
             
             //transform.Translate(userDirection * movespeed * Time.deltaTime);
+            */
         }
         else
         {
@@ -83,20 +106,76 @@ public class PigeonMovement : MonoBehaviour
         if (other.CompareTag("Building"))
         {
             GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-            onBuilding = true;
 
+            GameObject buildingGameObject = other.gameObject;
+
+            minMaxX = new Vector2[buildingGameObject.transform.childCount];
+            if (minMaxX.Length == 0 || minMaxX.Length % 2 == 1)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            int i = 0;
+            foreach (Transform child in buildingGameObject.transform)
+            {
+                if (!onBuilding)
+                {
+                    Vector2 position = new Vector2(child.position.x, transform.position.y);
+                    minMaxX[i] = position;
+                    i++;
+                }
+            }
+            minMaxX = sort(minMaxX);
+            
+            
+            float pigeonX = transform.position.x;
+            for (int j = 0; j < minMaxX.Length; j+= 2)
+            {
+                Debug.Log("pigeonX: " + pigeonX + ", minMaxX[j].x: " + minMaxX[j].x + ", minMaxX[j+1].x: " + minMaxX[j+1].x);
+                if (pigeonX >= minMaxX[j].x && pigeonX <= minMaxX[j+1].x)
+                {
+                    index = j;
+                    maxIndex = index+1;
+                    minIndex = index;
+                    Debug.Log("initial index: " + index + ", maxIndex: " + maxIndex + ", minIndex: " + minIndex);
+                }
+            }
+            onBuilding = true;
+            
+
+/*
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, 1f, Ground);
             prevSlope = Vector2.Angle(hit.normal, Vector2.up);
+            */
         }
         else if (other.CompareTag("Street"))
         {
             Destroy(gameObject);
         }
     }
+
+    Vector2[] sort(Vector2[] arr)
+    {
+        int len = arr.Length;
+
+        for (int i = 1; i < len; i++) {
+            Vector2 val = arr[i];
+            int flag = 0;
+            for (int j = i - 1; j >= 0 && flag != 1; ) {
+               if (val.x < arr[j].x) {
+                  arr[j + 1] = arr[j];
+                  j--;
+                  arr[j + 1] = val;
+               }
+               else flag = 1;
+            }
+        }
+        return arr;
+    }
     
     Vector3 ClimbSlope(Vector3 velocity, float angle)
     {
-        Debug.Log(velocity);
         
         float moveDistance = Mathf.Abs(velocity.x);
         float climbVelocityY = Mathf.Sin(angle * Mathf.Deg2Rad) * moveDistance;
@@ -106,7 +185,6 @@ public class PigeonMovement : MonoBehaviour
             velocity.y = climbVelocityY;
             velocity.x = Mathf.Cos(angle * Mathf.Deg2Rad) * moveDistance * Mathf.Sign(velocity.x);
         }
-        Debug.Log(velocity);
         return velocity;
     }
 
