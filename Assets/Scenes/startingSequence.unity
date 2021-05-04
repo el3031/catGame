@@ -176,6 +176,7 @@ MonoBehaviour:
   - {fileID: 8186550602649809037, guid: f6f9f428cc94745a49fc23cf20881610, type: 3}
   - {fileID: 4778343912998281829, guid: 5e865b90355334b3b9168048e6116a67, type: 3}
   - {fileID: 3276959408687201330, guid: 6e71c4eaf64df48448fba423339e9ee0, type: 3}
+  - {fileID: 3255885314430721454, guid: 6d9ea236f4a5643a3a7db4276fe3ab8b, type: 3}
   maxSpawn: 1.5
   minSpawn: 1
   lastConstructedBuilding: {fileID: 819110622}
@@ -679,6 +680,7 @@ GameObject:
   - component: {fileID: 169660082}
   - component: {fileID: 169660084}
   - component: {fileID: 169660083}
+  - component: {fileID: 169660085}
   m_Layer: 0
   m_Name: PigeonSpawn
   m_TagString: Untagged
@@ -713,7 +715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pigeon: {fileID: 3105902512852142734, guid: 124fa4e5dfec9494c865be945a6e76d7, type: 3}
-  minTime: 2
+  minTime: 1
   maxTime: 4
   groundLayer:
     serializedVersion: 2
@@ -770,6 +772,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &169660085
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169660081}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.1807957, y: -0.24859333}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 23.88, y: 16.685682}
+    newSize: {x: 0.2, y: 0.2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 6.478901, y: 5.996399}
+  m_EdgeRadius: 0
 --- !u!1 &332351666
 GameObject:
   m_ObjectHideFlags: 0
@@ -2753,7 +2781,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -109.6001, y: -71.19995}
+  m_AnchoredPosition: {x: -109.59961, y: -71.200195}
   m_SizeDelta: {x: 184.87119, y: 106.381195}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1308564059
@@ -2922,7 +2950,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -93.6}
+  m_AnchoredPosition: {x: 100, y: -93.600586}
   m_SizeDelta: {x: 138.52982, y: 138.52982}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1343311887

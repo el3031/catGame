@@ -47,7 +47,7 @@ public class PigeonSpawn : MonoBehaviour
 
         //Debug.DrawRay(transform.position, Vector2.down * Camera.main.orthographicSize * 2, Color.green);
         Vector3 spawnLoc = new Vector3(onBuilding.point.x, onBuilding.point.y + 3f, 0);
-        if (pigeonSpawnRayCastLeft != null && pigeonSpawnRayCastRight != null && Mathf.Abs(buildingSlope) < 5f && lastSpawnX != spawnLoc.x)
+        if (pigeonSpawnRayCastLeft != null && pigeonSpawnRayCastRight != null && Mathf.Abs(buildingSlope) < 1f && lastSpawnX != spawnLoc.x)
         {
             Instantiate(pigeon, spawnLoc, Quaternion.identity);
             lastSpawnX = spawnLoc.x;
