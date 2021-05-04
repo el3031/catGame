@@ -263,7 +263,7 @@ public class CatMovement : MonoBehaviour
             rigidbody2D.velocity = Vector3.zero;
             BGMusic.Stop();
             meow.Play();
-            //StartCoroutine(LoadScene());
+            StartCoroutine(LoadScene());
         }
         else if (other.CompareTag("Cheese"))
         {

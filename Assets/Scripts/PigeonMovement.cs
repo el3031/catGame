@@ -33,7 +33,7 @@ public class PigeonMovement : MonoBehaviour
         boxcollider2D = transform.GetComponent<BoxCollider2D>();
         pigeonCoo = GetComponent<AudioSource>();
 
-        movespeedf = Random.Range(0.05f, 0.5f);
+        speed = Random.Range(0.5f, 5f);
 
         adjustVolume();
         pigeonCoo.Play();
@@ -61,38 +61,14 @@ public class PigeonMovement : MonoBehaviour
             {
                 flip();
                 index = minIndex;
-                Debug.Log("maxIndex reached. max_index: " + maxIndex + ", minIndex: " + minIndex);
+                //Debug.Log("maxIndex reached. max_index: " + maxIndex + ", minIndex: " + minIndex);
             }
             else if (transform.position.x == minMaxX[minIndex].x)
             {
                 flip();
                 index = maxIndex;
-                Debug.Log("minIndex reached: " + maxIndex);
+                //Debug.Log("minIndex reached: " + maxIndex);
             }
-            /*
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, 1f, Ground);
-            float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
-            Quaternion slopeAngleQ = Quaternion.Euler(0, 0, Vector2.Angle(hit.normal, Vector2.up));
-            transform.rotation = Quaternion.Slerp(transform.rotation, slopeAngleQ, 0.2f);
-            
-            bool grounded = isGrounded();
-            if (justFlipped) {
-                if (grounded) {
-                    justFlipped = false;
-                }
-            }
-            else if (!grounded || slopeAngle != prevSlope) {
-                flip();
-                justFlipped = true;
-            }
-            prevSlope = slopeAngle;
-            GetComponent<Rigidbody2D>().velocity = new Vector3(userDirection.x * 2f, GetComponent<Rigidbody2D>().velocity.y);
-            //ClimbSlope(new Vector3(userDirection.x * 2f, GetComponent<Rigidbody2D>().velocity.y), Vector2.Angle(hit.normal, Vector2.up));
-            
-            //GetComponent<Rigidbody2D>().velocity = new Vector3(userDirection.x * 2f, GetComponent<Rigidbody2D>().velocity.y);
-            
-            //transform.Translate(userDirection * movespeed * Time.deltaTime);
-            */
         }
         else
         {
@@ -119,12 +95,9 @@ public class PigeonMovement : MonoBehaviour
             int i = 0;
             foreach (Transform child in buildingGameObject.transform)
             {
-                if (!onBuilding)
-                {
-                    Vector2 position = new Vector2(child.position.x, transform.position.y);
-                    minMaxX[i] = position;
-                    i++;
-                }
+                Vector2 position = new Vector2(child.position.x, transform.position.y);
+                minMaxX[i] = position;
+                i++;
             }
             minMaxX = sort(minMaxX);
             
@@ -132,22 +105,16 @@ public class PigeonMovement : MonoBehaviour
             float pigeonX = transform.position.x;
             for (int j = 0; j < minMaxX.Length; j+= 2)
             {
-                Debug.Log("pigeonX: " + pigeonX + ", minMaxX[j].x: " + minMaxX[j].x + ", minMaxX[j+1].x: " + minMaxX[j+1].x);
+                //Debug.Log("pigeonX: " + pigeonX + ", minMaxX[j].x: " + minMaxX[j].x + ", minMaxX[j+1].x: " + minMaxX[j+1].x);
                 if (pigeonX >= minMaxX[j].x && pigeonX <= minMaxX[j+1].x)
                 {
                     index = j;
                     maxIndex = index+1;
                     minIndex = index;
-                    Debug.Log("initial index: " + index + ", maxIndex: " + maxIndex + ", minIndex: " + minIndex);
+                    //Debug.Log("initial index: " + index + ", maxIndex: " + maxIndex + ", minIndex: " + minIndex);
                 }
             }
             onBuilding = true;
-            
-
-/*
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, 1f, Ground);
-            prevSlope = Vector2.Angle(hit.normal, Vector2.up);
-            */
         }
         else if (other.CompareTag("Street"))
         {
