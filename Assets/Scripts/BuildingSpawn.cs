@@ -30,7 +30,7 @@ public class BuildingSpawn : MonoBehaviour
             rand = Random.Range(0, buildings.Length);
         }
         while (rand == prev);
-        prev = rand;
+        
         
         GameObject building = buildings[rand];
         Vector3 spawnLocation = new Vector3(transform.position.x, transform.position.y, 0);
@@ -51,6 +51,7 @@ public class BuildingSpawn : MonoBehaviour
         }
         else
         {
+            prev = rand;
             lastBuildingLeft = buildingLeft;
             lastBuildingRight = buildingRight;
             Invoke("Spawn", Random.Range(minSpawn, maxSpawn));

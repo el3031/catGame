@@ -79,7 +79,7 @@ public class PigeonMovement : MonoBehaviour
     //freeze game upon the pigeon touching the cat
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Building"))
+        if (other.CompareTag("Building") && !onBuilding)
         {
             GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 
