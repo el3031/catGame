@@ -47,7 +47,7 @@ public class CatMovement : MonoBehaviour
     /**** for pausing game ****/
     public static bool canPause;
 
-    void Awake()
+    void Start()
     {
         anim = GetComponent<Animator>();
         boxcollider2D = transform.GetComponent<BoxCollider2D>();
@@ -288,7 +288,6 @@ public class CatMovement : MonoBehaviour
         meow.Play();
         BGMusic.Play();
         yield return new WaitForSeconds(1f);
-        PlayerPrefs.SetInt("Restart", 0);
         canStart = true;
     }
 }

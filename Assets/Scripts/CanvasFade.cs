@@ -43,7 +43,7 @@ public class CanvasFade : MonoBehaviour
 
     IEnumerator FadeInOut()
     {
-        if (PlayerPrefs.GetInt("Restart") != 1)
+        if (PlayerPrefs.GetInt("tutorialPlayed") != 1)
         {
             StartCoroutine(FadeText(welcomeMessage, 0f, 1f, 0.5f));
             yield return new WaitForSeconds(4f);
@@ -58,6 +58,7 @@ public class CanvasFade : MonoBehaviour
             StartCoroutine(FadeText(pigeonMessage, 1f, 0f, 0.5f));
         }
         pigeonSpawn.GetComponent<PigeonSpawn>().canSpawn = true;
+        PlayerPrefs.SetInt("tutorialPlayed", 1);
     }
 
     IEnumerator FadeText(CanvasGroup text, float startAlpha, float endAlpha, float duration)

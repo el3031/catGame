@@ -52,7 +52,7 @@ public class PauseResume : MonoBehaviour
     IEnumerator toMainMenu()
     {
         Time.timeScale = 1;
-        PlayerPrefs.SetInt("Restart", 1);
+        PlayerPrefs.SetString("lastScene", "startingSequence");
         gameOverAnim.SetTrigger("CircleS2B");
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("MainMenu");
@@ -87,6 +87,7 @@ public class PauseResume : MonoBehaviour
 
     public void quit()
     {
+        PlayerPrefs.SetString("lastScene", "quit");
         Application.Quit(0);
     }
 
@@ -111,5 +112,9 @@ public class PauseResume : MonoBehaviour
         color.a = enabled;
         image.color = color;
         button.enabled = (enabled == 1) ? true : false;
+    }
+    void OnApplicationQuit()
+    {
+        PlayerPrefs.SetString("lastScene", "quit");
     }
 }

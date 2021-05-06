@@ -14,7 +14,9 @@ public class startGameButton : MonoBehaviour
 
     void Awake()
     {
-        if (PlayerPrefs.GetInt("Restart") != 1)
+        string lastScene = PlayerPrefs.GetString("lastScene", "justStarted");
+        
+        if (lastScene.Equals("quit") || lastScene.Equals("justStarted"))
         {
             fromGameOverAnim.enabled = false;
         }
@@ -28,6 +30,7 @@ public class startGameButton : MonoBehaviour
 
     void quitGame()
     {
+        PlayerPrefs.SetString("lastScene", "quit");
         Application.Quit(0);
     }
     void startGame()
@@ -37,8 +40,15 @@ public class startGameButton : MonoBehaviour
 
     IEnumerator toStartingSequence()
     {
+        PlayerPrefs.SetString("lastScene", "MainMenu");
         startTransitionAnim.SetTrigger("CircleS2B");
         yield return new WaitForSeconds(1f);
+        fromGameOverAnim.enabled = true;
         SceneManager.LoadScene(nextScene);
+    }
+
+    void OnApplicationQuit()
+    {
+        PlayerPrefs.SetString("lastScene", "quit");
     }
 }

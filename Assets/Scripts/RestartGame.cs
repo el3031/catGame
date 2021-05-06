@@ -67,7 +67,12 @@ public class RestartGame : MonoBehaviour
             scoreCard.anchoredPosition = Vector2.Lerp(scoreCard.anchoredPosition, scoreCardHidden, moveDurationTimer / moveDuration);
             yield return null;
         }
-        PlayerPrefs.SetInt("Restart", 1);
+        PlayerPrefs.SetString("lastScene", "gameOver");
+
         SceneManager.LoadScene(nextScene);
+    }
+    void OnApplicationQuit()
+    {
+        PlayerPrefs.SetString("lastScene", "quit");
     }
 }
