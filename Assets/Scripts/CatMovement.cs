@@ -34,7 +34,7 @@ public class CatMovement : MonoBehaviour
     [SerializeField] private LayerMask Ground;
     
     /**** max jump force ****/
-    private float jumpForce = 400f;
+    private float jumpForce = 8f;
 
     /**** cat sound effects ****/
     private AudioSource meow;
@@ -92,14 +92,11 @@ public class CatMovement : MonoBehaviour
         {
             flip();
         }
-    }
 
-    void Update()
-    {
         if (grounded && Input.GetKeyDown(KeyCode.Space))
         {
             anim.SetBool("Ground", false);
-            rigidbody2D.AddForce(new Vector2(0, jumpForce));
+            rigidbody2D.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
         }
     }
 
@@ -166,7 +163,7 @@ public class CatMovement : MonoBehaviour
             return false;
         }
 
-        float extraHeight = 0.5f;
+        float extraHeight = 0.1f;
         
         Vector2 backFeetOrigin = new Vector2(boxcollider2D.bounds.min.x + .5f, boxcollider2D.bounds.min.y);
         Vector2 frontFeetOrigin = new Vector2(boxcollider2D.bounds.max.x - .5f, boxcollider2D.bounds.min.y);

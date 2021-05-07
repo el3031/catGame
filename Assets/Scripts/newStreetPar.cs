@@ -18,13 +18,13 @@ public class newStreetPar : MonoBehaviour
 
         transform.position = new Vector2(transform.position.x + directionX, transform.position.y);
 
-        if (transform.position.x - mainCameraPosition.position.x < -offsetByX)
+        if (transform.position.x - mainCameraPosition.position.x + 5f< -offsetByX)
         {
             transform.position = new Vector2(otherStreet.transform.position.x + offsetByX, transform.position.y);
         }
-        else if (transform.position.x - mainCameraPosition.position.x > offsetByX)
+        else if (transform.position.x - mainCameraPosition.position.x - 5f > offsetByX)
         {
-            transform.position = new Vector2(otherStreet.transform.position.x + offsetByX, transform.position.y);
+            transform.position = new Vector2(otherStreet.transform.position.x - offsetByX, transform.position.y);
         }
     }
 }

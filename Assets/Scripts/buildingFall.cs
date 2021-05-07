@@ -7,11 +7,14 @@ public class buildingFall : MonoBehaviour
     // Start is called before the first frame update
     Rigidbody2D rb;
     private bool stop;
+    public bool pigeonSpawned;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         stop = false;
+        pigeonSpawned = false;
+        Debug.Log(transform.position);
     }
 
     // Update is called once per frame

@@ -10,8 +10,9 @@ public class PigeonSpawn : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     private BoxCollider2D pigeonSpawnCollider;
 
-    private double lastSpawnX;
+    private float lastSpawnX;
     public bool canSpawn;
+    private GameObject lastSpawnBuildingLoc;
 
     // Start is called before the first frame update
     void Start()
@@ -47,10 +48,28 @@ public class PigeonSpawn : MonoBehaviour
 
         //Debug.DrawRay(transform.position, Vector2.down * Camera.main.orthographicSize * 2, Color.green);
         Vector3 spawnLoc = new Vector3(onBuilding.point.x, onBuilding.point.y + 3f, 0);
-        if (pigeonSpawnRayCastLeft != null && pigeonSpawnRayCastRight != null && Mathf.Abs(buildingSlope) < 1f && lastSpawnX != spawnLoc.x)
+        
+        /*
+        if (pigeonSpawnLeft.collider != null && pigeonSpawnRight.collider != null &&
+            pigeonSpawnLeft.collider == pigeonSpawnRight &&  
+            pigeonSpawnLeft.collider.gameObject != lastSpawnBuildingLoc && 
+            pigeonSpawnRight.collider.gameObject != lastSpawnBuildingLoc && 
+            Mathf.Abs(buildingSlope) < 1f)*/
+        /*
+        if (Mathf.Abs(spawnLoc.x - lastSpawnX) > 5f &&
+            Mathf.Abs(buildingSlope) < 1f &&
+            pigeonSpawnLeft.collider != null && pigeonSpawnRight != null &&
+            pigeonSpawnLeft.collider.gameObject == pigeonSpawnRight.collider.gameObject)
+            */
+        if (pigeonSpawnLeft && pigeonSpawnRight &&
+            pigeonSpawnLeft.collider.gameObject == pigeonSpawnRight.collider.gameObject &&
+            Mathf.Abs(buildingSlope) < 1f && 
+            !(pigeonSpawnLeft.collider.gameObject.GetComponent<buildingFall>().pigeonSpawned))
         {
+            lastSpawnBuildingLoc = pigeonSpawnLeft.collider.gameObject;
             Instantiate(pigeon, spawnLoc, Quaternion.identity);
             lastSpawnX = spawnLoc.x;
+            pigeonSpawnLeft.collider.gameObject.GetComponent<buildingFall>().pigeonSpawned = true;
             Invoke("Spawn", Random.Range(minTime * 1.5f, maxTime * 1.5f));
         }
         else

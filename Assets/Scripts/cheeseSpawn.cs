@@ -26,10 +26,10 @@ public class cheeseSpawn : MonoBehaviour
     void Spawn()
     {
         RaycastHit2D onBuilding = Physics2D.Raycast(transform.position, Vector2.down, Camera.main.orthographicSize * 2, groundLayer);
-        float spawnY = Random.Range(Camera.main.orthographicSize * 1.5f, player.transform.position.y);
+        float spawnY = Random.Range(Camera.main.orthographicSize * 1.3f, player.transform.position.y);
         if (onBuilding.collider != null)
         {
-            spawnY = Random.Range(Camera.main.orthographicSize * 1.5f, onBuilding.collider.bounds.max.y);
+            spawnY = Random.Range(Camera.main.orthographicSize * 1.3f, onBuilding.collider.bounds.max.y);
         }
         Vector3 spawnLoc = new Vector3(transform.position.x, spawnY, player.transform.position.z);
         if (lastSpawnX != spawnLoc.x)
