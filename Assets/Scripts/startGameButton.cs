@@ -6,11 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class startGameButton : MonoBehaviour
 {
-    private Button startButton;
+    [SerializeField] private Button startButton;
     [SerializeField] private Button quit;
     [SerializeField] private string nextScene;
     [SerializeField] private Animator startTransitionAnim;
     [SerializeField] private Animator fromGameOverAnim;
+
+    [SerializeField] private GameObject muteGO;
+    [SerializeField] private GameObject unmuteGO;
+    private Button muteButton;
+    private Button unmuteButton;
+    private Image muteImage;
+    private Image unmuteImage;
+    private bool isMuted;
 
     void Awake()
     {
@@ -23,9 +31,25 @@ public class startGameButton : MonoBehaviour
     }
     void Start()
     {
-        startButton = GetComponent<Button>();
         quit.onClick.AddListener(quitGame);
         startButton.onClick.AddListener(startGame);
+
+        muteButton = muteGO.GetComponent<Button>();
+        muteImage = muteGO.GetComponent<Image>();
+        muteButton.onClick.AddListener(mute);
+
+        unmuteButton = unmuteGO.GetComponent<Button>();
+        unmuteImage = unmuteGO.GetComponent<Image>();
+        unmuteButton.onClick.AddListener(unmute);
+
+        if (PlayerPrefs.GetInt("mute") == 1)
+        {
+            mute();
+        }
+        else
+        {
+            unmute();
+        }
     }
 
     void quitGame()
@@ -47,8 +71,45 @@ public class startGameButton : MonoBehaviour
         SceneManager.LoadScene(nextScene);
     }
 
+    void mute()
+    {
+        PlayerPrefs.SetInt("mute", 1);
+        changeButtonVisibility(unmuteImage, unmuteButton, 1);
+        changeButtonVisibility(muteImage, muteButton, 0);
+        /*
+        muteImage.transform.position = new Vector3(muteImage.transform.position.x, muteImage.transform.position.y, -1000000);
+        unmuteImage.transform.position = new Vector3(unmuteImage.transform.position.x, unmuteImage.transform.position.y, 0);
+        */
+        isMuted = true;
+        changeAudio();
+    }
+
+    void unmute()
+    {
+        PlayerPrefs.SetInt("mute", 0);
+        changeButtonVisibility(unmuteImage, unmuteButton, 0);
+        changeButtonVisibility(muteImage, muteButton, 1);
+        /*
+        muteImage.transform.position = new Vector3(muteImage.transform.position.x, muteImage.transform.position.y, 0);
+        unmuteImage.transform.position = new Vector3(unmuteImage.transform.position.x, unmuteImage.transform.position.y, -1000000);
+        */
+        isMuted = false;
+        changeAudio();
+    }
+
     void OnApplicationQuit()
     {
         PlayerPrefs.SetString("lastScene", "quit");
+    }
+
+    void changeButtonVisibility(Image image, Button button, int enabled)
+    {
+        button.enabled = (enabled == 1) ? true : false;
+        image.enabled = button.enabled;
+    }
+
+    void changeAudio()
+    {
+        AudioListener.pause = isMuted;
     }
 }

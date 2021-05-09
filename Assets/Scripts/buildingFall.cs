@@ -8,6 +8,7 @@ public class buildingFall : MonoBehaviour
     Rigidbody2D rb;
     private bool stop;
     public bool pigeonSpawned;
+    public bool cheeseSpawned;
 
     void Start()
     {

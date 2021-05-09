@@ -96,6 +96,7 @@ public class CatMovement : MonoBehaviour
         if (grounded && Input.GetKeyDown(KeyCode.Space))
         {
             anim.SetBool("Ground", false);
+            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0f);
             rigidbody2D.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
         }
     }
@@ -115,6 +116,9 @@ public class CatMovement : MonoBehaviour
             //Debug.Log("contact points: " + other.contactCount);
             //Debug.Log("min x: " + other.collider.bounds.min.x);
             //Debug.Log("max y: " + other.collider.bounds.max.y);
+            rigidbody2D.velocity = Vector3.zero;
+            rigidbody2D.angularVelocity = 0f;
+            
             for (int i = 0; i < other.contactCount; i++)
             {
                 Vector2 contactPoint = other.GetContact(i).point;
@@ -163,7 +167,7 @@ public class CatMovement : MonoBehaviour
             return false;
         }
 
-        float extraHeight = 0.1f;
+        float extraHeight = 0.2f;
         
         Vector2 backFeetOrigin = new Vector2(boxcollider2D.bounds.min.x + .5f, boxcollider2D.bounds.min.y);
         Vector2 frontFeetOrigin = new Vector2(boxcollider2D.bounds.max.x - .5f, boxcollider2D.bounds.min.y);
@@ -258,6 +262,7 @@ public class CatMovement : MonoBehaviour
         {
             canPause = false;
             rigidbody2D.velocity = Vector3.zero;
+            rigidbody2D.angularVelocity = 0f;
             BGMusic.Stop();
             meow.Play();
             StartCoroutine(LoadScene());

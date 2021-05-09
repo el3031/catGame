@@ -14,6 +14,9 @@ public class PigeonSpawn : MonoBehaviour
     public bool canSpawn;
     private GameObject lastSpawnBuildingLoc;
 
+    public float maxSpeed = 0.5f;
+    public float minSpeed = 0.6f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,7 +70,9 @@ public class PigeonSpawn : MonoBehaviour
             !(pigeonSpawnLeft.collider.gameObject.GetComponent<buildingFall>().pigeonSpawned))
         {
             lastSpawnBuildingLoc = pigeonSpawnLeft.collider.gameObject;
-            Instantiate(pigeon, spawnLoc, Quaternion.identity);
+            GameObject instantiatedPigeon = (GameObject) Instantiate(pigeon, spawnLoc, Quaternion.identity);
+            instantiatedPigeon.GetComponent<PigeonMovement>().minSpeed = (minSpeed += 0.01f);
+            instantiatedPigeon.GetComponent<PigeonMovement>().maxSpeed = (maxSpeed += 0.01f);
             lastSpawnX = spawnLoc.x;
             pigeonSpawnLeft.collider.gameObject.GetComponent<buildingFall>().pigeonSpawned = true;
             Invoke("Spawn", Random.Range(minTime * 1.5f, maxTime * 1.5f));

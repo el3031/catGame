@@ -24,7 +24,10 @@ public class PigeonMovement : MonoBehaviour
     private int minIndex;
     private int maxIndex;
     private int index;
-    [SerializeField] private float speed;
+    private float speed;
+
+    public float maxSpeed;
+    public float minSpeed;
 
 
     void Start()
@@ -33,7 +36,7 @@ public class PigeonMovement : MonoBehaviour
         boxcollider2D = transform.GetComponent<BoxCollider2D>();
         pigeonCoo = GetComponent<AudioSource>();
 
-        speed = Random.Range(0.5f, 5f);
+        speed = Random.Range(minSpeed, maxSpeed);
 
         adjustVolume();
         pigeonCoo.Play();

@@ -9,6 +9,7 @@ public class newStreetPar : MonoBehaviour
     [SerializeField] private float directionX;
     [SerializeField] private float offsetByX = 13f;
     [SerializeField] private GameObject otherStreet;
+    [SerializeField] private GameObject focus;
     public GameObject player;
 
     // Update is called once per frame
@@ -18,11 +19,11 @@ public class newStreetPar : MonoBehaviour
 
         transform.position = new Vector2(transform.position.x + directionX, transform.position.y);
 
-        if (transform.position.x - mainCameraPosition.position.x + 5f< -offsetByX)
+        if (transform.position.x - focus.transform.position.x < -offsetByX)
         {
             transform.position = new Vector2(otherStreet.transform.position.x + offsetByX, transform.position.y);
         }
-        else if (transform.position.x - mainCameraPosition.position.x - 5f > offsetByX)
+        else if (transform.position.x - focus.transform.position.x > offsetByX)
         {
             transform.position = new Vector2(otherStreet.transform.position.x - offsetByX, transform.position.y);
         }

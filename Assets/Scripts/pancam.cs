@@ -19,6 +19,27 @@ public class pancam : MonoBehaviour {
 		gui.horizontalOverflow = HorizontalWrapMode.Overflow;
 		playerMaxX = player.transform.position.x;
 		camOriginalPosition = transform.position;
+
+		if (PlayerPrefs.GetInt("mute") == 1)
+		{
+			AudioListener.pause = true;
+		}
+		else
+		{
+			AudioListener.pause = false;
+		}
+	}
+	
+	void Update()
+	{
+		if (PlayerPrefs.GetInt("mute") == 1)
+		{
+			AudioListener.pause = true;
+		}
+		else
+		{
+			AudioListener.pause = false;
+		}
 	}
 	
 	void OnGUI()

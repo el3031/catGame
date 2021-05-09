@@ -24,6 +24,15 @@ public class PauseResume : MonoBehaviour
     private Button mainMenuButtonButton;
     [SerializeField] private Animator gameOverAnim;
 
+    [SerializeField] private GameObject muteGO;
+    [SerializeField] private GameObject unmuteGO;
+    private Button muteButton;
+    private Button unmuteButton;
+    private Image muteImage;
+    private Image unmuteImage;
+
+    [SerializeField] private Text scoreText;
+
     void Start()
     {
         pauseImage = pauseButton.GetComponent<Image>();
@@ -35,6 +44,14 @@ public class PauseResume : MonoBehaviour
         resumeButtonButton = resumeButton.GetComponent<Button>();
         mainMenuButtonButton = mainMenuButton.GetComponent<Button>();
         quitButtonButton = quitButton.GetComponent<Button>();
+
+        muteButton = muteGO.GetComponent<Button>();
+        muteImage = muteGO.GetComponent<Image>();
+        muteButton.onClick.AddListener(mute);
+
+        unmuteButton = unmuteGO.GetComponent<Button>();
+        unmuteImage = unmuteGO.GetComponent<Image>();
+        unmuteButton.onClick.AddListener(unmute);
 
         changeButtonVisibility(pauseImage, pauseButtonButton, 1);
         changeButtonVisibility(resumeImage, resumeButtonButton, 0);
@@ -70,7 +87,34 @@ public class PauseResume : MonoBehaviour
             changeButtonVisibility(resumeImage, resumeButtonButton, 1);
             changeButtonVisibility(mainMenuImage, mainMenuButtonButton, 1);
             changeButtonVisibility(quitImage, quitButtonButton, 1);
+
+            if (PlayerPrefs.GetInt("mute", 1) == 1)
+            {
+                changeButtonVisibility(muteImage, muteButton, 0);
+                changeButtonVisibility(unmuteImage, unmuteButton, 1);
+            }
+            else
+            {
+                changeButtonVisibility(muteImage, muteButton, 1);
+                changeButtonVisibility(unmuteImage, unmuteButton, 0);
+            }
+
+            scoreText.enabled = false;
         }
+    }
+
+    public void mute()
+    {
+        PlayerPrefs.SetInt("mute", 1);
+        changeButtonVisibility(unmuteImage, unmuteButton, 1);
+        changeButtonVisibility(muteImage, muteButton, 0);
+    }
+
+    public void unmute()
+    {
+        PlayerPrefs.SetInt("mute", 0);
+        changeButtonVisibility(unmuteImage, unmuteButton, 0);
+        changeButtonVisibility(muteImage, muteButton, 1);
     }
 
     public void resume()
@@ -83,6 +127,10 @@ public class PauseResume : MonoBehaviour
         changeButtonVisibility(resumeImage, resumeButtonButton, 0);
         changeButtonVisibility(mainMenuImage, mainMenuButtonButton, 0);
         changeButtonVisibility(quitImage, quitButtonButton, 0);
+        changeButtonVisibility(muteImage, muteButton, 0);
+        changeButtonVisibility(unmuteImage, unmuteButton, 0);
+
+        scoreText.enabled = true;
     }
 
     public void quit()
@@ -108,10 +156,8 @@ public class PauseResume : MonoBehaviour
 
     void changeButtonVisibility(Image image, Button button, int enabled)
     {
-        Color color = image.color;
-        color.a = enabled;
-        image.color = color;
         button.enabled = (enabled == 1) ? true : false;
+        image.enabled = button.enabled;
     }
     void OnApplicationQuit()
     {
