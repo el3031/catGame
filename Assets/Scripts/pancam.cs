@@ -22,11 +22,11 @@ public class pancam : MonoBehaviour {
 
 		if (PlayerPrefs.GetInt("mute") == 1)
 		{
-			AudioListener.pause = true;
+			AudioListener.volume = 0.0f;
 		}
 		else
 		{
-			AudioListener.pause = false;
+			AudioListener.volume = 1.0f;
 		}
 	}
 	
@@ -34,11 +34,11 @@ public class pancam : MonoBehaviour {
 	{
 		if (PlayerPrefs.GetInt("mute") == 1)
 		{
-			AudioListener.pause = true;
+			AudioListener.volume = 0.0f;
 		}
 		else
 		{
-			AudioListener.pause = false;
+			AudioListener.volume = 1.0f;
 		}
 	}
 	

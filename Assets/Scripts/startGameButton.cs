@@ -110,6 +110,6 @@ public class startGameButton : MonoBehaviour
 
     void changeAudio()
     {
-        AudioListener.pause = isMuted;
+        AudioListener.volume = isMuted ? 0.0f : 1.0f;
     }
 }
