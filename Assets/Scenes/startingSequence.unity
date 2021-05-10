@@ -1346,7 +1346,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Eating cheese earns bonus points
+  m_Text: Eat cheese to earn bonus points
 --- !u!222 &483332599
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2792,10 +2792,10 @@ RectTransform:
   m_Father: {fileID: 577246337}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 881.2605, y: 466.61816}
-  m_SizeDelta: {x: 126.42056, y: 115.18793}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -78.7395, y: -90}
+  m_SizeDelta: {x: 126.42053, y: 115.18793}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1213892756
 Animator:
@@ -3884,10 +3884,10 @@ RectTransform:
   m_Father: {fileID: 577246337}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 881.26074, y: 466.61816}
-  m_SizeDelta: {x: 126.42056, y: 115.18793}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -78.73926, y: -90}
+  m_SizeDelta: {x: 126.42053, y: 115.18793}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1994825612
 Animator:

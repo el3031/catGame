@@ -93,6 +93,11 @@ public class CatMovement : MonoBehaviour
             flip();
         }
 
+        
+    }
+
+    void Update()
+    {
         if (grounded && Input.GetKeyDown(KeyCode.Space))
         {
             anim.SetBool("Ground", false);
