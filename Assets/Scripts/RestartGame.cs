@@ -14,16 +14,25 @@ public class RestartGame : MonoBehaviour
     [SerializeField] private Button restart;
     [SerializeField] private Button mainMenu;
     [SerializeField] private GameObject player;
+    [SerializeField] private Text highScoreGUI;
     private Vector3 scoreCardHidden;
     private Vector3 scoreCardShown;
 
     private int score;
+    private int highScore;
     
     void Start()
     {
         //change later!
         score = PlayerPrefs.GetInt("Score");
+
+        if (score > PlayerPrefs.GetInt("highScore"))
+        {
+            PlayerPrefs.SetInt("highScore", score);
+        }
+        highScore = PlayerPrefs.GetInt("highScore");
         scoreGUI.horizontalOverflow = HorizontalWrapMode.Overflow;
+        highScoreGUI.horizontalOverflow = HorizontalWrapMode.Overflow;
         scoreCardHidden = new Vector3(0, 1300, 0);
         scoreCardShown = new Vector3(0, 70, 0);
         restart.onClick.AddListener(RestartOnClick);
@@ -38,6 +47,7 @@ public class RestartGame : MonoBehaviour
     void OnGUI()
     {    
         scoreGUI.text = score.ToString();
+        highScoreGUI.text = highScore.ToString();
     }
 
     void RestartOnClick()
