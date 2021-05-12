@@ -52,10 +52,16 @@ public class startGameButton : MonoBehaviour
         }
     }
 
-    void quitGame()
+    public void quit()
     {
         PlayerPrefs.SetString("lastScene", "quit");
-        Application.Quit(0);
+        #if (UNITY_EDITOR)
+            UnityEditor.EditorApplication.isPlaying = false;
+        #elif (UNITY_STANDALONE) 
+            Application.Quit();
+        #elif (UNITY_WEBGL)
+            Application.OpenURL("https://gorfmcgorf.itch.io/");
+        #endif
     }
     void startGame()
     {
