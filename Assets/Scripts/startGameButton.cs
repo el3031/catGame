@@ -52,7 +52,7 @@ public class startGameButton : MonoBehaviour
         }
     }
 
-    public void quit()
+    void quitGame()
     {
         PlayerPrefs.SetString("lastScene", "quit");
         #if (UNITY_EDITOR)
