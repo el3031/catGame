@@ -328,7 +328,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8dbd932a7aaa4be4b2cdad33263ee6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cheese: {fileID: 5456625374594991266, guid: 029a7a054df174ac4b2f7a84f302f928, type: 3}
+  foods:
+  - {fileID: 5456625374594991266, guid: 029a7a054df174ac4b2f7a84f302f928, type: 3}
+  - {fileID: 1254711048331503897, guid: 6300b4a672dc34dcf82e0f90d0383c42, type: 3}
+  - {fileID: 5283870709753881597, guid: 56cae011b7d6b480892de317ee82f12f, type: 3}
+  - {fileID: 5794458493680105829, guid: 225268360445e4f0198d9369adaf40df, type: 3}
+  - {fileID: 7022052891571112384, guid: 08597ed23fb744ad78219cdafc666d21, type: 3}
   player: {fileID: 332351666}
   minTime: 5
   maxTime: 10
@@ -2794,7 +2799,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -78.7395, y: -90}
+  m_AnchoredPosition: {x: -78.73828, y: -90}
   m_SizeDelta: {x: 126.42053, y: 115.18793}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1213892756
@@ -2934,7 +2939,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -82.73, y: -55.74}
+  m_AnchoredPosition: {x: -82.73047, y: -55.740234}
   m_SizeDelta: {x: 131.12775, y: 75.45538}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1308564059
@@ -3106,7 +3111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 81.68, y: -75.28}
+  m_AnchoredPosition: {x: 81.67969, y: -75.28027}
   m_SizeDelta: {x: 101.89197, y: 101.89197}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1343311887
@@ -3886,7 +3891,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -78.73926, y: -90}
+  m_AnchoredPosition: {x: -78.73828, y: -90}
   m_SizeDelta: {x: 126.42053, y: 115.18793}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1994825612

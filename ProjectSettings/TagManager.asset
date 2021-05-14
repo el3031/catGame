@@ -8,6 +8,10 @@ TagManager:
   - Street
   - Pigeon
   - Cheese
+  - Beef
+  - Onion
+  - Tomato
+  - Lettuce
   layers:
   - Default
   - TransparentFX
@@ -19,7 +23,7 @@ TagManager:
   - 
   - Ground
   - Player
-  - 
+  - Snacks
   - 
   - 
   - 

@@ -272,7 +272,7 @@ public class CatMovement : MonoBehaviour
             meow.Play();
             StartCoroutine(LoadScene());
         }
-        else if (other.CompareTag("Cheese"))
+        else if (other.gameObject.layer == 10)
         {
             cheeseChomp.Play();
             Camera.main.GetComponent<pancam>().playerScore += 10;

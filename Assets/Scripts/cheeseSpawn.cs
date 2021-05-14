@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class cheeseSpawn : MonoBehaviour
 {
-    [SerializeField] private GameObject cheese;
+    [SerializeField] private GameObject[] foods;
     [SerializeField] private GameObject player;
     [SerializeField] private float minTime;
     [SerializeField] private float maxTime;
     [SerializeField] private LayerMask groundLayer;
     private double lastSpawnX;
+    private int lastFoodSpawn;
     
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,11 @@ public class cheeseSpawn : MonoBehaviour
 
     void Spawn()
     {
+        int rand;
+        do {
+            rand = Random.Range(1, foods.Length);
+        } while (rand == lastFoodSpawn);
+        
         RaycastHit2D onBuilding = Physics2D.Raycast(transform.position, Vector2.down, Camera.main.orthographicSize * 2, groundLayer);
         float spawnY = Random.Range(Camera.main.orthographicSize * 1.3f, player.transform.position.y);
         float spawnX = Random.Range(transform.position.x - 5f, transform.position.x + 5f);
@@ -33,7 +39,8 @@ public class cheeseSpawn : MonoBehaviour
         {
             spawnY = Random.Range(Camera.main.orthographicSize * 1.3f, onBuilding.collider.bounds.max.y);
             Vector3 spawnLoc = new Vector3(spawnX, spawnY, player.transform.position.z);
-            Instantiate(cheese, spawnLoc, Quaternion.identity);
+            Instantiate(foods[rand], spawnLoc, Quaternion.identity);
+            lastFoodSpawn = rand;
             onBuilding.collider.gameObject.GetComponent<buildingFall>().cheeseSpawned = true;
             Invoke("Spawn", Random.Range(minTime, maxTime));
         }
