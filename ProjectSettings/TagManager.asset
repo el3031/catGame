@@ -12,6 +12,7 @@ TagManager:
   - Onion
   - Tomato
   - Lettuce
+  - Bread
   layers:
   - Default
   - TransparentFX
