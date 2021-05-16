@@ -1531,7 +1531,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Collect cheeseburger ingredients for bonus points
+  m_Text: Collect ingredients to make cheeseburgers for bonus points
 --- !u!222 &483332599
 CanvasRenderer:
   m_ObjectHideFlags: 0

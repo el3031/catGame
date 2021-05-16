@@ -279,6 +279,7 @@ public class CatMovement : MonoBehaviour
             Vector3 spawnBonus = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y + 0.5f, other.gameObject.transform.position.z);
             if (other.gameObject.tag == "Burger")
             {
+                PlayerPrefs.SetInt("burgerTotal", PlayerPrefs.GetInt("burgerTotal")+1);
                 Camera.main.GetComponent<pancam>().playerScore += 100;
                 Instantiate(plus1000, spawnBonus, Quaternion.identity);
             }

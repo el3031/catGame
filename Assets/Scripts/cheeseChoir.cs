@@ -15,7 +15,7 @@ public class cheeseChoir : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.x < Camera.main.rect.xMax)
+        if (transform.position.x < Camera.main.rect.xMax - 2f)
         {
             choirSound.Play();
         }

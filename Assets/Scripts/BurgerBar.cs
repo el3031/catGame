@@ -38,26 +38,32 @@ public class BurgerBar : MonoBehaviour
         switch (tag)
         {
             case "Cheese":
+                PlayerPrefs.SetInt("cheeseTotal", PlayerPrefs.GetInt("cheeseTotal")+1);
                 cheeseGathered = true;
                 cheese.color = gathered;
                 break;
             case "Beef":
+                PlayerPrefs.SetInt("beefTotal", PlayerPrefs.GetInt("beefTotal")+1);
                 beefGathered = true;
                 beef.color = gathered;
                 break;
             case "Tomato":
+                PlayerPrefs.SetInt("tomatoTotal", PlayerPrefs.GetInt("tomatoTotal")+1);
                 tomatoGathered = true;
                 tomato.color = gathered;
                 break;
             case "Bread":
+                PlayerPrefs.SetInt("breadTotal", PlayerPrefs.GetInt("breadTotal")+1);
                 breadGathered = true;
                 bread.color = gathered;
                 break;
             case "Lettuce":
+                PlayerPrefs.SetInt("lettuceTotal", PlayerPrefs.GetInt("lettuceTotal")+1);
                 lettuceGathered = true;
                 lettuce.color = gathered;
                 break;
             case "Onion":
+                PlayerPrefs.SetInt("onionTotal", PlayerPrefs.GetInt("onionTotal")+1);
                 onionGathered = true;
                 onion.color = gathered;
                 break;
