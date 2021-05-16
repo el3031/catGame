@@ -22,7 +22,7 @@ public class BurgerBar : MonoBehaviour
     public static bool lettuceGathered;
     public static bool onionGathered;
 
-
+    [SerializeField] private GameObject cheeseSpawn;
 
 
     // Start is called before the first frame update
@@ -71,6 +71,8 @@ public class BurgerBar : MonoBehaviour
             {
                 currentTime += Time.deltaTime;
             }
+            cheeseSpawn.GetComponent<cheeseSpawn>().spawnBurger();
+            Debug.Log("burger spawned");
             StartCoroutine(reset());
         }
     }

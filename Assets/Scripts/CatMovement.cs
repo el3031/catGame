@@ -43,6 +43,7 @@ public class CatMovement : MonoBehaviour
     [SerializeField] private GameObject cheeseSpawn;
     private AudioSource cheeseChomp;
     [SerializeField] private GameObject plus100;
+    [SerializeField] private GameObject plus1000;
     public GameObject BurgerBar;
 
     /**** for pausing game ****/
@@ -275,13 +276,23 @@ public class CatMovement : MonoBehaviour
         }
         else if (other.gameObject.layer == 10)
         {
-            BurgerBar.GetComponent<BurgerBar>().ingredientGathered(other.tag);
-            
+            Vector3 spawnBonus = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y + 0.5f, other.gameObject.transform.position.z);
+            if (other.gameObject.tag == "Burger")
+            {
+                Camera.main.GetComponent<pancam>().playerScore += 100;
+                Instantiate(plus1000, spawnBonus, Quaternion.identity);
+            }
+            else
+            {
+                BurgerBar.GetComponent<BurgerBar>().ingredientGathered(other.tag);
+                
+                Camera.main.GetComponent<pancam>().playerScore += 10;
+                Instantiate(plus100, spawnBonus, Quaternion.identity);
+            }
             cheeseChomp.Play();
-            Camera.main.GetComponent<pancam>().playerScore += 10;
-            Vector3 spawn100 = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y + 0.5f, other.gameObject.transform.position.z);
-            Instantiate(plus100, spawn100, Quaternion.identity);
             Destroy(other.gameObject);
+
+
         }
     }
 
