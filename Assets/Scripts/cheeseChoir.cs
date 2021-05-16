@@ -17,7 +17,6 @@ public class cheeseChoir : MonoBehaviour
     {
         if (transform.position.x < Camera.main.rect.xMax)
         {
-            Debug.Log("yes");
             choirSound.Play();
         }
     }

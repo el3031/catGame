@@ -1531,7 +1531,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Eat cheese to earn bonus points
+  m_Text: Collect cheeseburger ingredients for bonus points
 --- !u!222 &483332599
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2364,7 +2364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7022052891571112384, guid: 08597ed23fb744ad78219cdafc666d21, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7022052891571112386, guid: 08597ed23fb744ad78219cdafc666d21, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2598,7 +2598,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5456625374594991266, guid: 029a7a054df174ac4b2f7a84f302f928, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 029a7a054df174ac4b2f7a84f302f928, type: 3}
@@ -3919,7 +3919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5794458493680105829, guid: 225268360445e4f0198d9369adaf40df, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 225268360445e4f0198d9369adaf40df, type: 3}
@@ -4205,7 +4205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6882326914802589353, guid: f82b90e25c1ce41b3975f606da2a91d9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6882326914802589358, guid: f82b90e25c1ce41b3975f606da2a91d9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4487,7 +4487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5283870709753881597, guid: 56cae011b7d6b480892de317ee82f12f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56cae011b7d6b480892de317ee82f12f, type: 3}
@@ -4583,7 +4583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1254711048331503897, guid: 6300b4a672dc34dcf82e0f90d0383c42, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1254711048331503899, guid: 6300b4a672dc34dcf82e0f90d0383c42, type: 3}
       propertyPath: m_LocalPosition.x
