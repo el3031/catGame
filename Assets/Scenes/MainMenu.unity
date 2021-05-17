@@ -321,13 +321,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 3105902512852142733, guid: 124fa4e5dfec9494c865be945a6e76d7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3105902512852142734, guid: 124fa4e5dfec9494c865be945a6e76d7, type: 3}
       propertyPath: m_Name
       value: pigeon
       objectReference: {fileID: 0}
     - target: {fileID: 6355306058377327233, guid: 124fa4e5dfec9494c865be945a6e76d7, type: 3}
       propertyPath: m_Volume
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 124fa4e5dfec9494c865be945a6e76d7, type: 3}
@@ -1056,8 +1060,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 93, y: -102}
-  m_SizeDelta: {x: 145.65414, y: 145.65414}
+  m_AnchoredPosition: {x: 76.9, y: -79.405}
+  m_SizeDelta: {x: 115.10861, y: 112.75903}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &283786333
 Animator:
@@ -6869,7 +6873,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.0000076294, y: -286}
+  m_AnchoredPosition: {x: 0, y: -243}
   m_SizeDelta: {x: 13616.152, y: 3963.0703}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2109215083
@@ -6884,8 +6888,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.014352001, g: 0.044083495, b: 0.078, a: 0.5}
-  m_EffectDistance: {x: -200, y: -200}
+  m_EffectColor: {r: 0, g: 0.0686875, b: 0.157, a: 0.5}
+  m_EffectDistance: {x: 200, y: -200}
   m_UseGraphicAlpha: 1
 --- !u!114 &2109215084
 MonoBehaviour:
@@ -6907,7 +6911,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4d06dcb3061694b77adcd793f57366b5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 603950acf7e6b4b4cba946a28b22ec98, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
