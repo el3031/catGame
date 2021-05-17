@@ -12,7 +12,12 @@ public class startGameButton : MonoBehaviour
     [SerializeField] private Animator startTransitionAnim;
     [SerializeField] private Animator fromGameOverAnim;
     
-    [SerializeField] private Button burgerStats;
+    [SerializeField] private GameObject burgerStatsInGO;
+    [SerializeField] private GameObject burgerStatsOutGO;
+    private Button burgerStatsInButton;
+    private Button burgerStatsOutButton;
+    private Image burgerStatsInImage;
+    private Image burgerStatsOutImage;    
     [SerializeField] private GameObject burgerTransition;
     [SerializeField] private RectTransform statsCard;
     [SerializeField] private Text burgerTotal;
@@ -33,7 +38,7 @@ public class startGameButton : MonoBehaviour
     private Image muteImage;
     private Image unmuteImage;
     private bool isMuted;
-    private bool burgerStatsEnabled;
+    private bool enableBurgerStats;
     private bool done;
 
     void Awake()
@@ -58,6 +63,11 @@ public class startGameButton : MonoBehaviour
         unmuteImage = unmuteGO.GetComponent<Image>();
         unmuteButton.onClick.AddListener(unmute);
 
+        burgerStatsInButton = burgerStatsInGO.GetComponent<Button>();
+        burgerStatsInImage = burgerStatsInGO.GetComponent<Image>();
+        burgerStatsOutButton = burgerStatsOutGO.GetComponent<Button>();
+        burgerStatsOutImage = burgerStatsOutGO.GetComponent<Image>();
+
         cheeseTotal.text = PlayerPrefs.GetInt("cheeseTotal", 0).ToString();
         tomatoTotal.text = PlayerPrefs.GetInt("tomatoTotal", 0).ToString();
         lettuceTotal.text = PlayerPrefs.GetInt("lettuceTotal", 0).ToString();
@@ -70,6 +80,7 @@ public class startGameButton : MonoBehaviour
         statsCardHidden = new Vector3(0, 1300, 0);
         statsCardShown = Vector3.zero;
         statsCard.anchoredPosition = statsCardHidden;
+        enableBurgerStats = false;
         done = true;
 
         if (PlayerPrefs.GetInt("mute") == 1)
@@ -149,22 +160,15 @@ public class startGameButton : MonoBehaviour
         AudioListener.volume = isMuted ? 0.0f : 1.0f;
     }
 
-    public void burgerStatsButton()
+    public void burgerStatsInPublic()
     {
-        if (burgerStatsEnabled)
-        {
-            StartCoroutine(burgerStatsOut());
-        }
-        else
-        {
-            StartCoroutine(burgerStatsIn());
-        }
-        burgerStatsEnabled = !burgerStatsEnabled;
+        enableBurgerStats = true;
+        StartCoroutine(burgerStatsIn());
     }
 
     IEnumerator burgerStatsIn()
     {
-        
+        changeButtonVisibility(burgerStatsInImage, burgerStatsInButton, 0);
         while (!done)
         {
             yield return null;
@@ -175,6 +179,11 @@ public class startGameButton : MonoBehaviour
             yield return null;
         }
         StartCoroutine(displayBurgerStatsScoreCard());
+        while (!done)
+        {
+            yield return null;
+        }
+        changeButtonVisibility(burgerStatsOutImage, burgerStatsOutButton, 1);
         
         /*
         StartCoroutine(displayBurgerScene());
@@ -183,8 +192,14 @@ public class startGameButton : MonoBehaviour
         */
     }
 
-    IEnumerator burgerStatsOut()
+    public void burgerStatsOutPublic()
     {
+        enableBurgerStats = false;
+        StartCoroutine(burgerStatsOut());
+    }
+    public IEnumerator burgerStatsOut()
+    {
+        changeButtonVisibility(burgerStatsOutImage, burgerStatsOutButton, 0);
         while (!done)
         {
             yield return null;
@@ -195,6 +210,11 @@ public class startGameButton : MonoBehaviour
             yield return null;
         }
         StartCoroutine(displayBurgerScene());
+        while (!done)
+        {
+            yield return null;
+        }
+        changeButtonVisibility(burgerStatsInImage, burgerStatsInButton, 1);
         
         /*
         displayBurgerStatsScoreCard();
@@ -215,7 +235,7 @@ public class startGameButton : MonoBehaviour
                 timer += Time.deltaTime;
                 yield return null;
             }
-            child.gameObject.SetActive(burgerStatsEnabled);
+            child.gameObject.SetActive(enableBurgerStats);
         }
         done = true;
     }
@@ -224,14 +244,13 @@ public class startGameButton : MonoBehaviour
     IEnumerator displayBurgerStatsScoreCard()
     {
         done = false;
-        float statsBoxTime = 1f;
+        float statsBoxTime = 0.8f;
         float statsBoxTimer = 0f;
-        Vector3 direction = (burgerStatsEnabled) ? statsCardShown : statsCardHidden;
+        Vector3 direction = (enableBurgerStats) ? statsCardShown : statsCardHidden;
         
         while (statsBoxTimer < statsBoxTime)
         {
             statsBoxTimer += Time.deltaTime;
-            Debug.Log(direction);
             statsCard.anchoredPosition = Vector3.Lerp(statsCard.anchoredPosition, direction, statsBoxTimer / statsBoxTime);
             yield return null;
         }
