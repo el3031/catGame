@@ -20,6 +20,7 @@ public class startGameButton : MonoBehaviour
     private Image burgerStatsInImage;
     private Image burgerStatsOutImage;    
     [SerializeField] private GameObject burgerTransition;
+    private AudioSource burgerPop;
     private GameObject[] burgerTransitionChildren;
     private GameObject[] burgerTransitionChildrenReversed;
     [SerializeField] private RectTransform statsCard;
@@ -66,6 +67,7 @@ public class startGameButton : MonoBehaviour
         unmuteImage = unmuteGO.GetComponent<Image>();
         unmuteButton.onClick.AddListener(unmute);
 
+        burgerPop = GetComponent<AudioSource>();
         burgerTransitionChildren = new GameObject[burgerTransition.transform.childCount];
         burgerTransitionChildrenReversed = new GameObject[burgerTransition.transform.childCount];
 
@@ -189,6 +191,7 @@ public class startGameButton : MonoBehaviour
         {
             yield return null;
         }
+        burgerPop.Play();
         StartCoroutine(displayBurgerScene());
         while (!done)
         {
@@ -225,6 +228,7 @@ public class startGameButton : MonoBehaviour
         {
             yield return null;
         }
+        burgerPop.Play();
         StartCoroutine(displayBurgerScene());
         while (!done)
         {

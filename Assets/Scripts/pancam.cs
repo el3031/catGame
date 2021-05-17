@@ -59,7 +59,6 @@ public class pancam : MonoBehaviour {
 			//if player has passed the x position of startScroll then start moving camera forward with a randomish Y position
 			double startScroll = -5.5;
 
-			//Debug.Log("playerMaxX " + playerMaxX);
 			if (player.transform.position.x > playerMaxX)
 			{
 				playerScore += (player.transform.position.x - playerMaxX);

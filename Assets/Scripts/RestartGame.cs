@@ -63,10 +63,6 @@ public class RestartGame : MonoBehaviour
     
     IEnumerator LoadScene()
     {
-        //Debug.Log(scoreCardHidden);
-        //Debug.Log("transform.position: " + scoreCard.transform.position);
-        //restartGameAnim.SetTrigger("restart");
-        
         float moveDurationTimer = 0.0f;
         float moveDuration = 0.8f;
 

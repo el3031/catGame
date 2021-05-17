@@ -77,7 +77,6 @@ public class BurgerBar : MonoBehaviour
                 currentTime += Time.deltaTime;
             }
             cheeseSpawn.GetComponent<cheeseSpawn>().spawnBurger();
-            Debug.Log("burger spawned");
             StartCoroutine(reset());
         }
     }

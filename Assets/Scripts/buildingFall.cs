@@ -15,7 +15,6 @@ public class buildingFall : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         stop = false;
         pigeonSpawned = false;
-        Debug.Log(transform.position);
     }
 
     // Update is called once per frame

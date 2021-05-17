@@ -64,13 +64,11 @@ public class PigeonMovement : MonoBehaviour
             {
                 flip();
                 index = minIndex;
-                //Debug.Log("maxIndex reached. max_index: " + maxIndex + ", minIndex: " + minIndex);
             }
             else if (transform.position.x == minMaxX[minIndex].x)
             {
                 flip();
                 index = maxIndex;
-                //Debug.Log("minIndex reached: " + maxIndex);
             }
         }
         else
@@ -108,13 +106,11 @@ public class PigeonMovement : MonoBehaviour
             float pigeonX = transform.position.x;
             for (int j = 0; j < minMaxX.Length; j+= 2)
             {
-                //Debug.Log("pigeonX: " + pigeonX + ", minMaxX[j].x: " + minMaxX[j].x + ", minMaxX[j+1].x: " + minMaxX[j+1].x);
                 if (pigeonX >= minMaxX[j].x && pigeonX <= minMaxX[j+1].x)
                 {
                     index = j;
                     maxIndex = index+1;
                     minIndex = index;
-                    //Debug.Log("initial index: " + index + ", maxIndex: " + maxIndex + ", minIndex: " + minIndex);
                 }
             }
             onBuilding = true;

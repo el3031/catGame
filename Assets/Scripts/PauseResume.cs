@@ -73,7 +73,6 @@ public class PauseResume : MonoBehaviour
         gameOverAnim.SetTrigger("CircleS2B");
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("MainMenu");
-        Debug.Log("loaded next scene main menu");
     }
     public void pause()
     {

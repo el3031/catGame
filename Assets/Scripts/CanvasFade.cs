@@ -37,7 +37,6 @@ public class CanvasFade : MonoBehaviour
             fadeStart = true;
             score.alpha = 1f;
             StartCoroutine(FadeInOut());
-            Debug.Log("fadeInOut print\n");
         }
     }
 

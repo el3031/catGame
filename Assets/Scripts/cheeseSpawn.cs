@@ -72,7 +72,6 @@ public class cheeseSpawn : MonoBehaviour
         if (onBuilding &&
             !(onBuilding.collider.gameObject.GetComponent<buildingFall>().cheeseSpawned))
         {
-            Debug.Log("burgerspawned");
             spawnY = Random.Range(Camera.main.orthographicSize * 1.3f, onBuilding.collider.bounds.max.y);
             Vector3 spawnLoc = new Vector3(spawnX, spawnY, player.transform.position.z);
             Instantiate(foods[spawnIndex], spawnLoc, Quaternion.identity);
@@ -81,7 +80,6 @@ public class cheeseSpawn : MonoBehaviour
         }
         else
         {
-            Debug.Log("invoking burgerspawn");
             Invoke("spawnBurger", Random.Range(minTime / 4f, maxTime / 4f));
         }
     }
