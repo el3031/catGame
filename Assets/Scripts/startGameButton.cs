@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class startGameButton : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class startGameButton : MonoBehaviour
     private Image burgerStatsInImage;
     private Image burgerStatsOutImage;    
     [SerializeField] private GameObject burgerTransition;
+    private GameObject[] burgerTransitionChildren;
+    private GameObject[] burgerTransitionChildrenReversed;
     [SerializeField] private RectTransform statsCard;
     [SerializeField] private Text burgerTotal;
     [SerializeField] private Text lettuceTotal;
@@ -63,6 +66,19 @@ public class startGameButton : MonoBehaviour
         unmuteImage = unmuteGO.GetComponent<Image>();
         unmuteButton.onClick.AddListener(unmute);
 
+        burgerTransitionChildren = new GameObject[burgerTransition.transform.childCount];
+        burgerTransitionChildrenReversed = new GameObject[burgerTransition.transform.childCount];
+
+        int i = 0;
+        int j = burgerTransitionChildrenReversed.Length - 1;
+        foreach (Transform child in burgerTransition.transform)
+        {
+            burgerTransitionChildren[i] = child.gameObject;
+            burgerTransitionChildrenReversed[j] = child.gameObject;
+            j--;
+            i++;
+        }
+        
         burgerStatsInButton = burgerStatsInGO.GetComponent<Button>();
         burgerStatsInImage = burgerStatsInGO.GetComponent<Image>();
         burgerStatsOutButton = burgerStatsOutGO.GetComponent<Button>();
@@ -226,7 +242,8 @@ public class startGameButton : MonoBehaviour
     IEnumerator displayBurgerScene()
     {
         done = false;
-        foreach (Transform child in burgerTransition.transform)
+        GameObject[] array = (enableBurgerStats) ? burgerTransitionChildren : burgerTransitionChildrenReversed;
+        foreach (GameObject child in array)
         {
             float timeSet = Random.Range(0.01f, 0.03f);
             float timer = 0f;
@@ -235,7 +252,7 @@ public class startGameButton : MonoBehaviour
                 timer += Time.deltaTime;
                 yield return null;
             }
-            child.gameObject.SetActive(enableBurgerStats);
+            child.SetActive(enableBurgerStats);
         }
         done = true;
     }

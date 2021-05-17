@@ -23,14 +23,13 @@ public class BurgerBar : MonoBehaviour
     public static bool onionGathered;
 
     [SerializeField] private GameObject cheeseSpawn;
-
-
+    
     // Start is called before the first frame update
     void Start()
     {
         ungathered = new Color(255, 255, 255, 0.3f);
         gathered = new Color(255, 255, 255, 1f);
-        reset();
+        StartCoroutine(reset());
     }
 
     public void ingredientGathered(string tag)
