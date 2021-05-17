@@ -249,7 +249,7 @@ public class startGameButton : MonoBehaviour
         GameObject[] array = (enableBurgerStats) ? burgerTransitionChildren : burgerTransitionChildrenReversed;
         foreach (GameObject child in array)
         {
-            float timeSet = Random.Range(0.01f, 0.03f);
+            float timeSet = Random.Range(0.005f, 0.02f);
             float timer = 0f;
             while (timer < timeSet)
             {
