@@ -35,8 +35,9 @@ public class cheeseSpawn : MonoBehaviour
         } while (spawnIndex == lastFoodSpawn);
         
         RaycastHit2D onBuilding = Physics2D.Raycast(transform.position, Vector2.down, Camera.main.orthographicSize * 2, groundLayer);
+        Debug.DrawRay(transform.position, Vector2.down * Camera.main.orthographicSize * 2, Color.magenta);
         float spawnY = Random.Range(Camera.main.orthographicSize * 1.3f, player.transform.position.y);
-        float spawnX = Random.Range(transform.position.x - 5f, transform.position.x + 5f);
+        float spawnX = Random.Range(transform.position.x - 3f, transform.position.x + 3f);
         if (onBuilding && !needSpawnBurger &&
             !(onBuilding.collider.gameObject.GetComponent<buildingFall>().cheeseSpawned))
         {
@@ -66,9 +67,10 @@ public class cheeseSpawn : MonoBehaviour
     {
         needSpawnBurger = true;
         int spawnIndex = foods.Length - 1;
+        Debug.DrawRay(transform.position, Vector2.down * Camera.main.orthographicSize * 2, Color.magenta);
         RaycastHit2D onBuilding = Physics2D.Raycast(transform.position, Vector2.down, Camera.main.orthographicSize * 2, groundLayer);
         float spawnY = Random.Range(Camera.main.orthographicSize * 1.3f, player.transform.position.y);
-        float spawnX = Random.Range(transform.position.x - 5f, transform.position.x + 5f);
+        float spawnX = Random.Range(transform.position.x - 3f, transform.position.x + 3f);
         if (onBuilding &&
             !(onBuilding.collider.gameObject.GetComponent<buildingFall>().cheeseSpawned))
         {

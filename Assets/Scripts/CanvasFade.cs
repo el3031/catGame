@@ -12,6 +12,7 @@ public class CanvasFade : MonoBehaviour
     [SerializeField] private GameObject pigeonSpawn;
     [SerializeField] private GameObject gameOverCircle;
     [SerializeField] private GameObject restartCircle;
+    [SerializeField] private GameObject trainingIngredients;
     private bool fadeStart = false;
     void Start()
     {
@@ -44,6 +45,7 @@ public class CanvasFade : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("tutorialPlayed") != 1)
         {
+            trainingIngredients.SetActive(true);
             StartCoroutine(FadeText(welcomeMessage, 0f, 1f, 0.5f));
             yield return new WaitForSeconds(4f);
             StartCoroutine(FadeText(welcomeMessage, 1f, 0f, 0.5f));
@@ -55,6 +57,10 @@ public class CanvasFade : MonoBehaviour
             StartCoroutine(FadeText(pigeonMessage, 0f, 1f, 0.5f));
             yield return new WaitForSeconds(3f);
             StartCoroutine(FadeText(pigeonMessage, 1f, 0f, 0.5f));
+        }
+        else
+        {
+            trainingIngredients.SetActive(false);
         }
         pigeonSpawn.GetComponent<PigeonSpawn>().canSpawn = true;
         PlayerPrefs.SetInt("tutorialPlayed", 1);
