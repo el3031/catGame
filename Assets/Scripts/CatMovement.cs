@@ -9,6 +9,7 @@ public class CatMovement : MonoBehaviour
     /**** general movement variables ****/
     private BoxCollider2D boxcollider2D;
     private Rigidbody2D rigidbody2D;
+    [SerializeField] private GameObject skin;
 
     /**** instance variables for horizontal movement ***/
     private float maxSpeed = 5f;
@@ -51,7 +52,8 @@ public class CatMovement : MonoBehaviour
 
     void Start()
     {
-        anim = GetComponent<Animator>();
+        anim = skin.GetComponent<Animator>();
+        skin.SetActive(true);
         boxcollider2D = transform.GetComponent<BoxCollider2D>();
         BGMusic = BGMusicObject.GetComponent<AudioSource>();
         meow = GetComponent<AudioSource>();
