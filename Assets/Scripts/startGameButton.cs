@@ -47,6 +47,9 @@ public class startGameButton : MonoBehaviour
 
     [SerializeField] private GameObject[] blackCatArray;
     [SerializeField] private GameObject[] calicoCatArray;
+    [SerializeField] private GameObject[] checkmarks;
+    [SerializeField] private GameObject calicoCatBG;
+    [SerializeField] private GameObject blackCatBG;
 
     void Awake()
     {
@@ -59,23 +62,8 @@ public class startGameButton : MonoBehaviour
     }
     void Start()
     {
-        string skin = PlayerPrefs.GetString("skin");
-        switch (skin)
-        {
-            case "calicoCat":
-                foreach (GameObject o in calicoCatArray)
-                {
-                    o.SetActive(true);
-                }
-                break;                
-            default:
-                foreach (GameObject o in blackCatArray)
-                {
-                    o.SetActive(true);
-                }
-                break; 
-        }
-        
+        changeSkins();
+        changeCheckmarks(checkmarks);
         
         quit.onClick.AddListener(quitGame);
         startButton.onClick.AddListener(startGame);
@@ -297,6 +285,74 @@ public class startGameButton : MonoBehaviour
             yield return null;
         }
         done = true;
+    }
+
+    public void changeSkinToBlackCat()
+    {
+        PlayerPrefs.SetString("skin", "blackCat");
+        changeCheckmarks(checkmarks);
+        changeSkins();
+    }
+
+    public void changeSkinToCalicoCat()
+    {
+        PlayerPrefs.SetString("skin", "calicoCat");
+        changeCheckmarks(checkmarks);
+        changeSkins();
+    }
+
+    void changeCheckmarks(GameObject[] checkmarks)
+    {
+        string skin = PlayerPrefs.GetString("skin");
+        foreach (GameObject checkmark in checkmarks)
+        {
+            checkmark.SetActive(false);
+        }
+        switch (skin)
+        {
+            case "calicoCat":
+                foreach (Transform child in calicoCatBG.transform)
+                {
+                    child.gameObject.SetActive(true);
+                }
+                break;
+            case "blackCat":
+                foreach (Transform child in blackCatBG.transform)
+                {
+                    child.gameObject.SetActive(true);
+                }
+                break;
+        }
+    }
+
+    void changeSkins()
+    {
+        string skin = PlayerPrefs.GetString("skin");
+
+        switch (skin)
+        {
+            case "calicoCat":
+                foreach (GameObject o in calicoCatArray)
+                {
+                    o.SetActive(true);
+                }
+                
+                foreach (GameObject o in blackCatArray)
+                {
+                    o.SetActive(false);
+                }
+                break;                
+            default:
+                foreach (GameObject o in blackCatArray)
+                {
+                    o.SetActive(true);
+                }
+                foreach (GameObject o in calicoCatArray)
+                {
+                    o.SetActive(false);
+                }
+                break; 
+        }
     }
         
 }
