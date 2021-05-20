@@ -1257,7 +1257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acdc6ed44790f4f4daf5283ef432b14b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skin: {fileID: 2069430231}
   gameOverAnim: {fileID: 1524169797}
   restartAnim: {fileID: 141597382}
   nextScene: gameOver
@@ -1269,6 +1268,8 @@ MonoBehaviour:
   plus100: {fileID: 5722969274862410437, guid: c50068deed1ad45648fc828656ec62e7, type: 3}
   plus1000: {fileID: 3266925799702909084, guid: ecd41268da9c049038c97a35e88d54c4, type: 3}
   BurgerBar: {fileID: 320146561}
+  blackCat: {fileID: 943363932}
+  calicoCat: {fileID: 2069430231}
 --- !u!58 &332351674
 CircleCollider2D:
   m_ObjectHideFlags: 0

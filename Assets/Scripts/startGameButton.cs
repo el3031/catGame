@@ -45,6 +45,9 @@ public class startGameButton : MonoBehaviour
     private bool enableBurgerStats;
     private bool done;
 
+    [SerializeField] private GameObject[] blackCatArray;
+    [SerializeField] private GameObject[] calicoCatArray;
+
     void Awake()
     {
         string lastScene = PlayerPrefs.GetString("lastScene", "justStarted");
@@ -56,6 +59,24 @@ public class startGameButton : MonoBehaviour
     }
     void Start()
     {
+        string skin = PlayerPrefs.GetString("skin");
+        switch (skin)
+        {
+            case "calicoCat":
+                foreach (GameObject o in calicoCatArray)
+                {
+                    o.SetActive(true);
+                }
+                break;                
+            default:
+                foreach (GameObject o in blackCatArray)
+                {
+                    o.SetActive(true);
+                }
+                break; 
+        }
+        
+        
         quit.onClick.AddListener(quitGame);
         startButton.onClick.AddListener(startGame);
 

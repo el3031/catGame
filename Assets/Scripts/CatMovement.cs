@@ -9,7 +9,6 @@ public class CatMovement : MonoBehaviour
     /**** general movement variables ****/
     private BoxCollider2D boxcollider2D;
     private Rigidbody2D rigidbody2D;
-    [SerializeField] private GameObject skin;
 
     /**** instance variables for horizontal movement ***/
     private float maxSpeed = 5f;
@@ -50,10 +49,25 @@ public class CatMovement : MonoBehaviour
     /**** for pausing game ****/
     public static bool canPause;
 
+    /**** skins ****/
+    [SerializeField] private GameObject blackCat;
+    [SerializeField] private GameObject calicoCat;
+
     void Start()
     {
-        anim = skin.GetComponent<Animator>();
-        skin.SetActive(true);
+        string skin = PlayerPrefs.GetString("skin");
+        switch (skin)
+        {
+            case "calicoCat":
+                anim = calicoCat.GetComponent<Animator>();
+                calicoCat.SetActive(true);
+                break;
+            default:
+                anim = blackCat.GetComponent<Animator>();
+                blackCat.SetActive(true);
+                break;
+        }
+
         boxcollider2D = transform.GetComponent<BoxCollider2D>();
         BGMusic = BGMusicObject.GetComponent<AudioSource>();
         meow = GetComponent<AudioSource>();

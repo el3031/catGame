@@ -18,11 +18,24 @@ public class RestartGame : MonoBehaviour
     private Vector3 scoreCardHidden;
     private Vector3 scoreCardShown;
 
+    [SerializeField] private GameObject blackCat;
+    [SerializeField] private GameObject calicoCat;
     private int score;
     private int highScore;
     
     void Start()
     {
+        string skin = PlayerPrefs.GetString("skin");
+        switch (skin)
+        {
+            case "calicoCat":
+                calicoCat.SetActive(true);
+                break;
+            default:
+                blackCat.SetActive(true);
+                break;
+        }
+        
         //change later!
         score = PlayerPrefs.GetInt("Score");
 
@@ -80,5 +93,13 @@ public class RestartGame : MonoBehaviour
     void OnApplicationQuit()
     {
         PlayerPrefs.SetString("lastScene", "quit");
+    }
+
+    public void changeSkin()
+    {
+        string skin = PlayerPrefs.GetString("skin", "blackCat");
+        string newSkin = (skin.CompareTo("blackCat") == 0) ? "calicoCat" : "blackCat";
+        PlayerPrefs.SetString("skin", newSkin);
+        RestartOnClick();
     }
 }
