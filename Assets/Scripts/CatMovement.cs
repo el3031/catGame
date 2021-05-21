@@ -52,6 +52,7 @@ public class CatMovement : MonoBehaviour
     /**** skins ****/
     [SerializeField] private GameObject blackCat;
     [SerializeField] private GameObject calicoCat;
+    [SerializeField] private GameObject brownCat;
 
     void Start()
     {
@@ -61,6 +62,10 @@ public class CatMovement : MonoBehaviour
             case "calicoCat":
                 anim = calicoCat.GetComponent<Animator>();
                 calicoCat.SetActive(true);
+                break;
+            case "brownCat":
+                anim = brownCat.GetComponent<Animator>();
+                brownCat.SetActive(true);
                 break;
             default:
                 anim = blackCat.GetComponent<Animator>();

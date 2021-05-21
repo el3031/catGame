@@ -20,6 +20,7 @@ public class RestartGame : MonoBehaviour
 
     [SerializeField] private GameObject blackCat;
     [SerializeField] private GameObject calicoCat;
+    [SerializeField] private GameObject brownCat;
     private int score;
     private int highScore;
     
@@ -30,6 +31,9 @@ public class RestartGame : MonoBehaviour
         {
             case "calicoCat":
                 calicoCat.SetActive(true);
+                break;
+            case "brownCat":
+                brownCat.SetActive(true);
                 break;
             default:
                 blackCat.SetActive(true);
@@ -93,13 +97,5 @@ public class RestartGame : MonoBehaviour
     void OnApplicationQuit()
     {
         PlayerPrefs.SetString("lastScene", "quit");
-    }
-
-    public void changeSkin()
-    {
-        string skin = PlayerPrefs.GetString("skin", "blackCat");
-        string newSkin = (skin.CompareTo("blackCat") == 0) ? "calicoCat" : "blackCat";
-        PlayerPrefs.SetString("skin", newSkin);
-        RestartOnClick();
     }
 }

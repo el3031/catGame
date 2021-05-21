@@ -47,9 +47,11 @@ public class startGameButton : MonoBehaviour
 
     [SerializeField] private GameObject[] blackCatArray;
     [SerializeField] private GameObject[] calicoCatArray;
+    [SerializeField] private GameObject[] brownCatArray;
     [SerializeField] private GameObject[] checkmarks;
     [SerializeField] private GameObject calicoCatBG;
     [SerializeField] private GameObject blackCatBG;
+    [SerializeField] private GameObject brownCatBG;
 
     void Awake()
     {
@@ -301,6 +303,13 @@ public class startGameButton : MonoBehaviour
         changeSkins();
     }
 
+    public void changeSkinToBrownCat()
+    {
+        PlayerPrefs.SetString("skin", "brownCat");
+        changeCheckmarks(checkmarks);
+        changeSkins();
+    }
+
     void changeCheckmarks(GameObject[] checkmarks)
     {
         string skin = PlayerPrefs.GetString("skin");
@@ -316,7 +325,13 @@ public class startGameButton : MonoBehaviour
                     child.gameObject.SetActive(true);
                 }
                 break;
-            case "blackCat":
+            case "brownCat":
+                foreach (Transform child in brownCatBG.transform)
+                {
+                    child.gameObject.SetActive(true);
+                }
+                break;
+            default:
                 foreach (Transform child in blackCatBG.transform)
                 {
                     child.gameObject.SetActive(true);
@@ -328,31 +343,34 @@ public class startGameButton : MonoBehaviour
     void changeSkins()
     {
         string skin = PlayerPrefs.GetString("skin");
-
+        bool brown = false;
+        bool black = false;
+        bool calico = false;
+        
         switch (skin)
         {
             case "calicoCat":
-                foreach (GameObject o in calicoCatArray)
-                {
-                    o.SetActive(true);
-                }
-                
-                foreach (GameObject o in blackCatArray)
-                {
-                    o.SetActive(false);
-                }
-                break;                
+                calico = true;
+                break;
+            case "brownCat":
+                brown = true;
+                break;
             default:
-                foreach (GameObject o in blackCatArray)
-                {
-                    o.SetActive(true);
-                }
-                foreach (GameObject o in calicoCatArray)
-                {
-                    o.SetActive(false);
-                }
-                break; 
+                black = true;
+                break;
+        }
+
+        foreach (GameObject o in brownCatArray)
+        {
+            o.SetActive(brown);
+        }
+        foreach (GameObject o in blackCatArray)
+        {
+            o.SetActive(black);
+        }
+        foreach (GameObject o in calicoCatArray)
+        {
+            o.SetActive(calico);
         }
     }
-        
 }
