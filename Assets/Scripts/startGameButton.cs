@@ -48,10 +48,12 @@ public class startGameButton : MonoBehaviour
     [SerializeField] private GameObject[] blackCatArray;
     [SerializeField] private GameObject[] calicoCatArray;
     [SerializeField] private GameObject[] brownCatArray;
+    [SerializeField] private GameObject[] orangeCatArray;
     [SerializeField] private GameObject[] checkmarks;
     [SerializeField] private GameObject calicoCatBG;
     [SerializeField] private GameObject blackCatBG;
     [SerializeField] private GameObject brownCatBG;
+    [SerializeField] private GameObject orangeCatBG;
 
     void Awake()
     {
@@ -310,6 +312,13 @@ public class startGameButton : MonoBehaviour
         changeSkins();
     }
 
+    public void changeSkinToOrangeCat()
+    {
+        PlayerPrefs.SetString("skin", "orangeCat");
+        changeCheckmarks(checkmarks);
+        changeSkins();
+    }
+
     void changeCheckmarks(GameObject[] checkmarks)
     {
         string skin = PlayerPrefs.GetString("skin");
@@ -331,6 +340,12 @@ public class startGameButton : MonoBehaviour
                     child.gameObject.SetActive(true);
                 }
                 break;
+            case "orangeCat":
+                foreach (Transform child in orangeCatBG.transform)
+                {
+                    child.gameObject.SetActive(true);
+                }
+                break;
             default:
                 foreach (Transform child in blackCatBG.transform)
                 {
@@ -346,6 +361,7 @@ public class startGameButton : MonoBehaviour
         bool brown = false;
         bool black = false;
         bool calico = false;
+        bool orange = false;
         
         switch (skin)
         {
@@ -354,6 +370,9 @@ public class startGameButton : MonoBehaviour
                 break;
             case "brownCat":
                 brown = true;
+                break;
+            case "orangeCat":
+                orange = true;
                 break;
             default:
                 black = true;
@@ -371,6 +390,10 @@ public class startGameButton : MonoBehaviour
         foreach (GameObject o in calicoCatArray)
         {
             o.SetActive(calico);
+        }
+        foreach (GameObject o in orangeCatArray)
+        {
+            o.SetActive(orange);
         }
     }
 }

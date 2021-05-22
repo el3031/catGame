@@ -21,6 +21,7 @@ public class RestartGame : MonoBehaviour
     [SerializeField] private GameObject blackCat;
     [SerializeField] private GameObject calicoCat;
     [SerializeField] private GameObject brownCat;
+    [SerializeField] private GameObject orangeCat;
     private int score;
     private int highScore;
     
@@ -34,6 +35,9 @@ public class RestartGame : MonoBehaviour
                 break;
             case "brownCat":
                 brownCat.SetActive(true);
+                break;
+            case "orangeCat":
+                orangeCat.SetActive(true);
                 break;
             default:
                 blackCat.SetActive(true);
