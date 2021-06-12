@@ -1197,7 +1197,7 @@ RectTransform:
   - {fileID: 897887570}
   - {fileID: 1901142855}
   m_Father: {fileID: 908144712}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2469,8 +2469,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2041411140}
-        m_TargetAssemblyTypeName: startGameButton, Assembly-CSharp
+      - m_Target: {fileID: 1901142856}
+        m_TargetAssemblyTypeName: store, Assembly-CSharp
         m_MethodName: changeSkinToBlackCat
         m_Mode: 1
         m_Arguments:
@@ -3159,7 +3159,7 @@ RectTransform:
   - {fileID: 1056331731}
   - {fileID: 1466731202}
   m_Father: {fileID: 908144712}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4882,8 +4882,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 596388922}
   - {fileID: 202237027}
+  - {fileID: 596388922}
   m_Father: {fileID: 2041411139}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4927,7 +4927,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0f8a2a249b81c49738f02320bc882f41, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
@@ -8796,13 +8796,13 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1729597011}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2041411140}
-        m_TargetAssemblyTypeName: startGameButton, Assembly-CSharp
+      - m_Target: {fileID: 1901142856}
+        m_TargetAssemblyTypeName: store, Assembly-CSharp
         m_MethodName: changeSkinToCalicoCat
         m_Mode: 1
         m_Arguments:
@@ -9557,6 +9557,7 @@ GameObject:
   - component: {fileID: 1901142855}
   - component: {fileID: 1901142858}
   - component: {fileID: 1901142857}
+  - component: {fileID: 1901142856}
   m_Layer: 5
   m_Name: store
   m_TagString: Untagged
@@ -9588,6 +9589,54 @@ RectTransform:
   m_AnchoredPosition: {x: 1.5, y: -40.184}
   m_SizeDelta: {x: 1820.9629, y: 827.74725}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1901142856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901142854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d3bdd108ec143b8a0945f48b938c17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blackCatArray:
+  - {fileID: 1362351202}
+  - {fileID: 567231585}
+  - {fileID: 1190532484}
+  - {fileID: 1056419361}
+  - {fileID: 1182007268}
+  calicoCatArray:
+  - {fileID: 1825523834}
+  - {fileID: 1006464162}
+  - {fileID: 548201872}
+  - {fileID: 1395096084}
+  - {fileID: 1711794329}
+  brownCatArray:
+  - {fileID: 1251072775}
+  - {fileID: 547675200}
+  - {fileID: 673899207}
+  - {fileID: 1944071671}
+  - {fileID: 1493974084}
+  orangeCatArray:
+  - {fileID: 1318465872}
+  - {fileID: 902703745}
+  - {fileID: 61047917}
+  - {fileID: 1358562438}
+  - {fileID: 1361286818}
+  checkmarks:
+  - {fileID: 1480300181}
+  - {fileID: 132243435}
+  - {fileID: 1249094521}
+  - {fileID: 873633418}
+  calicoCatBG: {fileID: 1729597009}
+  blackCatBG: {fileID: 418296819}
+  brownCatBG: {fileID: 2146682497}
+  orangeCatBG: {fileID: 2109658329}
+  calicoLocked: {fileID: 105920559}
+  orangeLocked: {fileID: 2015508038}
+  brownLocked: {fileID: 1292322863}
 --- !u!114 &1901142857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9895,7 +9944,7 @@ GameObject:
   - component: {fileID: 2015508041}
   - component: {fileID: 2015508040}
   m_Layer: 5
-  m_Name: ornageLocked
+  m_Name: orangeLocked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10172,39 +10221,6 @@ MonoBehaviour:
   fromGameOverAnim: {fileID: 972229141}
   muteGO: {fileID: 12488237}
   unmuteGO: {fileID: 860221496}
-  blackCatArray:
-  - {fileID: 1362351202}
-  - {fileID: 567231585}
-  - {fileID: 1190532484}
-  - {fileID: 1056419361}
-  - {fileID: 1182007268}
-  calicoCatArray:
-  - {fileID: 1825523834}
-  - {fileID: 1006464162}
-  - {fileID: 548201872}
-  - {fileID: 1395096084}
-  - {fileID: 1711794329}
-  brownCatArray:
-  - {fileID: 1251072775}
-  - {fileID: 547675200}
-  - {fileID: 673899207}
-  - {fileID: 1493974084}
-  - {fileID: 1944071671}
-  orangeCatArray:
-  - {fileID: 1318465872}
-  - {fileID: 902703745}
-  - {fileID: 61047917}
-  - {fileID: 1358562438}
-  - {fileID: 1361286818}
-  checkmarks:
-  - {fileID: 1480300181}
-  - {fileID: 132243435}
-  - {fileID: 873633418}
-  - {fileID: 1249094521}
-  calicoCatBG: {fileID: 1729597009}
-  blackCatBG: {fileID: 418296819}
-  brownCatBG: {fileID: 2146682497}
-  orangeCatBG: {fileID: 2109658329}
 --- !u!82 &2041411141
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11276,13 +11292,13 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2109658333}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2041411140}
-        m_TargetAssemblyTypeName: startGameButton, Assembly-CSharp
+      - m_Target: {fileID: 1901142856}
+        m_TargetAssemblyTypeName: store, Assembly-CSharp
         m_MethodName: changeSkinToOrangeCat
         m_Mode: 1
         m_Arguments:
@@ -11643,13 +11659,13 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2146682500}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2041411140}
-        m_TargetAssemblyTypeName: startGameButton, Assembly-CSharp
+      - m_Target: {fileID: 1901142856}
+        m_TargetAssemblyTypeName: store, Assembly-CSharp
         m_MethodName: changeSkinToBrownCat
         m_Mode: 1
         m_Arguments:

@@ -21,16 +21,6 @@ public class startGameButton : MonoBehaviour
     private Image unmuteImage;
     private bool isMuted;
 
-    [SerializeField] private GameObject[] blackCatArray;
-    [SerializeField] private GameObject[] calicoCatArray;
-    [SerializeField] private GameObject[] brownCatArray;
-    [SerializeField] private GameObject[] orangeCatArray;
-    [SerializeField] private GameObject[] checkmarks;
-    [SerializeField] private GameObject calicoCatBG;
-    [SerializeField] private GameObject blackCatBG;
-    [SerializeField] private GameObject brownCatBG;
-    [SerializeField] private GameObject orangeCatBG;
-
     void Awake()
     {
         string lastScene = PlayerPrefs.GetString("lastScene", "justStarted");
@@ -42,8 +32,6 @@ public class startGameButton : MonoBehaviour
     }
     void Start()
     {
-        changeSkins();
-        changeCheckmarks(checkmarks);
         
         quit.onClick.AddListener(quitGame);
         startButton.onClick.AddListener(startGame);
@@ -131,111 +119,5 @@ public class startGameButton : MonoBehaviour
     void changeAudio()
     {
         AudioListener.volume = isMuted ? 0.0f : 1.0f;
-    }
-    
-    public void changeSkinToBlackCat()
-    {
-        PlayerPrefs.SetString("skin", "blackCat");
-        changeCheckmarks(checkmarks);
-        changeSkins();
-    }
-
-    public void changeSkinToCalicoCat()
-    {
-        PlayerPrefs.SetString("skin", "calicoCat");
-        changeCheckmarks(checkmarks);
-        changeSkins();
-    }
-
-    public void changeSkinToBrownCat()
-    {
-        PlayerPrefs.SetString("skin", "brownCat");
-        changeCheckmarks(checkmarks);
-        changeSkins();
-    }
-
-    public void changeSkinToOrangeCat()
-    {
-        PlayerPrefs.SetString("skin", "orangeCat");
-        changeCheckmarks(checkmarks);
-        changeSkins();
-    }
-
-    void changeCheckmarks(GameObject[] checkmarks)
-    {
-        string skin = PlayerPrefs.GetString("skin");
-        foreach (GameObject checkmark in checkmarks)
-        {
-            checkmark.SetActive(false);
-        }
-        switch (skin)
-        {
-            case "calicoCat":
-                foreach (Transform child in calicoCatBG.transform)
-                {
-                    child.gameObject.SetActive(true);
-                }
-                break;
-            case "brownCat":
-                foreach (Transform child in brownCatBG.transform)
-                {
-                    child.gameObject.SetActive(true);
-                }
-                break;
-            case "orangeCat":
-                foreach (Transform child in orangeCatBG.transform)
-                {
-                    child.gameObject.SetActive(true);
-                }
-                break;
-            default:
-                foreach (Transform child in blackCatBG.transform)
-                {
-                    child.gameObject.SetActive(true);
-                }
-                break;
-        }
-    }
-
-    void changeSkins()
-    {
-        string skin = PlayerPrefs.GetString("skin");
-        bool brown = false;
-        bool black = false;
-        bool calico = false;
-        bool orange = false;
-        
-        switch (skin)
-        {
-            case "calicoCat":
-                calico = true;
-                break;
-            case "brownCat":
-                brown = true;
-                break;
-            case "orangeCat":
-                orange = true;
-                break;
-            default:
-                black = true;
-                break;
-        }
-
-        foreach (GameObject o in brownCatArray)
-        {
-            o.SetActive(brown);
-        }
-        foreach (GameObject o in blackCatArray)
-        {
-            o.SetActive(black);
-        }
-        foreach (GameObject o in calicoCatArray)
-        {
-            o.SetActive(calico);
-        }
-        foreach (GameObject o in orangeCatArray)
-        {
-            o.SetActive(orange);
-        }
     }
 }
