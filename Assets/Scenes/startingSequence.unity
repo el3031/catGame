@@ -359,7 +359,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 123bab94b0bba4331a48eb5b4314ee0d, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.6
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -727,8 +727,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pigeon: {fileID: 3105902512852142734, guid: 124fa4e5dfec9494c865be945a6e76d7, type: 3}
-  minTime: 1
-  maxTime: 3
+  minTime: 3
+  maxTime: 5
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
